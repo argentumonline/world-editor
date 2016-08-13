@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "WorldEditor"
@@ -2356,6 +2356,9 @@ Begin VB.Form frmMain
       Begin VB.Menu mnuGuardarMapaComo 
          Caption         =   "Guardar Mapa &como..."
       End
+      Begin VB.Menu mnuExportarTodos 
+         Caption         =   "Exportar todos los mapas"
+      End
       Begin VB.Menu mnuExportar 
          Caption         =   "&Exportar"
          Begin VB.Menu mnuBmp 
@@ -2367,6 +2370,9 @@ Begin VB.Form frmMain
          Begin VB.Menu mnuJpg 
             Caption         =   "Jpg"
          End
+      End
+      Begin VB.Menu mnuOrgEdit 
+         Caption         =   "Editar Organizacion de Mapas"
       End
       Begin VB.Menu mnuArchivoLine5 
          Caption         =   "-"
@@ -2704,7 +2710,7 @@ Private Sub PonerAlAzar(ByVal n As Integer, ByVal T As Byte)
 '*************************************************
 Dim objindex As Long
 Dim NPCIndex As Long
-Dim X As Long, y As Long, i As Long
+Dim x As Long, y As Long, i As Long
 Dim Head As Integer
 Dim Body As Integer
 Dim Heading As Byte
@@ -2715,35 +2721,35 @@ i = n
 modEdicion.Deshacer_Add "Aplicar " & IIf(T = 0, "Objetos", "NPCs") & " al Azar" ' Hago deshacer
 
 Do While i > 0
-    X = CInt(RandomNumber(XMinMapSize, XMaxMapSize - 1))
+    x = CInt(RandomNumber(XMinMapSize, XMaxMapSize - 1))
     y = CInt(RandomNumber(YMinMapSize, YMaxMapSize - 1))
     
     Select Case T
         Case 0
-            If MapData(X, y).OBJInfo.objindex = 0 Then
+            If MapData(x, y).OBJInfo.objindex = 0 Then
                 i = i - 1
                   
-                If cInsertarBloqueo.value = True Then
-                    MapData(X, y).Blocked = 1
+                If cInsertarBloqueo.Value = True Then
+                    MapData(x, y).Blocked = 1
                 Else
-                    MapData(X, y).Blocked = 0
+                    MapData(x, y).Blocked = 0
                 End If
                   
                 If cNumFunc(2).Text > 0 Then
                     objindex = cNumFunc(2).Text
-                    InitGrh MapData(X, y).ObjGrh, ObjData(objindex).grhIndex
-                    MapData(X, y).OBJInfo.objindex = objindex
-                    MapData(X, y).OBJInfo.Amount = Val(cCantFunc(2).Text)
+                    InitGrh MapData(x, y).ObjGrh, ObjData(objindex).grhIndex
+                    MapData(x, y).OBJInfo.objindex = objindex
+                    MapData(x, y).OBJInfo.Amount = Val(cCantFunc(2).Text)
                     
                     Select Case ObjData(objindex).ObjType ' GS
                         Case 4, 8, 10, 22 ' Arboles, Carteles, Foros, Yacimientos
-                            MapData(X, y).Graphic(3) = MapData(X, y).ObjGrh
+                            MapData(x, y).Graphic(3) = MapData(x, y).ObjGrh
                     End Select
                 End If
             End If
             
         Case 1, 2
-           If MapData(X, y).Blocked = 0 Then
+           If MapData(x, y).Blocked = 0 Then
                 i = i - 1
                 
                 If cNumFunc(T - 1).Text > 0 Then
@@ -2752,8 +2758,8 @@ Do While i > 0
                     Head = NpcData(NPCIndex).Head
                     Heading = NpcData(NPCIndex).Heading
                         
-                    Call MakeChar(NextOpenChar(), Body, Head, Heading, CInt(X), CInt(y))
-                    MapData(X, y).NPCIndex = NPCIndex
+                    Call MakeChar(NextOpenChar(), Body, Head, Heading, CInt(x), CInt(y))
+                    MapData(x, y).NPCIndex = NPCIndex
                 End If
             End If
     End Select
@@ -2887,7 +2893,7 @@ Private Sub cInsertarFunc_Click(index As Integer)
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-If cInsertarFunc(index).value Then
+If cInsertarFunc(index).Value Then
     cQuitarFunc(index).Enabled = False
     cAgregarFuncalAzar(index).Enabled = False
     If index <> 2 Then cCantFunc(index).Enabled = False
@@ -2905,7 +2911,7 @@ Private Sub cInsertarTrans_Click()
 'Author: ^[GS]^
 'Last modified: 22/05/06
 '*************************************************
-If cInsertarTrans.value Then
+If cInsertarTrans.Value Then
     cQuitarTrans.Enabled = False
     Call modPaneles.EstSelectPanel(1, True)
 Else
@@ -2919,7 +2925,7 @@ Private Sub cInsertarTrigger_Click()
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-If cInsertarTrigger.value Then
+If cInsertarTrigger.Value Then
     cQuitarTrigger.Enabled = False
     Call modPaneles.EstSelectPanel(6, True)
 Else
@@ -2950,9 +2956,9 @@ Private Sub cUnionManual_Click()
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-cUnionManual.value = (cUnionManual.value = True)
+cUnionManual.Value = (cUnionManual.Value = True)
 
-If cUnionManual.value Then cInsertarTrans.value = True
+If cUnionManual.Value Then cInsertarTrans.Value = True
 
 Call cInsertarTrans_Click
 End Sub
@@ -2962,7 +2968,7 @@ Private Sub cverBloqueos_Click()
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-mnuVerBloqueos.Checked = cVerBloqueos.value
+mnuVerBloqueos.Checked = cVerBloqueos.Value
 
 bBloqs = mnuVerBloqueos.Checked
 End Sub
@@ -2972,7 +2978,7 @@ Private Sub cverTriggers_Click()
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-mnuVerTriggers.Checked = cVerTriggers.value
+mnuVerTriggers.Checked = cVerTriggers.Value
 
 bTriggers = mnuVerTriggers.Checked
 End Sub
@@ -3042,7 +3048,7 @@ Private Sub cInsertarBloqueo_Click()
 '*************************************************
 cInsertarBloqueo.Tag = vbNullString
 
-If cInsertarBloqueo.value Then
+If cInsertarBloqueo.Value Then
     cQuitarBloqueo.Enabled = False
     Call modPaneles.EstSelectPanel(2, True)
 Else
@@ -3058,7 +3064,7 @@ Private Sub cQuitarBloqueo_Click()
 '*************************************************
 cInsertarBloqueo.Tag = vbNullString
 
-If cQuitarBloqueo.value Then
+If cQuitarBloqueo.Value Then
     cInsertarBloqueo.Enabled = False
     Call modPaneles.EstSelectPanel(2, True)
 Else
@@ -3072,7 +3078,7 @@ Private Sub cQuitarEnEstaCapa_Click()
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-If cQuitarEnEstaCapa.value Then
+If cQuitarEnEstaCapa.Value Then
     lListado(0).Enabled = False
     cFiltro(0).Enabled = False
     cGrh.Enabled = False
@@ -3094,7 +3100,7 @@ Private Sub cQuitarEnTodasLasCapas_Click()
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-If cQuitarEnTodasLasCapas.value Then
+If cQuitarEnTodasLasCapas.Value Then
     cCapas.Enabled = False
     lListado(0).Enabled = False
     cFiltro(0).Enabled = False
@@ -3118,7 +3124,7 @@ Private Sub cQuitarFunc_Click(index As Integer)
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-If cQuitarFunc(index).value Then
+If cQuitarFunc(index).Value Then
     cInsertarFunc(index).Enabled = False
     cAgregarFuncalAzar(index).Enabled = False
     cCantFunc(index).Enabled = False
@@ -3142,7 +3148,7 @@ Private Sub cQuitarTrans_Click()
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-If cQuitarTrans.value = True Then
+If cQuitarTrans.Value = True Then
     cInsertarTransOBJ.Enabled = False
     cInsertarTrans.Enabled = False
     cUnionManual.Enabled = False
@@ -3170,7 +3176,7 @@ Private Sub cQuitarTrigger_Click()
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-If cQuitarTrigger.value Then
+If cQuitarTrigger.Value Then
     lListado(4).Enabled = False
     cInsertarTrigger.Enabled = False
     Call modPaneles.EstSelectPanel(6, True)
@@ -3186,7 +3192,7 @@ Private Sub cSeleccionarSuperficie_Click()
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-If cSeleccionarSuperficie.value Then
+If cSeleccionarSuperficie.Value Then
     cQuitarEnTodasLasCapas.Enabled = False
     cQuitarEnEstaCapa.Enabled = False
     Call modPaneles.EstSelectPanel(0, True)
@@ -3196,7 +3202,7 @@ Else
     Call modPaneles.EstSelectPanel(0, False)
 End If
 
-bSelectSup = cSeleccionarSuperficie.value
+bSelectSup = cSeleccionarSuperficie.Value
 End Sub
 
 Private Sub cUnionAuto_Click()
@@ -3240,36 +3246,36 @@ If Not HotKeysAllow Then Exit Sub
 
 Select Case UCase$(Chr$(KeyAscii))
     Case "S" ' Activa/Desactiva Insertar Superficie
-        cSeleccionarSuperficie.value = (cSeleccionarSuperficie.value = False)
+        cSeleccionarSuperficie.Value = (cSeleccionarSuperficie.Value = False)
         Call cSeleccionarSuperficie_Click
     Case "T" ' Activa/Desactiva Insertar Translados
-        cInsertarTrans.value = (cInsertarTrans.value = False)
+        cInsertarTrans.Value = (cInsertarTrans.Value = False)
         Call cInsertarTrans_Click
     Case "B" ' Activa/Desactiva Insertar Bloqueos
-        cInsertarBloqueo.value = (cInsertarBloqueo.value = False)
+        cInsertarBloqueo.Value = (cInsertarBloqueo.Value = False)
         Call cInsertarBloqueo_Click
     Case "N" ' Activa/Desactiva Insertar NPCs
-        cInsertarFunc(0).value = (cInsertarFunc(0).value = False)
+        cInsertarFunc(0).Value = (cInsertarFunc(0).Value = False)
         Call cInsertarFunc_Click(0)
     Case "H" ' Activa/Desactiva Insertar NPCs Hostiles
-        cInsertarFunc(1).value = (cInsertarFunc(1).value = False)
+        cInsertarFunc(1).Value = (cInsertarFunc(1).Value = False)
         Call cInsertarFunc_Click(1)
     Case "O" ' Activa/Desactiva Insertar Objetos
-        cInsertarFunc(2).value = (cInsertarFunc(2).value = False)
+        cInsertarFunc(2).Value = (cInsertarFunc(2).Value = False)
         Call cInsertarFunc_Click(2)
     Case "G" ' Activa/Desactiva Insertar Triggers
-        cInsertarTrigger.value = (cInsertarTrigger.value = False)
+        cInsertarTrigger.Value = (cInsertarTrigger.Value = False)
         Call cInsertarTrigger_Click
     Case "Q" ' Quitar Funciones
         Call mnuQuitarFunciones_Click
 End Select
 End Sub
 
-Private Sub Form_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub Form_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
 Dim tx As Integer
 Dim tY As Integer
 
-MouseX = X - MainViewShp.Left
+MouseX = x - MainViewShp.Left
 MouseY = y - MainViewShp.Top
 
 'Trim to fit screen
@@ -3287,7 +3293,7 @@ ElseIf MouseY > MainViewShp.Height Then
 End If
     
 'Make sure click is in view window
-If X <= MainViewShp.Left Or X >= MainViewShp.Left + MainViewWidth Or y <= MainViewShp.Top Or y >= MainViewShp.Top + MainViewHeight Then
+If x <= MainViewShp.Left Or x >= MainViewShp.Left + MainViewWidth Or y <= MainViewShp.Top Or y >= MainViewShp.Top + MainViewHeight Then
     Exit Sub
 End If
 
@@ -3315,9 +3321,9 @@ If HotKeysAllow = False Then
             frmConfigSup.mLargo.Text = SupData(supNum).Height
             
             If SupData(supNum).Width > 0 Then
-                frmConfigSup.MOSAICO.value = vbChecked
+                frmConfigSup.MOSAICO.Value = vbChecked
             Else
-                frmConfigSup.MOSAICO.value = vbUnchecked
+                frmConfigSup.MOSAICO.Value = vbUnchecked
             End If
 
             If SupData(supNum).Capa <> 0 Then
@@ -3331,12 +3337,12 @@ If HotKeysAllow = False Then
             End If
             
             If SupData(supNum).block = True Then
-                If LenB(cInsertarBloqueo.Tag) = 0 Then cInsertarBloqueo.Tag = IIf(cInsertarBloqueo.value = True, 1, 0)
-                cInsertarBloqueo.value = True
+                If LenB(cInsertarBloqueo.Tag) = 0 Then cInsertarBloqueo.Tag = IIf(cInsertarBloqueo.Value = True, 1, 0)
+                cInsertarBloqueo.Value = True
                 Call cInsertarBloqueo_Click
             Else
                 If LenB(cInsertarBloqueo.Tag) <> 0 Then
-                    cInsertarBloqueo.value = IIf(Val(cInsertarBloqueo.Tag) = 1, True, False)
+                    cInsertarBloqueo.Value = IIf(Val(cInsertarBloqueo.Tag) = 1, True, False)
                     cInsertarBloqueo.Tag = vbNullString
                     Call cInsertarBloqueo_Click
                 End If
@@ -3356,7 +3362,7 @@ End If
 
 End Sub
 
-Private Sub lListado_MouseDown(index As Integer, Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub lListado_MouseDown(index As Integer, Button As Integer, Shift As Integer, x As Single, y As Single)
 '*************************************************
 'Author: ^[GS]^
 'Last modified: 29/05/06
@@ -3366,7 +3372,7 @@ If index = 3 And Button = 2 Then
 End If
 End Sub
 
-Private Sub lListado_MouseMove(index As Integer, Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub lListado_MouseMove(index As Integer, Button As Integer, Shift As Integer, x As Single, y As Single)
 '*************************************************
 'Author: ^[GS]^
 'Last modified: 22/05/06
@@ -3549,7 +3555,7 @@ Dim i As Byte
 
 For i = 0 To 6
     If i <> 2 Then
-        frmMain.SelectPanel(i).value = False
+        frmMain.SelectPanel(i).Value = False
         Call VerFuncion(i, False)
     End If
 Next i
@@ -3601,6 +3607,15 @@ Private Sub mnuDeshacer_Click()
 'Last modified: 15/10/06
 '*************************************************
 Call modEdicion.Deshacer_Recover
+End Sub
+
+Private Sub mnuExportarTodos_Click()
+'*************************************************
+'Author: Anagrama
+'Last modified: 12/08/2016
+'*************************************************
+frmRenderAll.formatPic = eFormatPic.bmp
+Call frmRenderAll.Show(vbModal)
 End Sub
 
 Private Sub mnuGuardarMapa_Click()
@@ -3698,7 +3713,7 @@ Dim i As Byte
 
 For i = 0 To 6
     If i <> 3 Then
-        frmMain.SelectPanel(i).value = False
+        frmMain.SelectPanel(i).Value = False
         Call VerFuncion(i, False)
     End If
 Next i
@@ -3715,7 +3730,7 @@ Dim i As Byte
 
 For i = 0 To 6
     If i <> 4 Then
-        frmMain.SelectPanel(i).value = False
+        frmMain.SelectPanel(i).Value = False
         Call VerFuncion(i, False)
     End If
 Next i
@@ -3756,7 +3771,7 @@ Dim i As Byte
 
 For i = 0 To 6
     If i <> 5 Then
-        frmMain.SelectPanel(i).value = False
+        frmMain.SelectPanel(i).Value = False
         Call VerFuncion(i, False)
     End If
 Next i
@@ -3771,6 +3786,10 @@ Private Sub mnuOptimizar_Click()
 'Last modified: 22/09/06
 '*************************************************
 frmOptimizar.Show
+End Sub
+
+Private Sub mnuOrgEdit_Click()
+    Call frmOrgEditor.Show(vbModal)
 End Sub
 
 Private Sub mnuPng_Click()
@@ -3848,39 +3867,39 @@ Private Sub mnuQuitarFunciones_Click()
 'Last modified: 20/05/06
 '*************************************************
 ' Superficies
-cSeleccionarSuperficie.value = False
+cSeleccionarSuperficie.Value = False
 Call cSeleccionarSuperficie_Click
-cQuitarEnEstaCapa.value = False
+cQuitarEnEstaCapa.Value = False
 Call cQuitarEnEstaCapa_Click
-cQuitarEnTodasLasCapas.value = False
+cQuitarEnTodasLasCapas.Value = False
 Call cQuitarEnTodasLasCapas_Click
 ' Translados
-cQuitarTrans.value = False
+cQuitarTrans.Value = False
 Call cQuitarTrans_Click
-cInsertarTrans.value = False
+cInsertarTrans.Value = False
 Call cInsertarTrans_Click
 ' Bloqueos
-cQuitarBloqueo.value = False
+cQuitarBloqueo.Value = False
 Call cQuitarBloqueo_Click
-cInsertarBloqueo.value = False
+cInsertarBloqueo.Value = False
 Call cInsertarBloqueo_Click
 ' Otras funciones
-cInsertarFunc(0).value = False
+cInsertarFunc(0).Value = False
 Call cInsertarFunc_Click(0)
-cInsertarFunc(1).value = False
+cInsertarFunc(1).Value = False
 Call cInsertarFunc_Click(1)
-cInsertarFunc(2).value = False
+cInsertarFunc(2).Value = False
 Call cInsertarFunc_Click(2)
-cQuitarFunc(0).value = False
+cQuitarFunc(0).Value = False
 Call cQuitarFunc_Click(0)
-cQuitarFunc(1).value = False
+cQuitarFunc(1).Value = False
 Call cQuitarFunc_Click(1)
-cQuitarFunc(2).value = False
+cQuitarFunc(2).Value = False
 Call cQuitarFunc_Click(2)
 ' Triggers
-cInsertarTrigger.value = False
+cInsertarTrigger.Value = False
 Call cInsertarTrigger_Click
-cQuitarTrigger.value = False
+cQuitarTrigger.Value = False
 Call cQuitarTrigger_Click
 End Sub
 
@@ -3986,7 +4005,7 @@ Private Sub mnuSuperficie_Click()
 Dim i As Byte
 
 For i = 1 To 6
-    frmMain.SelectPanel(i).value = False
+    frmMain.SelectPanel(i).Value = False
     Call VerFuncion(i, False)
 Next i
 
@@ -4002,7 +4021,7 @@ Dim i As Byte
 
 For i = 0 To 6
     If i <> 1 Then
-        frmMain.SelectPanel(i).value = False
+        frmMain.SelectPanel(i).Value = False
         Call VerFuncion(i, False)
     End If
 Next i
@@ -4018,7 +4037,7 @@ Private Sub mnuTriggers_Click()
 Dim i As Byte
 
 For i = 0 To 5
-    frmMain.SelectPanel(i).value = False
+    frmMain.SelectPanel(i).Value = False
     Call VerFuncion(i, False)
 Next i
 
@@ -4054,8 +4073,8 @@ Private Sub mnuVerBloqueos_Click()
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-cVerBloqueos.value = (cVerBloqueos.value = False)
-mnuVerBloqueos.Checked = cVerBloqueos.value
+cVerBloqueos.Value = (cVerBloqueos.Value = False)
+mnuVerBloqueos.Checked = cVerBloqueos.Value
 
 bBloqs = mnuVerBloqueos.Checked
 End Sub
@@ -4100,37 +4119,37 @@ Private Sub mnuVerTriggers_Click()
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-cVerTriggers.value = (cVerTriggers.value = False)
-mnuVerTriggers.Checked = cVerTriggers.value
+cVerTriggers.Value = (cVerTriggers.Value = False)
+mnuVerTriggers.Checked = cVerTriggers.Value
 
 bTriggers = mnuVerTriggers.Checked
 End Sub
 
-Private Sub picRadar_MouseDown(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub picRadar_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
 '*************************************************
 'Author: ^[GS]^
 'Last modified: 29/05/06
 '*************************************************
-If X < MinXBorder Then X = 11
-If X > MaxXBorder Then X = 89
+If x < MinXBorder Then x = 11
+If x > MaxXBorder Then x = 89
 If y < MinYBorder Then y = 10
 If y > MaxYBorder Then y = 92
 
-UserPos.X = X
+UserPos.x = x
 UserPos.y = y
 bRefreshRadar = True
 End Sub
 
-Private Sub picRadar_MouseMove(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub picRadar_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 '*************************************************
 'Author: ^[GS]^
 'Last modified: 28/05/06
 '*************************************************
-MiRadarX = X
+MiRadarX = x
 MiRadarY = y
 End Sub
 
-Private Sub Form_MouseDown(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub Form_MouseDown(Button As Integer, Shift As Integer, x As Single, y As Single)
     '*************************************************
 'Author: Unkwown
 'Last modified: 20/05/06 - GS
@@ -4141,7 +4160,7 @@ Dim tY As Integer
 
 If Not MapaCargado Then Exit Sub
 
-If X <= MainViewShp.Left Or X >= MainViewShp.Left + MainViewWidth Or y <= MainViewShp.Top Or y >= MainViewShp.Top + MainViewHeight Then
+If x <= MainViewShp.Left Or x >= MainViewShp.Left + MainViewWidth Or y <= MainViewShp.Top Or y >= MainViewShp.Top + MainViewHeight Then
     Exit Sub
 End If
 
@@ -4153,7 +4172,7 @@ MouseDownX = tx
 MouseDownY = tY
 End Sub
 
-Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
 '*************************************************
 'Author: Unkwown
 'Last modified: 20/05/06 - GS
@@ -4166,7 +4185,7 @@ Dim tY As Integer
 If Not MapaCargado Then Exit Sub
 HotKeysAllow = True
 
-MouseX = X - MainViewShp.Left
+MouseX = x - MainViewShp.Left
 MouseY = y - MainViewShp.Top
 
 'Trim to fit screen
@@ -4184,7 +4203,7 @@ ElseIf MouseY > MainViewShp.Height Then
 End If
     
 'Make sure click is in view window
-If X <= MainViewShp.Left Or X >= MainViewShp.Left + MainViewWidth Or y <= MainViewShp.Top Or y >= MainViewShp.Top + MainViewHeight Then
+If x <= MainViewShp.Left Or x >= MainViewShp.Left + MainViewWidth Or y <= MainViewShp.Top Or y >= MainViewShp.Top + MainViewHeight Then
     Exit Sub
 End If
 
@@ -4229,7 +4248,7 @@ If frmMain.mnuGuardarUltimaConfig.Checked Then
     WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "NPCs", IIf(bVerNpcs, "1", "0")
     WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "Triggers", IIf(bTriggers, "1", "0")
     WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "Bloqueos", IIf(bBloqs, "1", "0")
-    WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "LastPos", UserPos.X & "-" & UserPos.y
+    WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "LastPos", UserPos.x & "-" & UserPos.y
     
     WriteVar IniPath & "WorldEditor.ini", "CONFIGURACION", "UtilizarDeshacer", IIf(frmMain.mnuUtilizarDeshacer.Checked = True, "1", "0")
     WriteVar IniPath & "WorldEditor.ini", "CONFIGURACION", "AutoCapturarTrans", IIf(frmMain.mnuAutoCapturarTranslados.Checked = True, "1", "0")
@@ -4251,13 +4270,13 @@ Dim i As Byte
 
 For i = 0 To 6
     If i <> index Then
-        SelectPanel(i).value = False
+        SelectPanel(i).Value = False
         Call VerFuncion(i, False)
     End If
 Next i
 
 If mnuAutoQuitarFunciones.Checked = True Then Call mnuQuitarFunciones_Click
-Call VerFuncion(index, SelectPanel(index).value)
+Call VerFuncion(index, SelectPanel(index).Value)
 End Sub
 
 Private Sub TimAutoGuardarMapa_Timer()
