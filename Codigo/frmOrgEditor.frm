@@ -155,20 +155,20 @@ Private OffsetY As Byte
 Private Function LoadGeneralMapOrg() As Boolean
     Dim FilePath As String
     Dim X As Byte
-    Dim y As Byte
+    Dim Y As Byte
 
     FilePath = App.path & "\Init\MapOrg.dat"
     If Not FileExist(FilePath, vbArchive) Then Exit Function
     
     MapWidth = Val(GetVar(FilePath, "General", "MapWidth"))
-    MapHeight = Val(GetVar(FilePath, "General", "MapWidth"))
+    MapHeight = Val(GetVar(FilePath, "General", "MapHeight"))
     
     If MapWidth = 0 Or MapHeight = 0 Then Exit Function
     
     For X = 1 To MapWidth
-        For y = 1 To MapHeight
-            MapOrg(X, y) = Val(GetVar(FilePath, "General", X & "-" & y))
-        Next y
+        For Y = 1 To MapHeight
+            MapOrg(X, Y) = Val(GetVar(FilePath, "General", X & "-" & Y))
+        Next Y
     Next X
     
     txtAncho.Text = MapWidth
@@ -179,20 +179,20 @@ End Function
 Private Function LoadDungeonMapOrg() As Boolean
     Dim FilePath As String
     Dim X As Byte
-    Dim y As Byte
+    Dim Y As Byte
 
     FilePath = App.path & "\Init\MapOrg.dat"
     If Not FileExist(FilePath, vbArchive) Then Exit Function
     
     MapWidth = Val(GetVar(FilePath, "Dungeon", "MapWidth"))
-    MapHeight = Val(GetVar(FilePath, "Dungeon", "MapWidth"))
+    MapHeight = Val(GetVar(FilePath, "Dungeon", "MapHeight"))
     
     If MapWidth = 0 Or MapHeight = 0 Then Exit Function
     
     For X = 1 To MapWidth
-        For y = 1 To MapHeight
-            MapOrg(X, y) = Val(GetVar(FilePath, "Dungeon", X & "-" & y))
-        Next y
+        For Y = 1 To MapHeight
+            MapOrg(X, Y) = Val(GetVar(FilePath, "Dungeon", X & "-" & Y))
+        Next Y
     Next X
     LoadDungeonMapOrg = True
 End Function
@@ -228,7 +228,7 @@ End Sub
 Private Sub cmdGuardar_Click()
     Dim FilePath As String
     Dim X As Byte
-    Dim y As Byte
+    Dim Y As Byte
     
     FilePath = App.path & "\Init\MapOrg.dat"
     
@@ -236,17 +236,17 @@ Private Sub cmdGuardar_Click()
         Call WriteVar(FilePath, "General", "MapWidth", str(MapWidth))
         Call WriteVar(FilePath, "General", "MapHeight", str(MapHeight))
         For X = 1 To MapWidth
-            For y = 1 To MapWidth
-                Call WriteVar(FilePath, "General", X & "-" & y, str(MapOrg(X, y)))
-            Next y
+            For Y = 1 To MapHeight
+                Call WriteVar(FilePath, "General", X & "-" & Y, str(MapOrg(X, Y)))
+            Next Y
         Next X
     ElseIf cmbTipo.List(cmbTipo.ListIndex) = "Dungeon" Then
         Call WriteVar(FilePath, "Dungeon", "MapWidth", str(MapWidth))
         Call WriteVar(FilePath, "Dungeon", "MapHeight", str(MapHeight))
         For X = 1 To MapWidth
-            For y = 1 To MapWidth
-                Call WriteVar(FilePath, "Dungeon", X & "-" & y, str(MapOrg(X, y)))
-            Next y
+            For Y = 1 To MapHeight
+                Call WriteVar(FilePath, "Dungeon", X & "-" & Y, str(MapOrg(X, Y)))
+            Next Y
         Next X
     End If
 End Sub
@@ -292,11 +292,11 @@ Private Sub Form_Load()
     Call DrawMapOrg
 End Sub
 
-Private Sub mapPic_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
-    If X < mapPic.Left Or X > mapPic.Width Or y < mapPic.Top Or y > mapPic.Height Or X = 0 Or y = 0 Then Exit Sub
+Private Sub mapPic_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    If X < mapPic.Left Or X > mapPic.Width Or Y < mapPic.Top Or Y > mapPic.Height Or X = 0 Or Y = 0 Then Exit Sub
     
     SelectedX = Int(X / 64) + 1 + OffsetX
-    SelectedY = Int(y / 64) + 1 + OffsetY
+    SelectedY = Int(Y / 64) + 1 + OffsetY
     
     If SelectedX > MapWidth Or SelectedY > MapHeight Then Exit Sub
     
@@ -326,29 +326,29 @@ End Sub
 
 Private Sub DrawMapOrg()
     Dim X As Byte
-    Dim y As Byte
-    
+    Dim Y As Byte
+
     mapPic.Cls
     
     For X = 1 To MapWidth
-        For y = 1 To MapWidth
-            If MapOrg(X + OffsetX, y + OffsetY) > 0 Then
-                mapPic.PaintPicture LoadPicture(App.path & "\Renders\" & MapOrg(X + OffsetX, y + OffsetY) & ".bmp"), (X - 1) * 64, (y - 1) * 64
+        For Y = 1 To MapWidth
+            If MapOrg(X + OffsetX, Y + OffsetY) > 0 Then
+                mapPic.PaintPicture LoadPicture(App.path & "\Renders\" & MapOrg(X + OffsetX, Y + OffsetY) & ".bmp"), (X - 1) * 64, (Y - 1) * 64
                 mapPic.CurrentX = (X - 1) * 64 + 12
-                mapPic.CurrentY = (y - 1) * 64 + 12
-                mapPic.Print MapOrg(X + OffsetX, y + OffsetY)
+                mapPic.CurrentY = (Y - 1) * 64 + 12
+                mapPic.Print MapOrg(X + OffsetX, Y + OffsetY)
             End If
-        Next y
+        Next Y
     Next X
 End Sub
 
 Private Sub ClearMapOrg()
     Dim X As Byte
-    Dim y As Byte
+    Dim Y As Byte
     
     For X = 1 To MapWidth
-        For y = 1 To MapWidth
-            MapOrg(X, y) = 0
-        Next y
+        For Y = 1 To MapWidth
+            MapOrg(X, Y) = 0
+        Next Y
     Next X
 End Sub

@@ -3,14 +3,14 @@ Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "mscomctl.ocx"
 Begin VB.Form frmRender 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Renderizado"
-   ClientHeight    =   1560
+   ClientHeight    =   1545
    ClientLeft      =   45
    ClientTop       =   435
    ClientWidth     =   7455
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   104
+   ScaleHeight     =   103
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   497
    StartUpPosition =   3  'Windows Default

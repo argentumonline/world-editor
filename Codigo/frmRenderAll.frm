@@ -3,14 +3,14 @@ Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "mscomctl.ocx"
 Begin VB.Form frmRenderAll 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Renderizar todos los mapas"
-   ClientHeight    =   1995
+   ClientHeight    =   4245
    ClientLeft      =   45
    ClientTop       =   345
    ClientWidth     =   7410
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   133
+   ScaleHeight     =   283
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   494
    StartUpPosition =   3  'Windows Default
@@ -18,7 +18,7 @@ Begin VB.Form frmRenderAll
       Height          =   285
       Left            =   720
       TabIndex        =   5
-      Text            =   "68"
+      Text            =   "64"
       Top             =   120
       Width           =   495
    End
@@ -40,11 +40,12 @@ Begin VB.Form frmRenderAll
    End
    Begin VB.PictureBox picMap 
       AutoRedraw      =   -1  'True
+      BorderStyle     =   0  'None
       Height          =   855
       Left            =   120
-      ScaleHeight     =   53
+      ScaleHeight     =   57
       ScaleMode       =   3  'Pixel
-      ScaleWidth      =   117
+      ScaleWidth      =   121
       TabIndex        =   2
       Top             =   2400
       Width           =   1815
@@ -53,17 +54,18 @@ Begin VB.Form frmRenderAll
       Height          =   285
       Left            =   1920
       TabIndex        =   1
-      Text            =   "68"
+      Text            =   "64"
       Top             =   120
       Width           =   495
    End
    Begin VB.PictureBox tmpPic 
       AutoRedraw      =   -1  'True
+      BorderStyle     =   0  'None
       Height          =   855
       Left            =   2280
-      ScaleHeight     =   53
+      ScaleHeight     =   57
       ScaleMode       =   3  'Pixel
-      ScaleWidth      =   117
+      ScaleWidth      =   121
       TabIndex        =   0
       Top             =   2400
       Width           =   1815
