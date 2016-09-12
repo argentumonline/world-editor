@@ -65,13 +65,13 @@ End Function
 ' @param FileType Especifica el tipo de archivo/directorio
 ' @return   Nos devuelve verdadero o falso
 
-Public Function FileExist(ByRef file As String, ByVal FileType As VbFileAttribute) As Boolean
+Public Function FileExist(ByRef File As String, ByVal FileType As VbFileAttribute) As Boolean
 '*************************************************
 'Author: Unkwown
 'Last modified: 26/05/06
 '*************************************************
 
-FileExist = (LenB(Dir$(file, FileType)) > 0)
+FileExist = (LenB(Dir$(File, FileType)) > 0)
 End Function
 
 ''
@@ -79,17 +79,17 @@ End Function
 '
 ' @param Path Especifica el path del mapa
 
-Public Sub AbrirMapa(ByRef path As String, ByRef Buffer() As MapBlock, Optional ByVal SoloMap As Boolean = False)
+Public Sub AbrirMapa(ByRef path As String, ByRef buffer() As MapBlock, Optional ByVal SoloMap As Boolean = False)
 '*************************************************
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
 
 If FileSize(path) = 130273 Then
-    Call MapaV1_Cargar(path, Buffer, SoloMap)
+    Call MapaV1_Cargar(path, buffer, SoloMap)
     frmMain.mnuUtirialNuevoFormato.Checked = False
 Else
-    Call MapaV2_Cargar(path, Buffer, SoloMap)
+    Call MapaV2_Cargar(path, buffer, SoloMap)
     frmMain.mnuUtirialNuevoFormato.Checked = True
 End If
 End Sub
@@ -480,7 +480,7 @@ End Sub
 '
 ' @param Map Especifica el Path del mapa
 
-Public Sub MapaV2_Cargar(ByVal Map As String, ByRef Buffer() As MapBlock, ByVal SoloMap As Boolean)
+Public Sub MapaV2_Cargar(ByVal Map As String, ByRef buffer() As MapBlock, ByVal SoloMap As Boolean)
 '*************************************************
 'Author: ^[GS]^
 'Last modified: 20/05/06
@@ -538,41 +538,41 @@ On Error Resume Next
     
             Get FreeFileMap, , ByFlags
             
-            Buffer(X, y).Blocked = (ByFlags And 1)
+            buffer(X, y).Blocked = (ByFlags And 1)
             
-            Get FreeFileMap, , Buffer(X, y).Graphic(1).grhIndex
-            InitGrh Buffer(X, y).Graphic(1), Buffer(X, y).Graphic(1).grhIndex
+            Get FreeFileMap, , buffer(X, y).Graphic(1).grhIndex
+            InitGrh buffer(X, y).Graphic(1), buffer(X, y).Graphic(1).grhIndex
             
             'Layer 2 used?
             If ByFlags And 2 Then
-                Get FreeFileMap, , Buffer(X, y).Graphic(2).grhIndex
-                InitGrh Buffer(X, y).Graphic(2), Buffer(X, y).Graphic(2).grhIndex
+                Get FreeFileMap, , buffer(X, y).Graphic(2).grhIndex
+                InitGrh buffer(X, y).Graphic(2), buffer(X, y).Graphic(2).grhIndex
             Else
-                Buffer(X, y).Graphic(2).grhIndex = 0
+                buffer(X, y).Graphic(2).grhIndex = 0
             End If
                 
             'Layer 3 used?
             If ByFlags And 4 Then
-                Get FreeFileMap, , Buffer(X, y).Graphic(3).grhIndex
-                InitGrh Buffer(X, y).Graphic(3), Buffer(X, y).Graphic(3).grhIndex
+                Get FreeFileMap, , buffer(X, y).Graphic(3).grhIndex
+                InitGrh buffer(X, y).Graphic(3), buffer(X, y).Graphic(3).grhIndex
             Else
-                Buffer(X, y).Graphic(3).grhIndex = 0
+                buffer(X, y).Graphic(3).grhIndex = 0
             End If
                 
             'Layer 4 used?
             If ByFlags And 8 Then
-                Get FreeFileMap, , Buffer(X, y).Graphic(4).grhIndex
-                InitGrh Buffer(X, y).Graphic(4), Buffer(X, y).Graphic(4).grhIndex
+                Get FreeFileMap, , buffer(X, y).Graphic(4).grhIndex
+                InitGrh buffer(X, y).Graphic(4), buffer(X, y).Graphic(4).grhIndex
             Else
-                Buffer(X, y).Graphic(4).grhIndex = 0
+                buffer(X, y).Graphic(4).grhIndex = 0
             End If
             
              
             'Trigger used?
             If ByFlags And 16 Then
-                Get FreeFileMap, , Buffer(X, y).Trigger
+                Get FreeFileMap, , buffer(X, y).Trigger
             Else
-                Buffer(X, y).Trigger = 0
+                buffer(X, y).Trigger = 0
             End If
             
             If Not SoloMap Then
@@ -580,31 +580,31 @@ On Error Resume Next
                 Get FreeFileInf, , ByFlags
                 
                 If ByFlags And 1 Then
-                    Get FreeFileInf, , Buffer(X, y).TileExit.Map
-                    Get FreeFileInf, , Buffer(X, y).TileExit.X
-                    Get FreeFileInf, , Buffer(X, y).TileExit.y
+                    Get FreeFileInf, , buffer(X, y).TileExit.Map
+                    Get FreeFileInf, , buffer(X, y).TileExit.X
+                    Get FreeFileInf, , buffer(X, y).TileExit.y
                 End If
         
                 If ByFlags And 2 Then
                     'Get and make NPC
-                    Get FreeFileInf, , Buffer(X, y).NPCIndex
+                    Get FreeFileInf, , buffer(X, y).NPCIndex
         
-                    If Buffer(X, y).NPCIndex < 0 Then
-                        Buffer(X, y).NPCIndex = 0
+                    If buffer(X, y).NPCIndex < 0 Then
+                        buffer(X, y).NPCIndex = 0
                     Else
-                        Body = NpcData(Buffer(X, y).NPCIndex).Body
-                        Head = NpcData(Buffer(X, y).NPCIndex).Head
-                        Heading = NpcData(Buffer(X, y).NPCIndex).Heading
+                        Body = NpcData(buffer(X, y).NPCIndex).Body
+                        Head = NpcData(buffer(X, y).NPCIndex).Head
+                        Heading = NpcData(buffer(X, y).NPCIndex).Heading
                         Call MakeChar(NextOpenChar(), Body, Head, Heading, X, y)
                     End If
                 End If
         
                 If ByFlags And 4 Then
                     'Get and make Object
-                    Get FreeFileInf, , Buffer(X, y).OBJInfo.objindex
-                    Get FreeFileInf, , Buffer(X, y).OBJInfo.Amount
-                    If Buffer(X, y).OBJInfo.objindex > 0 Then
-                        InitGrh Buffer(X, y).ObjGrh, ObjData(Buffer(X, y).OBJInfo.objindex).grhIndex
+                    Get FreeFileInf, , buffer(X, y).OBJInfo.objindex
+                    Get FreeFileInf, , buffer(X, y).OBJInfo.Amount
+                    If buffer(X, y).OBJInfo.objindex > 0 Then
+                        InitGrh buffer(X, y).ObjGrh, ObjData(buffer(X, y).OBJInfo.objindex).grhIndex
                     End If
                 End If
             End If
@@ -643,7 +643,7 @@ End Sub
 '
 ' @param Map Especifica el Path del mapa
 
-Public Sub MapaV1_Cargar(ByVal Map As String, ByRef Buffer() As MapBlock, ByVal SoloMap As Boolean)
+Public Sub MapaV1_Cargar(ByVal Map As String, ByRef buffer() As MapBlock, ByVal SoloMap As Boolean)
 '*************************************************
 'Author: ^[GS]^
 'Last modified: 20/05/06
@@ -701,17 +701,17 @@ Public Sub MapaV1_Cargar(ByVal Map As String, ByRef Buffer() As MapBlock, ByVal 
         For X = XMinMapSize To XMaxMapSize
     
             '.map file
-            Get FreeFileMap, , Buffer(X, y).Blocked
+            Get FreeFileMap, , buffer(X, y).Blocked
             
             For loopc = 1 To 4
-                Get FreeFileMap, , Buffer(X, y).Graphic(loopc).grhIndex
+                Get FreeFileMap, , buffer(X, y).Graphic(loopc).grhIndex
                 'Set up GRH
-                If Buffer(X, y).Graphic(loopc).grhIndex > 0 Then
-                    InitGrh Buffer(X, y).Graphic(loopc), Buffer(X, y).Graphic(loopc).grhIndex
+                If buffer(X, y).Graphic(loopc).grhIndex > 0 Then
+                    InitGrh buffer(X, y).Graphic(loopc), buffer(X, y).Graphic(loopc).grhIndex
                 End If
             Next loopc
             'Trigger
-            Get FreeFileMap, , Buffer(X, y).Trigger
+            Get FreeFileMap, , buffer(X, y).Trigger
             
             Get FreeFileMap, , TempInt
             
@@ -719,24 +719,24 @@ Public Sub MapaV1_Cargar(ByVal Map As String, ByRef Buffer() As MapBlock, ByVal 
                 '.inf file
                 
                 'Tile exit
-                Get FreeFileInf, , Buffer(X, y).TileExit.Map
-                Get FreeFileInf, , Buffer(X, y).TileExit.X
-                Get FreeFileInf, , Buffer(X, y).TileExit.y
+                Get FreeFileInf, , buffer(X, y).TileExit.Map
+                Get FreeFileInf, , buffer(X, y).TileExit.X
+                Get FreeFileInf, , buffer(X, y).TileExit.y
                               
                 'make NPC
-                Get FreeFileInf, , Buffer(X, y).NPCIndex
-                If Buffer(X, y).NPCIndex > 0 Then
-                    Body = NpcData(Buffer(X, y).NPCIndex).Body
-                    Head = NpcData(Buffer(X, y).NPCIndex).Head
-                    Heading = NpcData(Buffer(X, y).NPCIndex).Heading
+                Get FreeFileInf, , buffer(X, y).NPCIndex
+                If buffer(X, y).NPCIndex > 0 Then
+                    Body = NpcData(buffer(X, y).NPCIndex).Body
+                    Head = NpcData(buffer(X, y).NPCIndex).Head
+                    Heading = NpcData(buffer(X, y).NPCIndex).Heading
                     Call MakeChar(NextOpenChar(), Body, Head, Heading, X, y)
                 End If
                 
                 'Make obj
-                Get FreeFileInf, , Buffer(X, y).OBJInfo.objindex
-                Get FreeFileInf, , Buffer(X, y).OBJInfo.Amount
-                If Buffer(X, y).OBJInfo.objindex > 0 Then
-                    InitGrh Buffer(X, y).ObjGrh, ObjData(Buffer(X, y).OBJInfo.objindex).grhIndex
+                Get FreeFileInf, , buffer(X, y).OBJInfo.objindex
+                Get FreeFileInf, , buffer(X, y).OBJInfo.Amount
+                If buffer(X, y).OBJInfo.objindex > 0 Then
+                    InitGrh buffer(X, y).ObjGrh, ObjData(buffer(X, y).OBJInfo.objindex).grhIndex
                 End If
                 
                 'Empty place holders for future expansion
@@ -803,7 +803,17 @@ Public Sub MapInfo_Guardar(ByVal Archivo As String)
     Call WriteVar(Archivo, MapTitulo, "Zona", MapInfo.Zona)
     Call WriteVar(Archivo, MapTitulo, "Restringir", MapInfo.Restringir)
     Call WriteVar(Archivo, MapTitulo, "BackUp", str(MapInfo.BackUp))
-
+    
+    Call WriteVar(Archivo, MapTitulo, "MapaTierra", str(MapInfo.MapaTierra))
+    Call WriteVar(Archivo, MapTitulo, "MismoBando", str(MapInfo.MismoBando))
+    Call WriteVar(Archivo, MapTitulo, "RoboNpcsPermitido", str(MapInfo.RoboNpcsPermitido))
+    
+    Call WriteVar(Archivo, MapTitulo, "InviSinEfecto", str(MapInfo.InviSinEfecto))
+    Call WriteVar(Archivo, MapTitulo, "ResuSinEfecto", str(MapInfo.ResuSinEfecto))
+    Call WriteVar(Archivo, MapTitulo, "OcultarSinEfecto", str(MapInfo.OcultarSinEfecto))
+    Call WriteVar(Archivo, MapTitulo, "InvocarSinEfecto", str(MapInfo.InvocarSinEfecto))
+    Call WriteVar(Archivo, MapTitulo, "InmovilizarSinEfecto", str(MapInfo.InmovilizarSinEfecto))
+    
     If MapInfo.PK Then
         Call WriteVar(Archivo, MapTitulo, "Pk", "0")
     Else
@@ -856,6 +866,16 @@ On Error Resume Next
     MapInfo.Restringir = Leer.GetValue(MapTitulo, "Restringir")
     MapInfo.BackUp = Val(Leer.GetValue(MapTitulo, "BACKUP"))
     
+    MapInfo.MapaTierra = Val(Leer.GetValue(MapTitulo, "MapaTierra"))
+    MapInfo.MismoBando = Val(Leer.GetValue(MapTitulo, "MismoBando"))
+    MapInfo.RoboNpcsPermitido = Val(Leer.GetValue(MapTitulo, "RoboNpcsPermitido"))
+    
+    MapInfo.InviSinEfecto = Val(Leer.GetValue(MapTitulo, "InviSinEfecto"))
+    MapInfo.ResuSinEfecto = Val(Leer.GetValue(MapTitulo, "ResuSinEfecto"))
+    MapInfo.OcultarSinEfecto = Val(Leer.GetValue(MapTitulo, "OcultarSinEfecto"))
+    MapInfo.InvocarSinEfecto = Val(Leer.GetValue(MapTitulo, "InvocarSinEfecto"))
+    MapInfo.InmovilizarSinEfecto = Val(Leer.GetValue(MapTitulo, "InmovilizarSinEfecto"))
+    
     Call MapInfo_Actualizar
     
 End Sub
@@ -884,7 +904,15 @@ On Error Resume Next
     frmMapInfo.txtMapVersion = MapInfo.MapVersion
     frmMain.lblMapNombre = MapInfo.name
     frmMain.lblMapMusica = MapInfo.Music
-
+    frmMapInfo.chkTierra.Value = MapInfo.MapaTierra
+    frmMapInfo.chkMismoBando.Value = MapInfo.MismoBando
+    frmMapInfo.chkRoboNpc.Value = MapInfo.RoboNpcsPermitido
+    frmMapInfo.chkInvi.Value = MapInfo.InviSinEfecto
+    frmMapInfo.chkInmo.Value = MapInfo.InmovilizarSinEfecto
+    frmMapInfo.chkResu.Value = MapInfo.ResuSinEfecto
+    frmMapInfo.chkInvocar.Value = MapInfo.InvocarSinEfecto
+    frmMapInfo.chkOcultar.Value = MapInfo.OcultarSinEfecto
+    
 End Sub
 
 ''
