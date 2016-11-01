@@ -41,6 +41,7 @@ Module=modRender; Codigo\modRender.bas
 Form=Codigo\frmRenderAll.frm
 Form=Codigo\frmOrgEditor.frm
 Module=modGdiPlusResizer; Codigo\modGdiPlusResizer.bas
+Form=Codigo\frmFKEditor.frm
 IconForm="frmMain"
 Startup="Sub Main"
 HelpFile=""
