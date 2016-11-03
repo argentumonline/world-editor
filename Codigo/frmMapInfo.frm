@@ -2,16 +2,224 @@ VERSION 5.00
 Begin VB.Form frmMapInfo 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Información del Mapa"
-   ClientHeight    =   3660
+   ClientHeight    =   4545
    ClientLeft      =   45
    ClientTop       =   435
    ClientWidth     =   4470
    Icon            =   "frmMapInfo.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   ScaleHeight     =   3660
+   ScaleHeight     =   4545
    ScaleWidth      =   4470
    StartUpPosition =   2  'CenterScreen
+   Begin VB.CheckBox chkMismoBando 
+      Caption         =   "Mismo Bando"
+      BeginProperty DataFormat 
+         Type            =   4
+         Format          =   "0%"
+         HaveTrueFalseNull=   0
+         FirstDayOfWeek  =   0
+         FirstWeekOfYear =   0
+         LCID            =   11274
+         SubFormatType   =   8
+      EndProperty
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   255
+      Left            =   2400
+      TabIndex        =   25
+      Top             =   3480
+      Width           =   1575
+   End
+   Begin VB.CheckBox chkTierra 
+      Caption         =   "Mapa Tierra"
+      BeginProperty DataFormat 
+         Type            =   4
+         Format          =   "0%"
+         HaveTrueFalseNull=   0
+         FirstDayOfWeek  =   0
+         FirstWeekOfYear =   0
+         LCID            =   11274
+         SubFormatType   =   8
+      EndProperty
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   255
+      Left            =   2400
+      TabIndex        =   24
+      Top             =   2760
+      Width           =   1575
+   End
+   Begin VB.CheckBox chkRoboNpc 
+      Caption         =   "NPC Compartidos"
+      BeginProperty DataFormat 
+         Type            =   4
+         Format          =   "0%"
+         HaveTrueFalseNull=   0
+         FirstDayOfWeek  =   0
+         FirstWeekOfYear =   0
+         LCID            =   11274
+         SubFormatType   =   8
+      EndProperty
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   255
+      Left            =   120
+      TabIndex        =   23
+      Top             =   2760
+      Width           =   1575
+   End
+   Begin VB.CheckBox chkResu 
+      Caption         =   "Resu sin efecto"
+      BeginProperty DataFormat 
+         Type            =   4
+         Format          =   "0%"
+         HaveTrueFalseNull=   0
+         FirstDayOfWeek  =   0
+         FirstWeekOfYear =   0
+         LCID            =   11274
+         SubFormatType   =   8
+      EndProperty
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   255
+      Left            =   120
+      TabIndex        =   22
+      Top             =   3480
+      Width           =   1575
+   End
+   Begin VB.CheckBox chkOcultar 
+      Caption         =   "Ocultar sin efecto"
+      BeginProperty DataFormat 
+         Type            =   4
+         Format          =   "0%"
+         HaveTrueFalseNull=   0
+         FirstDayOfWeek  =   0
+         FirstWeekOfYear =   0
+         LCID            =   11274
+         SubFormatType   =   8
+      EndProperty
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   255
+      Left            =   2400
+      TabIndex        =   21
+      Top             =   3240
+      Width           =   1695
+   End
+   Begin VB.CheckBox chkInvocar 
+      Caption         =   "Invocar sin efecto"
+      BeginProperty DataFormat 
+         Type            =   4
+         Format          =   "0%"
+         HaveTrueFalseNull=   0
+         FirstDayOfWeek  =   0
+         FirstWeekOfYear =   0
+         LCID            =   11274
+         SubFormatType   =   8
+      EndProperty
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   255
+      Left            =   120
+      TabIndex        =   20
+      Top             =   3240
+      Width           =   1695
+   End
+   Begin VB.CheckBox chkInmo 
+      Caption         =   "Inmo sin efecto"
+      BeginProperty DataFormat 
+         Type            =   4
+         Format          =   "0%"
+         HaveTrueFalseNull=   0
+         FirstDayOfWeek  =   0
+         FirstWeekOfYear =   0
+         LCID            =   11274
+         SubFormatType   =   8
+      EndProperty
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   255
+      Left            =   2400
+      TabIndex        =   19
+      Top             =   3000
+      Width           =   1575
+   End
+   Begin VB.CheckBox chkInvi 
+      Caption         =   "Invi sin efecto"
+      BeginProperty DataFormat 
+         Type            =   4
+         Format          =   "0%"
+         HaveTrueFalseNull=   0
+         FirstDayOfWeek  =   0
+         FirstWeekOfYear =   0
+         LCID            =   11274
+         SubFormatType   =   8
+      EndProperty
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   255
+      Left            =   120
+      TabIndex        =   18
+      Top             =   3000
+      Width           =   1575
+   End
    Begin VB.TextBox txtMapVersion 
       BeginProperty Font 
          Name            =   "Arial"
@@ -35,49 +243,33 @@ Begin VB.Form frmMapInfo
       TabIndex        =   15
       Top             =   810
       Width           =   735
-      _ExtentX        =   1296
-      _ExtentY        =   582
-      Caption         =   "&Más"
-      CapAlign        =   2
-      BackStyle       =   2
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      cGradient       =   0
-      Mode            =   0
-      Value           =   0   'False
-      cBack           =   -2147483633
+      _extentx        =   1296
+      _extenty        =   582
+      caption         =   "&Más"
+      capalign        =   2
+      backstyle       =   2
+      cgradient       =   0
+      font            =   "frmMapInfo.frx":628A
+      mode            =   0
+      value           =   0
+      cback           =   -2147483633
    End
    Begin WorldEditor.lvButtons_H cmdCerrar 
       Height          =   375
       Left            =   2640
       TabIndex        =   14
-      Top             =   3120
+      Top             =   4080
       Width           =   1695
-      _ExtentX        =   2990
-      _ExtentY        =   661
-      Caption         =   "&Cerrar"
-      CapAlign        =   2
-      BackStyle       =   2
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      cGradient       =   0
-      Mode            =   0
-      Value           =   0   'False
-      cBack           =   -2147483633
+      _extentx        =   2990
+      _extenty        =   661
+      caption         =   "&Cerrar"
+      capalign        =   2
+      backstyle       =   2
+      cgradient       =   0
+      font            =   "frmMapInfo.frx":62B6
+      mode            =   0
+      value           =   0
+      cback           =   -2147483633
    End
    Begin VB.ComboBox txtMapRestringir 
       BeginProperty Font 
@@ -90,9 +282,9 @@ Begin VB.Form frmMapInfo
          Strikethrough   =   0   'False
       EndProperty
       Height          =   330
-      ItemData        =   "frmMapInfo.frx":628A
+      ItemData        =   "frmMapInfo.frx":62E2
       Left            =   1680
-      List            =   "frmMapInfo.frx":629D
+      List            =   "frmMapInfo.frx":62F5
       TabIndex        =   12
       Text            =   "NO"
       Top             =   1920
@@ -135,9 +327,9 @@ Begin VB.Form frmMapInfo
          Strikethrough   =   0   'False
       EndProperty
       Height          =   330
-      ItemData        =   "frmMapInfo.frx":62C4
+      ItemData        =   "frmMapInfo.frx":631C
       Left            =   1680
-      List            =   "frmMapInfo.frx":62D1
+      List            =   "frmMapInfo.frx":6329
       TabIndex        =   10
       Top             =   1560
       Width           =   2655
@@ -153,9 +345,9 @@ Begin VB.Form frmMapInfo
          Strikethrough   =   0   'False
       EndProperty
       Height          =   330
-      ItemData        =   "frmMapInfo.frx":62EE
+      ItemData        =   "frmMapInfo.frx":6346
       Left            =   1680
-      List            =   "frmMapInfo.frx":62FB
+      List            =   "frmMapInfo.frx":6353
       TabIndex        =   9
       Top             =   1200
       Width           =   2655
@@ -268,8 +460,8 @@ Begin VB.Form frmMapInfo
       Index           =   1
       X1              =   135
       X2              =   4315
-      Y1              =   2880
-      Y2              =   2880
+      Y1              =   3840
+      Y2              =   3840
    End
    Begin VB.Label Label5 
       Caption         =   "Restringir:"
@@ -362,8 +554,8 @@ Begin VB.Form frmMapInfo
       Index           =   0
       X1              =   120
       X2              =   4315
-      Y1              =   2880
-      Y2              =   2880
+      Y1              =   3840
+      Y2              =   3840
    End
 End
 Attribute VB_Name = "frmMapInfo"
@@ -391,6 +583,21 @@ Attribute VB_Exposed = False
 'for more information about ORE please visit http://www.baronsoft.com/
 '**************************************************************
 Option Explicit
+
+Private Sub chkInmo_Click()
+MapInfo.InmovilizarSinEfecto = chkInmo.Value
+MapInfo.Changed = 1
+End Sub
+
+Private Sub chkInvi_Click()
+MapInfo.InviSinEfecto = chkInvi.Value
+MapInfo.Changed = 1
+End Sub
+
+Private Sub chkInvocar_Click()
+MapInfo.InvocarSinEfecto = chkInvocar.Value
+MapInfo.Changed = 1
+End Sub
 
 Private Sub chkMapBackup_LostFocus()
 '*************************************************
@@ -425,6 +632,31 @@ Private Sub chkMapPK_LostFocus()
 'Last modified: 20/05/06
 '*************************************************
 MapInfo.PK = chkMapPK.Value
+MapInfo.Changed = 1
+End Sub
+
+Private Sub chkMismoBando_Click()
+MapInfo.MismoBando = chkMismoBando.Value
+MapInfo.Changed = 1
+End Sub
+
+Private Sub chkOcultar_Click()
+MapInfo.OcultarSinEfecto = chkOcultar.Value
+MapInfo.Changed = 1
+End Sub
+
+Private Sub chkResu_Click()
+MapInfo.ResuSinEfecto = chkResu.Value
+MapInfo.Changed = 1
+End Sub
+
+Private Sub chkRoboNpc_Click()
+MapInfo.RoboNpcsPermitido = chkRoboNpc.Value
+MapInfo.Changed = 1
+End Sub
+
+Private Sub chkTierra_Click()
+MapInfo.MapaTierra = chkTierra.Value
 MapInfo.Changed = 1
 End Sub
 

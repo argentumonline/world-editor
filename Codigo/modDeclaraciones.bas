@@ -159,6 +159,14 @@ Public Type MapInfo
     Zona As String
     Restringir As String
     BackUp As Byte
+    InviSinEfecto As Byte
+    ResuSinEfecto As Byte
+    OcultarSinEfecto As Byte
+    InvocarSinEfecto As Byte
+    InmovilizarSinEfecto As Byte
+    RoboNpcsPermitido As Byte
+    MapaTierra As Byte
+    MismoBando As Byte
     Changed As Byte ' flag for WorldEditor
 End Type
 

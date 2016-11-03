@@ -1,19 +1,38 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "Mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "mscomctl.ocx"
 Begin VB.Form frmRender 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Renderizado"
-   ClientHeight    =   1575
+   ClientHeight    =   1545
    ClientLeft      =   45
    ClientTop       =   435
    ClientWidth     =   7455
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   105
+   ScaleHeight     =   103
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   497
    StartUpPosition =   3  'Windows Default
+   Begin VB.PictureBox tmpPic 
+      AutoRedraw      =   -1  'True
+      Height          =   855
+      Left            =   2280
+      ScaleHeight     =   53
+      ScaleMode       =   3  'Pixel
+      ScaleWidth      =   117
+      TabIndex        =   9
+      Top             =   1800
+      Width           =   1815
+   End
+   Begin VB.TextBox txtSizeY 
+      Height          =   285
+      Left            =   1920
+      TabIndex        =   7
+      Text            =   "3200"
+      Top             =   120
+      Width           =   495
+   End
    Begin VB.PictureBox picMap 
       AutoRedraw      =   -1  'True
       Height          =   855
@@ -21,8 +40,8 @@ Begin VB.Form frmRender
       ScaleHeight     =   53
       ScaleMode       =   3  'Pixel
       ScaleWidth      =   117
-      TabIndex        =   7
-      Top             =   1680
+      TabIndex        =   6
+      Top             =   1800
       Width           =   1815
    End
    Begin VB.CommandButton cmdCancelar 
@@ -41,11 +60,11 @@ Begin VB.Form frmRender
       Top             =   1080
       Width           =   1695
    End
-   Begin VB.TextBox txtSize 
+   Begin VB.TextBox txtSizeX 
       Height          =   285
-      Left            =   840
+      Left            =   720
       TabIndex        =   3
-      Text            =   "100"
+      Text            =   "3200"
       Top             =   120
       Width           =   495
    End
@@ -62,21 +81,21 @@ Begin VB.Form frmRender
    End
    Begin VB.Label Label2 
       AutoSize        =   -1  'True
-      Caption         =   "%"
+      Caption         =   "Alto:"
       Height          =   195
       Left            =   1440
-      TabIndex        =   6
+      TabIndex        =   8
       Top             =   120
-      Width           =   240
+      Width           =   315
    End
    Begin VB.Label Label1 
       AutoSize        =   -1  'True
-      Caption         =   "Tamaño:"
+      Caption         =   "Ancho:"
       Height          =   195
       Left            =   120
       TabIndex        =   2
       Top             =   120
-      Width           =   630
+      Width           =   510
    End
    Begin VB.Label lblEstado 
       Alignment       =   2  'Center
@@ -98,13 +117,23 @@ Option Explicit
 Public formatPic As eFormatPic
 
 Private Sub cmdAceptar_Click()
-Dim Size As Long
+Dim SizeX As Long
+Dim SizeY As Long
 
-txtSize.Text = Replace(txtSize.Text, ",", ".")
-If Not IsNumeric(txtSize.Text) Then MsgBox "El tamaño es inválido."
+If Not IsNumeric(txtSizeX.Text) Then
+    MsgBox "El ancho es inválido."
+    Exit Sub
+End If
+If Not IsNumeric(txtSizeY.Text) Then
+    MsgBox "El alto es inválido."
+    Exit Sub
+End If
 
-Size = Val(txtSize.Text) * 3200 / 100
-Call MapCapture(formatPic, Size)
+SizeX = txtSizeX.Text
+SizeY = txtSizeY.Text
+
+
+Call MapCapture(formatPic, SizeX, SizeY)
 Unload Me
 End Sub
 
@@ -112,9 +141,20 @@ Private Sub cmdCancelar_Click()
 Unload Me
 End Sub
 
-Private Sub txtSize_KeyPress(KeyAscii As Integer)
+Private Sub txtSizeX_KeyPress(KeyAscii As Integer)
 If (Not IsNumeric(Chr$(KeyAscii))) And _
     (KeyAscii <> 8) And _
     (KeyAscii <> 44) And _
     (KeyAscii <> 46) Then KeyAscii = 0
 End Sub
+
+Private Sub txtSizeY_KeyPress(KeyAscii As Integer)
+If (Not IsNumeric(Chr$(KeyAscii))) And _
+    (KeyAscii <> 8) And _
+    (KeyAscii <> 44) And _
+    (KeyAscii <> 46) Then KeyAscii = 0
+End Sub
+
+
+
+
