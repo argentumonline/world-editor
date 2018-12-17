@@ -123,10 +123,10 @@ On Error GoTo ErrorHandler
                     If .pixelHeight <= 0 Then GoTo ErrorHandler
                     
                     ' Loading the normalized values used by wGL. Not used by the WE at this moment.
-                    Get Handle, , .tmpSngl
-                    Get Handle, , .tmpSngl
-                    Get Handle, , .tmpSngl
-                    Get Handle, , .tmpSngl
+                    Get Handle, , tmpSngl
+                    Get Handle, , tmpSngl
+                    Get Handle, , tmpSngl
+                    Get Handle, , tmpSngl
                     
                     
                     'Compute width and height
