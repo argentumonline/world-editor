@@ -157,7 +157,7 @@ Private Function LoadGeneralMapOrg() As Boolean
     Dim X As Byte
     Dim Y As Byte
 
-    FilePath = App.path & "\Init\MapOrg.dat"
+    FilePath = DirIndex & "MapOrg.dat"
     If Not FileExist(FilePath, vbArchive) Then Exit Function
     
     MapWidth = Val(GetVar(FilePath, "General", "MapWidth"))
