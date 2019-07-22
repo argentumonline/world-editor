@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.OCX"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "WorldEditor"
@@ -101,11 +101,9 @@ Begin VB.Form frmMain
       backstyle       =   2
       shape           =   1
       cgradient       =   8421631
-      font            =   "frmMain.frx":628A
       mode            =   1
-      value           =   0
+      value           =   0   'False
       customclick     =   1
-      image           =   "frmMain.frx":62AE
       imgsize         =   24
       imgalign        =   5
       cback           =   -2147483633
@@ -125,11 +123,9 @@ Begin VB.Form frmMain
       backstyle       =   2
       shape           =   3
       cgradient       =   8421631
-      font            =   "frmMain.frx":6874
       mode            =   1
-      value           =   0
+      value           =   0   'False
       customclick     =   1
-      image           =   "frmMain.frx":6898
       imgsize         =   24
       imgalign        =   5
       cback           =   -2147483633
@@ -149,11 +145,9 @@ Begin VB.Form frmMain
       backstyle       =   2
       shape           =   3
       cgradient       =   8421631
-      font            =   "frmMain.frx":6D9A
       mode            =   1
-      value           =   0
+      value           =   0   'False
       customclick     =   1
-      image           =   "frmMain.frx":6DBE
       imgsize         =   24
       imgalign        =   5
       cback           =   -2147483633
@@ -173,11 +167,9 @@ Begin VB.Form frmMain
       backstyle       =   2
       shape           =   3
       cgradient       =   8421631
-      font            =   "frmMain.frx":7198
       mode            =   1
-      value           =   0
+      value           =   0   'False
       customclick     =   1
-      image           =   "frmMain.frx":71BC
       imgsize         =   24
       imgalign        =   5
       cback           =   -2147483633
@@ -197,11 +189,9 @@ Begin VB.Form frmMain
       backstyle       =   2
       shape           =   3
       cgradient       =   8421631
-      font            =   "frmMain.frx":7572
       mode            =   1
-      value           =   0
+      value           =   0   'False
       customclick     =   1
-      image           =   "frmMain.frx":759E
       imgsize         =   24
       imgalign        =   5
       cback           =   -2147483633
@@ -221,10 +211,8 @@ Begin VB.Form frmMain
       backstyle       =   2
       shape           =   3
       cgradient       =   8421631
-      font            =   "frmMain.frx":7920
       mode            =   1
-      value           =   0
-      image           =   "frmMain.frx":7944
+      value           =   0   'False
       imgsize         =   24
       imgalign        =   5
       cback           =   -2147483633
@@ -245,10 +233,8 @@ Begin VB.Form frmMain
       shape           =   2
       cgradient       =   8421631
       cfore           =   0
-      font            =   "frmMain.frx":AFA6
       mode            =   1
-      value           =   0
-      image           =   "frmMain.frx":AFCA
+      value           =   0   'False
       imgsize         =   24
       imgalign        =   5
       cfhover         =   0
@@ -267,9 +253,8 @@ Begin VB.Form frmMain
       capalign        =   2
       backstyle       =   2
       cgradient       =   0
-      font            =   "frmMain.frx":E510
       mode            =   0
-      value           =   0
+      value           =   0   'False
       cback           =   12632319
    End
    Begin VB.Timer TimAutoGuardarMapa 
@@ -300,7 +285,6 @@ Begin VB.Form frmMain
       ScrollBars      =   2  'Vertical
       TabIndex        =   7
       TabStop         =   0   'False
-      Text            =   "frmMain.frx":E53C
       Top             =   6360
       Width           =   4320
    End
@@ -311,7 +295,6 @@ Begin VB.Form frmMain
       ForeColor       =   &H80000008&
       Height          =   4395
       Left            =   120
-      Picture         =   "frmMain.frx":E57E
       ScaleHeight     =   4365
       ScaleWidth      =   4365
       TabIndex        =   6
@@ -395,9 +378,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20BE2
          mode            =   1
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cInsertarTransOBJ 
@@ -413,9 +395,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20C06
          mode            =   1
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cUnionManual 
@@ -431,9 +412,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20C2A
          mode            =   1
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cUnionAuto 
@@ -449,9 +429,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20C4E
          mode            =   0
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cQuitarTrans 
@@ -467,9 +446,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20C72
          mode            =   1
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin VB.ComboBox cCapas 
@@ -486,9 +464,9 @@ Begin VB.Form frmMain
          EndProperty
          ForeColor       =   &H80000014&
          Height          =   330
-         ItemData        =   "frmMain.frx":20C96
+         ItemData        =   "frmMain.frx":628A
          Left            =   1080
-         List            =   "frmMain.frx":20CA6
+         List            =   "frmMain.frx":628C
          TabIndex        =   74
          Text            =   "1"
          Top             =   3120
@@ -550,9 +528,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   2580
          Index           =   0
-         ItemData        =   "frmMain.frx":20CB6
+         ItemData        =   "frmMain.frx":628E
          Left            =   120
-         List            =   "frmMain.frx":20CB8
+         List            =   "frmMain.frx":6295
          Sorted          =   -1  'True
          TabIndex        =   71
          Tag             =   "-1"
@@ -573,9 +551,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20CBA
          mode            =   1
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cQuitarEnEstaCapa 
@@ -591,9 +568,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20CDE
          mode            =   1
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cSeleccionarSuperficie 
@@ -609,9 +585,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20D02
          mode            =   1
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin VB.ComboBox cNumFunc 
@@ -629,9 +604,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   2
-         ItemData        =   "frmMain.frx":20D26
+         ItemData        =   "frmMain.frx":62A3
          Left            =   3360
-         List            =   "frmMain.frx":20D28
+         List            =   "frmMain.frx":62A5
          TabIndex        =   67
          Text            =   "1"
          Top             =   3120
@@ -653,9 +628,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   2
-         ItemData        =   "frmMain.frx":20D2A
+         ItemData        =   "frmMain.frx":62A7
          Left            =   840
-         List            =   "frmMain.frx":20D2C
+         List            =   "frmMain.frx":62A9
          TabIndex        =   66
          Text            =   "1"
          Top             =   3120
@@ -676,9 +651,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   2580
          Index           =   3
-         ItemData        =   "frmMain.frx":20D2E
+         ItemData        =   "frmMain.frx":62AB
          Left            =   120
-         List            =   "frmMain.frx":20D30
+         List            =   "frmMain.frx":62B2
          TabIndex        =   65
          Tag             =   "-1"
          Top             =   120
@@ -720,9 +695,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   0
-         ItemData        =   "frmMain.frx":20D32
+         ItemData        =   "frmMain.frx":62C0
          Left            =   840
-         List            =   "frmMain.frx":20D34
+         List            =   "frmMain.frx":62C2
          TabIndex        =   57
          Text            =   "1"
          Top             =   3120
@@ -744,9 +719,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   0
-         ItemData        =   "frmMain.frx":20D36
+         ItemData        =   "frmMain.frx":62C4
          Left            =   3360
-         List            =   "frmMain.frx":20D38
+         List            =   "frmMain.frx":62C6
          TabIndex        =   56
          Text            =   "1"
          Top             =   3120
@@ -787,9 +762,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   2580
          Index           =   1
-         ItemData        =   "frmMain.frx":20D3A
+         ItemData        =   "frmMain.frx":62C8
          Left            =   120
-         List            =   "frmMain.frx":20D3C
+         List            =   "frmMain.frx":62CF
          TabIndex        =   54
          Tag             =   "-1"
          Top             =   120
@@ -810,9 +785,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   3210
          Index           =   4
-         ItemData        =   "frmMain.frx":20D3E
+         ItemData        =   "frmMain.frx":62DD
          Left            =   120
-         List            =   "frmMain.frx":20D40
+         List            =   "frmMain.frx":62E4
          TabIndex        =   53
          Tag             =   "-1"
          Top             =   120
@@ -886,9 +861,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20D42
          mode            =   1
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cVerTriggers 
@@ -904,9 +878,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20D66
          mode            =   1
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cInsertarTrigger 
@@ -922,9 +895,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20D8A
          mode            =   1
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cAgregarFuncalAzar 
@@ -941,9 +913,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20DAE
          mode            =   0
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cQuitarFunc 
@@ -960,9 +931,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20DD2
          mode            =   1
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cInsertarFunc 
@@ -979,9 +949,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20DF6
          mode            =   1
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cVerBloqueos 
@@ -997,9 +966,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20E1A
          mode            =   1
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cInsertarBloqueo 
@@ -1015,9 +983,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20E3E
          mode            =   1
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cQuitarBloqueo 
@@ -1033,9 +1000,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20E62
          mode            =   1
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cAgregarFuncalAzar 
@@ -1052,9 +1018,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20E86
          mode            =   0
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cQuitarFunc 
@@ -1071,9 +1036,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20EAA
          mode            =   1
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cInsertarFunc 
@@ -1090,9 +1054,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20ECE
          mode            =   1
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cInsertarFunc 
@@ -1109,9 +1072,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20EF2
          mode            =   1
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cQuitarFunc 
@@ -1128,9 +1090,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20F16
          mode            =   1
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cAgregarFuncalAzar 
@@ -1147,9 +1108,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20F3A
          mode            =   0
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin VB.ComboBox cCantFunc 
@@ -1167,9 +1127,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   1
-         ItemData        =   "frmMain.frx":20F5E
+         ItemData        =   "frmMain.frx":62F2
          Left            =   840
-         List            =   "frmMain.frx":20F60
+         List            =   "frmMain.frx":62F4
          TabIndex        =   78
          Text            =   "1"
          Top             =   3120
@@ -1210,9 +1170,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   2580
          Index           =   2
-         ItemData        =   "frmMain.frx":20F62
+         ItemData        =   "frmMain.frx":62F6
          Left            =   120
-         List            =   "frmMain.frx":20F64
+         List            =   "frmMain.frx":62FD
          TabIndex        =   80
          Tag             =   "-1"
          Top             =   120
@@ -1234,9 +1194,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   1
-         ItemData        =   "frmMain.frx":20F66
+         ItemData        =   "frmMain.frx":630B
          Left            =   3360
-         List            =   "frmMain.frx":20F68
+         List            =   "frmMain.frx":630D
          TabIndex        =   81
          Text            =   "500"
          Top             =   3120
@@ -1624,9 +1584,8 @@ Begin VB.Form frmMain
          capalign        =   2
          backstyle       =   2
          cgradient       =   0
-         font            =   "frmMain.frx":20F6A
          mode            =   0
-         value           =   0
+         value           =   0   'False
          cback           =   -2147483633
       End
       Begin VB.Label lblMapVersion 
@@ -2462,7 +2421,7 @@ Private Sub PonerAlAzar(ByVal N As Integer, ByVal T As Byte)
 '*************************************************
 Dim objindex As Long
 Dim NPCIndex As Long
-Dim X As Long, y As Long, I As Long
+Dim X As Long, Y As Long, I As Long
 Dim Head As Integer
 Dim Body As Integer
 Dim Heading As Byte
@@ -2474,34 +2433,34 @@ modEdicion.Deshacer_Add "Aplicar " & IIf(T = 0, "Objetos", "NPCs") & " al Azar" 
 
 Do While I > 0
     X = CInt(RandomNumber(XMinMapSize, XMaxMapSize - 1))
-    y = CInt(RandomNumber(YMinMapSize, YMaxMapSize - 1))
+    Y = CInt(RandomNumber(YMinMapSize, YMaxMapSize - 1))
     
     Select Case T
         Case 0
-            If MapData(X, y).OBJInfo.objindex = 0 Then
+            If MapData(X, Y).OBJInfo.objindex = 0 Then
                 I = I - 1
                   
                 If cInsertarBloqueo.Value = True Then
-                    MapData(X, y).Blocked = 1
+                    MapData(X, Y).Blocked = 1
                 Else
-                    MapData(X, y).Blocked = 0
+                    MapData(X, Y).Blocked = 0
                 End If
                   
                 If cNumFunc(2).Text > 0 Then
                     objindex = cNumFunc(2).Text
-                    InitGrh MapData(X, y).ObjGrh, ObjData(objindex).grhIndex
-                    MapData(X, y).OBJInfo.objindex = objindex
-                    MapData(X, y).OBJInfo.Amount = Val(cCantFunc(2).Text)
+                    InitGrh MapData(X, Y).ObjGrh, ObjData(objindex).grhIndex
+                    MapData(X, Y).OBJInfo.objindex = objindex
+                    MapData(X, Y).OBJInfo.Amount = Val(cCantFunc(2).Text)
                     
                     Select Case ObjData(objindex).ObjType ' GS
                         Case 4, 8, 10, 22 ' Arboles, Carteles, Foros, Yacimientos
-                            MapData(X, y).Graphic(3) = MapData(X, y).ObjGrh
+                            MapData(X, Y).Graphic(3) = MapData(X, Y).ObjGrh
                     End Select
                 End If
             End If
             
         Case 1, 2
-           If MapData(X, y).Blocked = 0 Then
+           If MapData(X, Y).Blocked = 0 Then
                 I = I - 1
                 
                 If cNumFunc(T - 1).Text > 0 Then
@@ -2510,8 +2469,8 @@ Do While I > 0
                     Head = NpcData(NPCIndex).Head
                     Heading = NpcData(NPCIndex).Heading
                         
-                    Call MakeChar(NextOpenChar(), Body, Head, Heading, CInt(X), CInt(y))
-                    MapData(X, y).NPCIndex = NPCIndex
+                    Call MakeChar(NextOpenChar(), Body, Head, Heading, CInt(X), CInt(Y))
+                    MapData(X, Y).NPCIndex = NPCIndex
                 End If
             End If
     End Select
@@ -3023,12 +2982,12 @@ Select Case UCase$(Chr$(KeyAscii))
 End Select
 End Sub
 
-Private Sub Form_MouseUp(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub Form_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
 Dim tx As Integer
 Dim tY As Integer
 
 MouseX = X - MainViewShp.Left
-MouseY = y - MainViewShp.Top
+MouseY = Y - MainViewShp.Top
 
 'Trim to fit screen
 If MouseX < 0 Then
@@ -3045,7 +3004,7 @@ ElseIf MouseY > MainViewShp.Height Then
 End If
     
 'Make sure click is in view window
-If X <= MainViewShp.Left Or X >= MainViewShp.Left + MainViewWidth Or y <= MainViewShp.Top Or y >= MainViewShp.Top + MainViewHeight Then
+If X <= MainViewShp.Left Or X >= MainViewShp.Left + MainViewWidth Or Y <= MainViewShp.Top Or Y >= MainViewShp.Top + MainViewHeight Then
     Exit Sub
 End If
 
@@ -3114,7 +3073,7 @@ End If
 
 End Sub
 
-Private Sub lListado_MouseDown(index As Integer, Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub lListado_MouseDown(index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
 '*************************************************
 'Author: ^[GS]^
 'Last modified: 29/05/06
@@ -3124,7 +3083,7 @@ If index = 3 And Button = 2 Then
 End If
 End Sub
 
-Private Sub lListado_MouseMove(index As Integer, Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub lListado_MouseMove(index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
 '*************************************************
 'Author: ^[GS]^
 'Last modified: 22/05/06
@@ -3881,31 +3840,31 @@ mnuVerTriggers.Checked = cVerTriggers.Value
 bTriggers = mnuVerTriggers.Checked
 End Sub
 
-Private Sub picRadar_MouseDown(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub picRadar_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
 '*************************************************
 'Author: ^[GS]^
 'Last modified: 29/05/06
 '*************************************************
 If X < MinXBorder Then X = 11
 If X > MaxXBorder Then X = 89
-If y < MinYBorder Then y = 10
-If y > MaxYBorder Then y = 92
+If Y < MinYBorder Then Y = 10
+If Y > MaxYBorder Then Y = 92
 
 UserPos.X = X
-UserPos.y = y
+UserPos.Y = Y
 bRefreshRadar = True
 End Sub
 
-Private Sub picRadar_MouseMove(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub picRadar_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 '*************************************************
 'Author: ^[GS]^
 'Last modified: 28/05/06
 '*************************************************
 MiRadarX = X
-MiRadarY = y
+MiRadarY = Y
 End Sub
 
-Private Sub Form_MouseDown(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub Form_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
     '*************************************************
 'Author: Unkwown
 'Last modified: 20/05/06 - GS
@@ -3916,7 +3875,7 @@ Dim tY As Integer
 
 If Not MapaCargado Then Exit Sub
 
-If X <= MainViewShp.Left Or X >= MainViewShp.Left + MainViewWidth Or y <= MainViewShp.Top Or y >= MainViewShp.Top + MainViewHeight Then
+If X <= MainViewShp.Left Or X >= MainViewShp.Left + MainViewWidth Or Y <= MainViewShp.Top Or Y >= MainViewShp.Top + MainViewHeight Then
     Exit Sub
 End If
 
@@ -3928,7 +3887,7 @@ MouseDownX = tx
 MouseDownY = tY
 End Sub
 
-Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, y As Single)
+Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 '*************************************************
 'Author: Unkwown
 'Last modified: 20/05/06 - GS
@@ -3942,7 +3901,7 @@ If Not MapaCargado Then Exit Sub
 HotKeysAllow = True
 
 MouseX = X - MainViewShp.Left
-MouseY = y - MainViewShp.Top
+MouseY = Y - MainViewShp.Top
 
 'Trim to fit screen
 If MouseX < 0 Then
@@ -3959,7 +3918,7 @@ ElseIf MouseY > MainViewShp.Height Then
 End If
     
 'Make sure click is in view window
-If X <= MainViewShp.Left Or X >= MainViewShp.Left + MainViewWidth Or y <= MainViewShp.Top Or y >= MainViewShp.Top + MainViewHeight Then
+If X <= MainViewShp.Left Or X >= MainViewShp.Left + MainViewWidth Or Y <= MainViewShp.Top Or Y >= MainViewShp.Top + MainViewHeight Then
     Exit Sub
 End If
 
@@ -4004,7 +3963,7 @@ If frmMain.mnuGuardarUltimaConfig.Checked Then
     WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "NPCs", IIf(bVerNpcs, "1", "0")
     WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "Triggers", IIf(bTriggers, "1", "0")
     WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "Bloqueos", IIf(bBloqs, "1", "0")
-    WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "LastPos", UserPos.X & "-" & UserPos.y
+    WriteVar IniPath & "WorldEditor.ini", "MOSTRAR", "LastPos", UserPos.X & "-" & UserPos.Y
     
     WriteVar IniPath & "WorldEditor.ini", "CONFIGURACION", "UtilizarDeshacer", IIf(frmMain.mnuUtilizarDeshacer.Checked = True, "1", "0")
     WriteVar IniPath & "WorldEditor.ini", "CONFIGURACION", "AutoCapturarTrans", IIf(frmMain.mnuAutoCapturarTranslados.Checked = True, "1", "0")

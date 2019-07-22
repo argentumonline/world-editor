@@ -384,7 +384,7 @@ End If
 If myProps.bMode < lv_OptionButton And nMode = lv_OptionButton Then
     Call ToggleOptionButtons(1) ' add this instance to optionbutton collection
 End If
-If nMode = lv_CommandButton And myProps.bMode > lv_CommandButton Then Me.value = False
+If nMode = lv_CommandButton And myProps.bMode > lv_CommandButton Then Me.Value = False
 myProps.bMode = nMode
 RedrawButton
 PropertyChanged "Mode"
@@ -401,14 +401,14 @@ Attribute Caption.VB_MemberFlags = "200"
 
 ' Sets the button caption & hot key for the control
 
-Dim i As Integer, j As Integer
+Dim I As Integer, j As Integer
 ' We look from right to left. VB uses this logic & so do I
-i = InStrRev(sCaption, "&")
-Do While i
-    If mid$(sCaption, i, 2) = "&&" Then
-        i = InStrRev(i - 1, sCaption, "&")
+I = InStrRev(sCaption, "&")
+Do While I
+    If mid$(sCaption, I, 2) = "&&" Then
+        I = InStrRev(I - 1, sCaption, "&")
     Else
-        j = i + 1: i = 0
+        j = I + 1: I = 0
     End If
 Loop
 ' if found, we use the next character as a hot key
@@ -600,9 +600,9 @@ Public Property Get ShowFocusRect() As Boolean
 ShowFocusRect = myProps.bShowFocus
 End Property
 
-Public Property Let value(bValue As Boolean)
-Attribute value.VB_Description = "Applicable to only check box or option button modes: True or False"
-Attribute value.VB_UserMemId = 0
+Public Property Let Value(bValue As Boolean)
+Attribute Value.VB_Description = "Applicable to only check box or option button modes: True or False"
+Attribute Value.VB_UserMemId = 0
 
 ' For option button & check box modes
 
@@ -619,8 +619,8 @@ If bValue And myProps.bMode = lv_OptionButton Then Call ToggleOptionButtons(0)
 RedrawButton
 PropertyChanged "Value"
 End Property
-Public Property Get value() As Boolean
-value = myProps.bValue
+Public Property Get Value() As Boolean
+Value = myProps.bValue
 End Property
 
 Public Property Let PictureSize(nSize As ImageSizeConstants)
@@ -1024,7 +1024,7 @@ Private Function ToggleOptionButtons(nMode As Integer) As Boolean
 '         2) Add or remove option buttons from a collection
 '         3) Query option buttons to see if one is set to true
 
-Dim i As Integer, NrCtrls As Integer
+Dim I As Integer, NrCtrls As Integer
 Dim myObjRef As Long, tgtObjRef As Long
 
 NrCtrls = GetProp(CLng(Tag), "lv_OptCount")
@@ -1034,11 +1034,11 @@ If myProps.bValue And (NrCtrls > 0 Or nMode = 1) Then
     ' called when an option button is set to True; set others to false
     Dim optControl As lvButtons_H
     myObjRef = ObjPtr(Me)
-    For i = 1 To NrCtrls
-        tgtObjRef = GetProp(CLng(Tag), "lv_Obj" & i)
+    For I = 1 To NrCtrls
+        tgtObjRef = GetProp(CLng(Tag), "lv_Obj" & I)
         If tgtObjRef <> myObjRef Then
             CopyMemory optControl, tgtObjRef, &H4
-            optControl.value = False
+            optControl.Value = False
             CopyMemory optControl, 0&, &H4
         End If
     Next
@@ -1050,26 +1050,26 @@ Case 1: ' Add instance to window db
 Case -1: ' Remove instance from window db
     Dim bOffset As Boolean
     myObjRef = ObjPtr(Me)
-    For i = 1 To NrCtrls
-        tgtObjRef = GetProp(CLng(Tag), "lv_Obj" & i)
+    For I = 1 To NrCtrls
+        tgtObjRef = GetProp(CLng(Tag), "lv_Obj" & I)
         If tgtObjRef = myObjRef Then
             bOffset = -1
         Else
-            If bOffset Then SetProp CLng(Tag), "lv_Obj" & i, tgtObjRef
+            If bOffset Then SetProp CLng(Tag), "lv_Obj" & I, tgtObjRef
         End If
     Next
-    RemoveProp CLng(Tag), "lv_Obj" & i - 1
+    RemoveProp CLng(Tag), "lv_Obj" & I - 1
     If NrCtrls = 1 Then
         RemoveProp CLng(Tag), "lv_OptCount"
     Else
         SetProp CLng(Tag), "lv_OptCount", NrCtrls - 1
     End If
 Case 2: ' See if any option buttons have True values
-    For i = 1 To NrCtrls
-        tgtObjRef = GetProp(CLng(Tag), "lv_Obj" & i)
+    For I = 1 To NrCtrls
+        tgtObjRef = GetProp(CLng(Tag), "lv_Obj" & I)
         CopyMemory optControl, tgtObjRef, &H4
-        If optControl.value = True Then
-            i = NrCtrls + 1
+        If optControl.Value = True Then
+            I = NrCtrls + 1
             ToggleOptionButtons = True
         End If
         CopyMemory optControl, 0&, &H4
@@ -1342,7 +1342,7 @@ Private Sub CreateButtonRegion()
 
 ' this function creates the regions for the specific type of button style
 
-Dim rgnA As Long, rgn2Use As Long, i As Long
+Dim rgnA As Long, rgn2Use As Long, I As Long
 Dim lRatio As Single, lEdge As Long, rEdge As Long, Wd As Long
 Dim ptTRI(0 To 9) As POINTAPI
 
@@ -1380,28 +1380,28 @@ Select Case myProps.bShape
         OffsetRgn ButtonDC.ClipRgn, -tRect.Left + sRect.Left + 2, -tRect.Top + sRect.Top + 2
         ' create the outer edge border which won't need to be redrawn every time
         If myProps.bShape = lv_Custom3DBorder Then
-            i = myProps.bGradient
+            I = myProps.bGradient
             myProps.bGradient = lv_Top2Bottom
             DrawGradient vbWhite, vbGray
-            myProps.bGradient = i
+            myProps.bGradient = I
         Else
-            i = CreateSolidBrush(ConvertColor(curBackColor))
-            FrameRgn ButtonDC.hDC, rgn2Use, i, 1, 1
-            DeleteObject i
+            I = CreateSolidBrush(ConvertColor(curBackColor))
+            FrameRgn ButtonDC.hDC, rgn2Use, I, 1, 1
+            DeleteObject I
         End If
         SelectClipRgn ButtonDC.hDC, ButtonDC.ClipBorder
   Case lv_Round3D, lv_Round3DFixed, lv_RoundFlat
         rgn2Use = CreateEllipticRgn(0, 0, ScaleWidth, ScaleHeight)
         If myProps.bBackStyle <> 5 Then
             If myProps.bShape < lv_RoundFlat Then
-                i = myProps.bGradient
+                I = myProps.bGradient
                 myProps.bGradient = lv_Top2Bottom
                 DrawGradient vbWhite, vbGray
-                myProps.bGradient = i
+                myProps.bGradient = I
             Else
-                i = CreateSolidBrush(0)
-                FrameRgn ButtonDC.hDC, rgn2Use, i, 1, 1
-                DeleteObject i
+                I = CreateSolidBrush(0)
+                FrameRgn ButtonDC.hDC, rgn2Use, I, 1, 1
+                DeleteObject I
             End If
             SelectClipRgn ButtonDC.hDC, ButtonDC.ClipBorder
         End If
@@ -1670,7 +1670,7 @@ Const DSna = &H220326 '0x00220326
     Dim lBmMask As Long, lBmAndMem As Long, lBmColor As Long
     Dim lBmObjectOld As Long, lBmMemOld As Long, lBmColorOld As Long
     Dim lHDCMem As Long, lHDCscreen As Long, lHDCsrc As Long, lHDCMask As Long, lHDCcolor As Long
-    Dim X As Long, Y As Long, srcX As Long, srcY As Long
+    Dim X As Long, Y As Long, srcx As Long, srcy As Long
     Dim lRatio(0 To 1) As Single
     Dim hPalOld As Long, hPalMem As Long
     
@@ -1678,11 +1678,11 @@ Const DSna = &H220326 '0x00220326
     lHDCsrc = CreateCompatibleDC(lHDCscreen)     'Create a temporary HDC compatible to the Destination HDC
     SelectObject lHDCsrc, lBMPsource             'Select the bitmap
 
-        srcX = myImage.TransSize.X ' lNewBmpCx                  'Get width of bitmap
-        srcY = myImage.TransSize.Y ' lNewBmpCy                'Get height of bitmap
+        srcx = myImage.TransSize.X ' lNewBmpCx                  'Get width of bitmap
+        srcy = myImage.TransSize.Y ' lNewBmpCy                'Get height of bitmap
         
-        If bmpRect.Right = 0 Then bmpRect.Right = srcX Else srcX = bmpRect.Right - bmpRect.Left
-        If bmpRect.Bottom = 0 Then bmpRect.Bottom = srcY Else srcY = bmpRect.Bottom - bmpRect.Top
+        If bmpRect.Right = 0 Then bmpRect.Right = srcx Else srcx = bmpRect.Right - bmpRect.Left
+        If bmpRect.Bottom = 0 Then bmpRect.Bottom = srcy Else srcy = bmpRect.Bottom - bmpRect.Top
         
         If (destRect.Right) = 0 Then X = lNewBmpCx Else X = (destRect.Right - destRect.Left)
         If (destRect.Bottom) = 0 Then Y = lNewBmpCy Else Y = (destRect.Bottom - destRect.Top)
@@ -1702,9 +1702,9 @@ Const DSna = &H220326 '0x00220326
     lHDCMem = CreateCompatibleDC(lHDCscreen)
     lHDCcolor = CreateCompatibleDC(lHDCscreen)
     
-    lBmColor = CreateCompatibleBitmap(lHDCscreen, srcX, srcY)
+    lBmColor = CreateCompatibleBitmap(lHDCscreen, srcx, srcy)
     lBmAndMem = CreateCompatibleBitmap(lHDCscreen, X, Y)
-    lBmMask = CreateBitmap(srcX, srcY, 1&, 1&, ByVal 0&)
+    lBmMask = CreateBitmap(srcx, srcy, 1&, 1&, ByVal 0&)
     
     lBmColorOld = SelectObject(lHDCcolor, lBmColor)
     lBmMemOld = SelectObject(lHDCMem, lBmAndMem)
@@ -1726,20 +1726,20 @@ Const DSna = &H220326 '0x00220326
     SetBkColor lHDCcolor, GetBkColor(lHDCsrc)
     SetTextColor lHDCcolor, GetTextColor(lHDCsrc)
     
-    BitBlt lHDCcolor, 0&, 0&, srcX, srcY, lHDCsrc, bmpRect.Left, bmpRect.Top, vbSrcCopy
+    BitBlt lHDCcolor, 0&, 0&, srcx, srcy, lHDCsrc, bmpRect.Left, bmpRect.Top, vbSrcCopy
     
     SetBkColor lHDCcolor, lMask2Use
     SetTextColor lHDCcolor, vbWhite
     
-    BitBlt lHDCMask, 0&, 0&, srcX, srcY, lHDCcolor, 0&, 0&, vbSrcCopy
+    BitBlt lHDCMask, 0&, 0&, srcx, srcy, lHDCcolor, 0&, 0&, vbSrcCopy
     
     SetTextColor lHDCcolor, vbBlack
     SetBkColor lHDCcolor, vbWhite
-    BitBlt lHDCcolor, 0, 0, srcX, srcY, lHDCMask, 0, 0, DSna
+    BitBlt lHDCcolor, 0, 0, srcx, srcy, lHDCMask, 0, 0, DSna
 
-    StretchBlt lHDCMem, 0, 0, lNewBmpCx, lNewBmpCy, lHDCMask, 0&, 0&, srcX, srcY, vbSrcAnd
+    StretchBlt lHDCMem, 0, 0, lNewBmpCx, lNewBmpCy, lHDCMask, 0&, 0&, srcx, srcy, vbSrcAnd
     
-    StretchBlt lHDCMem, 0&, 0&, lNewBmpCx, lNewBmpCy, lHDCcolor, 0, 0, srcX, srcY, vbSrcPaint
+    StretchBlt lHDCMem, 0&, 0&, lNewBmpCx, lNewBmpCy, lHDCcolor, 0, 0, srcx, srcy, vbSrcPaint
     
     BitBlt lHDCdest, destRect.Left, destRect.Top, X, Y, lHDCMem, 0&, 0&, vbSrcCopy
     
@@ -1820,7 +1820,7 @@ Private Function ShadeColor(lColor As Long, shadeOffset As Integer, lessBlue As 
 ' Basically supply a value between -255 and +255. Positive numbers make
 ' the passed color lighter and negative numbers make the color darker
 
-Dim valRGB(0 To 2) As Integer, i As Integer
+Dim valRGB(0 To 2) As Integer, I As Integer
 
 CalcNewColor:
 valRGB(0) = (lColor And &HFF) + shadeOffset
@@ -1832,10 +1832,10 @@ Else
     valRGB(2) = (lColor And &HFF0000) / &HFF00& + shadeOffset
 End If
 
-For i = 0 To 2
-    If valRGB(i) > 255 Then valRGB(i) = 255
-    If valRGB(i) < 0 Then valRGB(i) = 0
-    If bInvert = True Then valRGB(i) = Abs(255 - valRGB(i))
+For I = 0 To 2
+    If valRGB(I) > 255 Then valRGB(I) = 255
+    If valRGB(I) < 0 Then valRGB(I) = 0
+    If bInvert = True Then valRGB(I) = Abs(255 - valRGB(I))
 Next
 ShadeColor = valRGB(0) + 256& * valRGB(1) + 65536 * valRGB(2)
 Erase valRGB
@@ -1971,7 +1971,7 @@ Private Sub DrawButtonBackground(bColor As Long, ActiveStatus As Integer, Active
 Call DrawCustomBorders(ActiveRegion)
 If ActiveRegion = 0 Then Exit Sub
 
-Dim i As Integer, bColor2Use As Long, rtnVal As Integer
+Dim I As Integer, bColor2Use As Long, rtnVal As Integer
 Dim focusOffset As Byte, isDown As Byte
 
 focusOffset = Abs(((myProps.bStatus And 1) = 1))
@@ -1995,8 +1995,8 @@ If myProps.bGradient And myProps.bValue = False And myProps.bShape < lv_CustomFl
     End If
 Else
     If myProps.bBackStyle = 2 And (UserControl.Enabled = True Or myProps.bMode > lv_CommandButton) Then
-        For i = 0 To ScaleHeight
-            DrawRect ButtonDC.hDC, 0, i, ScaleWidth, i + 1, ShadeColor(bColor2Use, -(25 / ScaleHeight) * i, True)
+        For I = 0 To ScaleHeight
+            DrawRect ButtonDC.hDC, 0, I, ScaleWidth, I + 1, ShadeColor(bColor2Use, -(25 / ScaleHeight) * I, True)
         Next
     Else
         DrawRect ButtonDC.hDC, 0, 0, ScaleWidth, ScaleHeight, bColor2Use
@@ -2022,13 +2022,13 @@ If MoveButton Then
 End If
 ActiveRegion = 1
 If bTimerActive = True Or ((myProps.bStatus And 6) = 6) Or myProps.bValue = True Or myProps.bBackStyle <> 5 Then
-    Dim tRegion As Long, tBrush As Long, i As Integer
+    Dim tRegion As Long, tBrush As Long, I As Integer
     If myProps.bShape < lv_RoundFlat Or myProps.bShape > lv_Round3D Then
         ' this little trick gives us a good edge to our round button
         ' Too simple really--draw over the entire button a gradient background
         ' then set a clipping region excluding the border size and draw the
         ' rest of the button. Text/images can't overlap the border this way
-        i = myProps.bGradient
+        I = myProps.bGradient
         ' hover buttons have no border, so we need to create it on demand
         SelectClipRgn ButtonDC.hDC, 0
         If myProps.bBackStyle = 5 Then
@@ -2067,7 +2067,7 @@ If bTimerActive = True Or ((myProps.bStatus And 6) = 6) Or myProps.bValue = True
                 End If
             End If
         End If
-        myProps.bGradient = i
+        myProps.bGradient = I
     Else
         If myProps.bValue = False And (myProps.bShape = lv_RoundFlat Or myProps.bShape = lv_CustomFlat) Then
             tRegion = CreateRectRgn(0, 0, 0, 0)
@@ -2094,8 +2094,8 @@ Private Sub DrawButtonBorder(polyPts() As POINTAPI, polyColors() As Long, Active
 
 ' This routine draws the border depending on the button style
 
-Dim i As Integer, j As Integer, xColorRef As Integer
-Dim lBorderStyle As Long, lastColor As Long
+Dim I As Integer, j As Integer, xColorRef As Integer
+Dim lBorderStyle As Long, lastcolor As Long
 Dim polyOffset As POINTAPI
 
 ' need to run special calculations for diagonal buttons
@@ -2109,32 +2109,32 @@ polyPts(1).X = 2 + polyOffset.X * 2: polyPts(1).Y = 2
 polyPts(2).X = myProps.bSegPts.Y - 3 + polyOffset.Y * 3: polyPts(2).Y = 2
 polyPts(3).X = ScaleWidth - 3 - polyOffset.Y * 3: polyPts(3).Y = ScaleHeight - 3
 polyPts(4).X = 1 + myProps.bSegPts.X - polyOffset.X * 4: polyPts(4).Y = ScaleHeight - 3
-For i = 5 To 9
-    polyPts(i).X = polyPts(i - 5).X + Choose(i - 4, polyOffset.X - 1, -1 - polyOffset.X, 1 - polyOffset.Y, 1 + polyOffset.Y, -1, -1)
-    polyPts(i).Y = polyPts(i - 5).Y + Choose(i - 4, 1, -1, -1, 1, 1, 1)
+For I = 5 To 9
+    polyPts(I).X = polyPts(I - 5).X + Choose(I - 4, polyOffset.X - 1, -1 - polyOffset.X, 1 - polyOffset.Y, 1 + polyOffset.Y, -1, -1)
+    polyPts(I).Y = polyPts(I - 5).Y + Choose(I - 4, 1, -1, -1, 1, 1, 1)
 Next
 polyPts(10).X = myProps.bSegPts.X - polyOffset.X: polyPts(10).Y = ScaleHeight - 1 + polyOffset.X
 polyPts(11).X = 0: polyPts(11).Y = 0
 polyPts(12).X = myProps.bSegPts.Y - 1 + polyOffset.Y: polyPts(12).Y = 0
 polyPts(13).X = ScaleWidth - 1: polyPts(13).Y = ScaleHeight - 1 + polyOffset.Y
 polyPts(14).X = myProps.bSegPts.X - 1 - polyOffset.X * 2: polyPts(14).Y = ScaleHeight - 1
-lastColor = -1
+lastcolor = -1
 
-For i = 0 To 13
-    Select Case i
-        Case Is < 4: xColorRef = i + 1
+For I = 0 To 13
+    Select Case I
+        Case Is < 4: xColorRef = I + 1
         Case Is > 8:
-            xColorRef = i - 1   ' next line used for dashed borders
+            xColorRef = I - 1   ' next line used for dashed borders
             If OuterBorderStyle > -1 Then lBorderStyle = OuterBorderStyle
-        Case Else: xColorRef = i
+        Case Else: xColorRef = I
     End Select
-    If (i <> 4 And i <> 9) Then
+    If (I <> 4 And I <> 9) Then
         ' if -1 is the color, we skip that level
         If polyColors(xColorRef) > -1 Then
             ' change the pen color if needed
-            If lastColor <> polyColors(xColorRef) Then SetButtonColors True, ButtonDC.hDC, cObj_Pen, polyColors(xColorRef), , , , lBorderStyle
-            Polyline ButtonDC.hDC, polyPts(i), 2
-            lastColor = polyColors(xColorRef)
+            If lastcolor <> polyColors(xColorRef) Then SetButtonColors True, ButtonDC.hDC, cObj_Pen, polyColors(xColorRef), , , , lBorderStyle
+            Polyline ButtonDC.hDC, polyPts(I), 2
+            lastcolor = polyColors(xColorRef)
         End If
     End If
 Next
@@ -2291,7 +2291,7 @@ End Sub
 
 Private Sub DrawGradient(ByVal Color1 As Long, ByVal Color2 As Long)
 Dim mRect As RECT
-Dim i As Long, rctOffset As Integer
+Dim I As Long, rctOffset As Integer
 Dim PixelStep As Long, rIndex As Long
 Dim Colors() As Long
 
@@ -2323,8 +2323,8 @@ End If
 ReDim Colors(0 To PixelStep - 1) As Long
 LoadGradientColors Colors(), Color1, Color2
 If myProps.bGradient > 2 Then mRect.Bottom = rctOffset Else mRect.Right = rctOffset
-For i = 0 To PixelStep - 1
-    If myProps.bGradient Mod 2 Then rIndex = i Else rIndex = PixelStep - i - 1
+For I = 0 To PixelStep - 1
+    If myProps.bGradient Mod 2 Then rIndex = I Else rIndex = PixelStep - I - 1
     DrawRect ButtonDC.hDC, mRect.Left, mRect.Top, mRect.Right, mRect.Bottom, Colors(rIndex)
     If myProps.bGradient > 2 Then
         OffsetRect mRect, 0, rctOffset
@@ -2335,7 +2335,7 @@ Next
 End Sub
 
 Private Sub LoadGradientColors(Colors() As Long, ByVal Color1 As Long, ByVal Color2 As Long)
-Dim i As Integer, j As Integer
+Dim I As Integer, j As Integer
 Dim sBase(0 To 2) As Single
 Dim xBase(0 To 2) As Long
 Dim lRatio(0 To 2) As Single
@@ -2356,10 +2356,10 @@ For j = 0 To 2
 Next
 Colors(0) = Color1
 For j = 1 To UBound(Colors)
-    For i = 0 To 2
-        sBase(i) = sBase(i) + lRatio(i)
-        If sBase(i) > 255 Then sBase(i) = 255
-        If sBase(i) < 0 Then sBase(i) = 0
+    For I = 0 To 2
+        sBase(I) = sBase(I) + lRatio(I)
+        If sBase(I) > 255 Then sBase(I) = 255
+        If sBase(I) < 0 Then sBase(I) = 0
     Next
     Colors(j) = Int(sBase(0)) + 256& * Int(sBase(1)) + 65536 * Int(sBase(2))
 Next
@@ -2568,7 +2568,7 @@ Private Sub UserControl_Click()
 If mButton = vbLeftButton Then
     If myProps.bMode > lv_CommandButton Then
         If myProps.bValue = True And myProps.bMode = lv_OptionButton Then Exit Sub
-        Me.value = Not myProps.bValue
+        Me.Value = Not myProps.bValue
     End If
     RaiseEvent Click
 End If
@@ -2691,7 +2691,7 @@ With PropBag
     myProps.bGradient = .ReadProperty("Gradient", 0)
     myProps.bGradientColor = .ReadProperty("cGradient", vbButtonFace)
     UserControl.ForeColor = .ReadProperty("cFore", vbButtonText)
-    Set UserControl.Font = .ReadProperty("Font")
+    'Set UserControl.Font = .ReadProperty("Font")
 '    If UserControl.FontName = "Webdings" Then Stop
     myProps.bShowFocus = .ReadProperty("Focus", True)
     myProps.bMode = .ReadProperty("Mode", 0)
@@ -2809,7 +2809,7 @@ Private Sub DrawButton_Win95(polyPts() As POINTAPI, polyColors() As Long, Active
 '==========================================================================
 
 Dim midShade As Long, darkShade As Long, liteShade As Long, backShade As Long
-Dim lColor As Long, fRect As RECT, i As Integer
+Dim lColor As Long, fRect As RECT, I As Integer
 
 If myProps.bMode = lv_CommandButton Or myProps.bValue = False Then
     backShade = adjBackColorUp
@@ -2877,7 +2877,7 @@ Private Sub DrawButton_Win31(polyPts() As POINTAPI, polyColors() As Long, Active
 '==========================================================================
 
 Dim backShade As Long, darkShade As Long, liteShade As Long
-Dim i As Integer, lColor As Long
+Dim I As Integer, lColor As Long
 
 If myProps.bMode = lv_CommandButton Or myProps.bValue = False Then
     backShade = adjBackColorUp
@@ -2916,12 +2916,12 @@ If myProps.bShape < lv_Round3D Then
     End If
     polyColors(2) = polyColors(1)
     polyColors(4) = polyColors(3)
-    For i = 5 To 6
-        polyColors(i) = polyColors(1)
-        polyColors(i + 2) = polyColors(3)
+    For I = 5 To 6
+        polyColors(I) = polyColors(1)
+        polyColors(I + 2) = polyColors(3)
     Next
-    For i = 9 To 12
-        polyColors(i) = vbBlack
+    For I = 9 To 12
+        polyColors(I) = vbBlack
     Next
     
     DrawButtonBorder polyPts(), polyColors(), ActiveStatus
@@ -2944,7 +2944,7 @@ Private Sub DrawButton_WinXP(polyPts() As POINTAPI, polyColors() As Long, Active
 '==========================================================================
 
 Dim backShade As Long, darkShade As Long, liteShade As Long, midShade As Long
-Dim i As Integer, lColor As Long
+Dim I As Integer, lColor As Long
 Dim cDisabled As Long, lGradientColor As Long
 
 If myProps.bMode > lv_CommandButton Then
@@ -3012,13 +3012,13 @@ ElseIf myProps.bShape < lv_RoundFlat Then
         polyColors(8) = Choose(ActiveStatus + 1, ShadeColor(lColor, -&H30, True), &HEF826B, ShadeColor(liteShade, &H10, True), &H96E7&)
         lColor = &H733C00
     Else
-        For i = 1 To 8
-            polyColors(i) = -1
+        For I = 1 To 8
+            polyColors(I) = -1
         Next
         lColor = ShadeColor(lColor, -&H54, True)
     End If
-    For i = 9 To 12
-        polyColors(i) = lColor
+    For I = 9 To 12
+        polyColors(I) = lColor
     Next
     
     DrawButtonBorder polyPts(), polyColors(), ActiveStatus
@@ -3044,7 +3044,7 @@ Private Sub DrawButton_Macintosh(polyPts() As POINTAPI, polyColors() As Long, Ac
 
 Dim backShade As Long, darkShade As Long, liteShade As Long, midShade As Long
 Dim lGradientColor As Long, lFocusColor As Long
-Dim i As Integer, lColor As Long
+Dim I As Integer, lColor As Long
 
 backShade = adjBackColorUp
 If myProps.bMode = lv_CommandButton Then
@@ -3115,8 +3115,8 @@ If myProps.bShape < lv_Round3D Then
     polyColors(5) = midShade: polyColors(6) = midShade
     polyColors(7) = darkShade: polyColors(8) = darkShade
     ' Outer Rectangle
-    For i = 9 To 12
-        polyColors(i) = vbBlack
+    For I = 9 To 12
+        polyColors(I) = vbBlack
     Next
     
     DrawButtonBorder polyPts(), polyColors(), ActiveStatus
@@ -3154,7 +3154,7 @@ Private Sub DrawButton_Flat(polyPts() As POINTAPI, polyColors() As Long, ActiveS
 '==========================================================================
 
 Dim darkShade As Long, liteShade As Long, backShade As Long
-Dim i As Integer, lColor As Long
+Dim I As Integer, lColor As Long
 
 If myProps.bMode = lv_CommandButton Or myProps.bValue = False Then
     backShade = adjBackColorUp
@@ -3176,8 +3176,8 @@ If myProps.bShape < lv_Round3D Then
     darkShade = vbGray
     liteShade = vbWhite
     ' inner rectangle & outer edges
-    For i = 1 To 8
-        polyColors(i) = -1
+    For I = 1 To 8
+        polyColors(I) = -1
     Next
     ' Outer Rectangle
     If (bKeyDown = True And myProps.bMode > lv_CommandButton) Or myProps.bValue = True Then
@@ -3209,7 +3209,7 @@ Private Sub DrawButton_Hover(polyPts() As POINTAPI, polyColors() As Long, Active
 ' a simple Exit Sub
 '==========================================================================
 
-Dim backShade As Long, i As Integer, lColor As Long, lFocusColor As Long
+Dim backShade As Long, I As Integer, lColor As Long, lFocusColor As Long
 
 If myProps.bMode = lv_CommandButton Or myProps.bValue = False Then
     backShade = adjBackColorUp
@@ -3236,8 +3236,8 @@ If myProps.bShape > lv_FullDiagonal And UserControl.Ambient.UserMode = False And
         SelectClipRgn ButtonDC.hDC, ButtonDC.ClipBorder
 Else
     If myProps.bShape < lv_Round3D Then
-        For i = 1 To 8
-            polyColors(i) = -1
+        For I = 1 To 8
+            polyColors(I) = -1
         Next
         If ((myProps.bStatus And 4) = 4) Or myProps.bValue = True Then
             If (bKeyDown = True And myProps.bMode > lv_CommandButton) Or myProps.bValue = True Then ActiveStatus = 2
@@ -3253,8 +3253,8 @@ Else
             Else
                 lColor = -1
             End If
-            For i = 9 To 12
-                polyColors(i) = lColor
+            For I = 9 To 12
+                polyColors(I) = lColor
             Next
         End If
         
@@ -3278,7 +3278,7 @@ Private Sub DrawButton_Netscape(polyPts() As POINTAPI, polyColors() As Long, Act
 '==========================================================================
 
 Dim backShade As Long, darkShade As Long, liteShade As Long
-Dim i As Integer, lColor As Long
+Dim I As Integer, lColor As Long
 
 If myProps.bMode = lv_CommandButton Or myProps.bValue = False Then
     backShade = adjBackColorUp
@@ -3300,8 +3300,8 @@ If myProps.bShape < lv_Round3D Then
     
     darkShade = vbGray
     liteShade = ShadeColor(&HDFDFDF, &H8, False)
-    For i = 1 To 4
-        polyColors(i) = -1
+    For I = 1 To 4
+        polyColors(I) = -1
     Next
     If (bKeyDown = True And myProps.bMode > lv_CommandButton) Or myProps.bValue = True Then
         ActiveStatus = 1
@@ -3333,7 +3333,7 @@ Private Sub DrawButton_Java(polyPts() As POINTAPI, polyColors() As Long, ActiveS
 '==========================================================================
 
 Dim backShade As Long, darkShade As Long, liteShade As Long
-Dim i As Integer, lColor As Long
+Dim I As Integer, lColor As Long
 
 backShade = adjBackColorUp
 If myProps.bMode = lv_CommandButton Then
@@ -3355,8 +3355,8 @@ If myProps.bShape < lv_Round3D Then
     darkShade = ShadeColor(vbGray, -&H1A, False)
     liteShade = vbWhite
     If UserControl.Enabled Or myProps.bMode > lv_CommandButton Then
-        For i = 1 To 4
-            polyColors(i) = -1
+        For I = 1 To 4
+            polyColors(I) = -1
         Next
         If myProps.bMode > lv_CommandButton Then
             If (myProps.bValue Or bKeyDown) Then ActiveStatus = 2 Else ActiveStatus = 3
@@ -3366,8 +3366,8 @@ If myProps.bShape < lv_Round3D Then
         polyColors(6) = polyColors(5)
         polyColors(7) = darkShade: polyColors(8) = darkShade
     Else
-        For i = 1 To 8
-            polyColors(i) = backShade
+        For I = 1 To 8
+            polyColors(I) = backShade
         Next
         liteShade = darkShade
     End If

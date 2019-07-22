@@ -249,9 +249,8 @@ Begin VB.Form frmMapInfo
       capalign        =   2
       backstyle       =   2
       cgradient       =   0
-      font            =   "frmMapInfo.frx":628A
       mode            =   0
-      value           =   0
+      value           =   0   'False
       cback           =   -2147483633
    End
    Begin WorldEditor.lvButtons_H cmdCerrar 
@@ -266,9 +265,8 @@ Begin VB.Form frmMapInfo
       capalign        =   2
       backstyle       =   2
       cgradient       =   0
-      font            =   "frmMapInfo.frx":62B6
       mode            =   0
-      value           =   0
+      value           =   0   'False
       cback           =   -2147483633
    End
    Begin VB.ComboBox txtMapRestringir 
@@ -282,9 +280,9 @@ Begin VB.Form frmMapInfo
          Strikethrough   =   0   'False
       EndProperty
       Height          =   330
-      ItemData        =   "frmMapInfo.frx":62E2
+      ItemData        =   "frmMapInfo.frx":628A
       Left            =   1680
-      List            =   "frmMapInfo.frx":62F5
+      List            =   "frmMapInfo.frx":628C
       TabIndex        =   12
       Text            =   "NO"
       Top             =   1920
@@ -327,9 +325,9 @@ Begin VB.Form frmMapInfo
          Strikethrough   =   0   'False
       EndProperty
       Height          =   330
-      ItemData        =   "frmMapInfo.frx":631C
+      ItemData        =   "frmMapInfo.frx":628E
       Left            =   1680
-      List            =   "frmMapInfo.frx":6329
+      List            =   "frmMapInfo.frx":6290
       TabIndex        =   10
       Top             =   1560
       Width           =   2655
@@ -345,9 +343,9 @@ Begin VB.Form frmMapInfo
          Strikethrough   =   0   'False
       EndProperty
       Height          =   330
-      ItemData        =   "frmMapInfo.frx":6346
+      ItemData        =   "frmMapInfo.frx":6292
       Left            =   1680
-      List            =   "frmMapInfo.frx":6353
+      List            =   "frmMapInfo.frx":6294
       TabIndex        =   9
       Top             =   1200
       Width           =   2655
