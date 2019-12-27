@@ -1,21 +1,31 @@
 VERSION 5.00
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.OCX"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Object = "{97FD4A65-A045-4F5C-8C6C-262505F7C013}#6.0#0"; "Argentum.ocx"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "WorldEditor"
-   ClientHeight    =   10740
+   ClientHeight    =   13680
    ClientLeft      =   390
    ClientTop       =   840
-   ClientWidth     =   15270
+   ClientWidth     =   21735
    Icon            =   "frmMain.frx":0000
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
-   ScaleHeight     =   716
+   ScaleHeight     =   912
    ScaleMode       =   3  'Pixel
-   ScaleWidth      =   1018
+   ScaleWidth      =   1449
    StartUpPosition =   1  'CenterOwner
    Visible         =   0   'False
    WindowState     =   2  'Maximized
+   Begin ArgentumOCX.MyPicture picMain 
+      Height          =   12015
+      Left            =   4560
+      TabIndex        =   100
+      Top             =   1440
+      Width           =   16455
+      _ExtentX        =   29025
+      _ExtentY        =   21193
+   End
    Begin VB.PictureBox picRadar 
       BackColor       =   &H00400040&
       BorderStyle     =   0  'None
@@ -94,20 +104,29 @@ Begin VB.Form frmMain
       TabIndex        =   46
       Top             =   30
       Width           =   1815
-      _extentx        =   3201
-      _extenty        =   1826
-      caption         =   "Tri&gger's (F12)"
-      capalign        =   2
-      backstyle       =   2
-      shape           =   1
-      cgradient       =   8421631
-      mode            =   1
-      value           =   0   'False
-      customclick     =   1
-      imgsize         =   24
-      imgalign        =   5
-      cback           =   -2147483633
-      lockhover       =   1
+      _ExtentX        =   3201
+      _ExtentY        =   1826
+      Caption         =   "Tri&gger's (F12)"
+      CapAlign        =   2
+      BackStyle       =   2
+      Shape           =   1
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Times New Roman"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      LockHover       =   1
+      cGradient       =   8421631
+      Mode            =   1
+      Value           =   0   'False
+      CustomClick     =   1
+      ImgAlign        =   5
+      ImgSize         =   24
+      cBack           =   -2147483633
    End
    Begin WorldEditor.lvButtons_H SelectPanel 
       Height          =   1035
@@ -116,20 +135,29 @@ Begin VB.Form frmMain
       TabIndex        =   45
       Top             =   30
       Width           =   2565
-      _extentx        =   4524
-      _extenty        =   1826
-      caption         =   "&Objetos (F11)"
-      capalign        =   2
-      backstyle       =   2
-      shape           =   3
-      cgradient       =   8421631
-      mode            =   1
-      value           =   0   'False
-      customclick     =   1
-      imgsize         =   24
-      imgalign        =   5
-      cback           =   -2147483633
-      lockhover       =   1
+      _ExtentX        =   4524
+      _ExtentY        =   1826
+      Caption         =   "&Objetos (F11)"
+      CapAlign        =   2
+      BackStyle       =   2
+      Shape           =   3
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Times New Roman"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      LockHover       =   1
+      cGradient       =   8421631
+      Mode            =   1
+      Value           =   0   'False
+      CustomClick     =   1
+      ImgAlign        =   5
+      ImgSize         =   24
+      cBack           =   -2147483633
    End
    Begin WorldEditor.lvButtons_H SelectPanel 
       Height          =   1035
@@ -138,20 +166,29 @@ Begin VB.Form frmMain
       TabIndex        =   44
       Top             =   30
       Width           =   2535
-      _extentx        =   4471
-      _extenty        =   1826
-      caption         =   "NPC's &Hostiles (F9)"
-      capalign        =   2
-      backstyle       =   2
-      shape           =   3
-      cgradient       =   8421631
-      mode            =   1
-      value           =   0   'False
-      customclick     =   1
-      imgsize         =   24
-      imgalign        =   5
-      cback           =   -2147483633
-      lockhover       =   1
+      _ExtentX        =   4471
+      _ExtentY        =   1826
+      Caption         =   "NPC's &Hostiles (F9)"
+      CapAlign        =   2
+      BackStyle       =   2
+      Shape           =   3
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Times New Roman"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      LockHover       =   1
+      cGradient       =   8421631
+      Mode            =   1
+      Value           =   0   'False
+      CustomClick     =   1
+      ImgAlign        =   5
+      ImgSize         =   24
+      cBack           =   -2147483633
    End
    Begin WorldEditor.lvButtons_H SelectPanel 
       Height          =   1035
@@ -160,20 +197,29 @@ Begin VB.Form frmMain
       TabIndex        =   43
       Top             =   30
       Width           =   2415
-      _extentx        =   4260
-      _extenty        =   1826
-      caption         =   "&NPC's (F8)"
-      capalign        =   2
-      backstyle       =   2
-      shape           =   3
-      cgradient       =   8421631
-      mode            =   1
-      value           =   0   'False
-      customclick     =   1
-      imgsize         =   24
-      imgalign        =   5
-      cback           =   -2147483633
-      lockhover       =   1
+      _ExtentX        =   4260
+      _ExtentY        =   1826
+      Caption         =   "&NPC's (F8)"
+      CapAlign        =   2
+      BackStyle       =   2
+      Shape           =   3
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Times New Roman"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      LockHover       =   1
+      cGradient       =   8421631
+      Mode            =   1
+      Value           =   0   'False
+      CustomClick     =   1
+      ImgAlign        =   5
+      ImgSize         =   24
+      cBack           =   -2147483633
    End
    Begin WorldEditor.lvButtons_H SelectPanel 
       Height          =   1035
@@ -182,20 +228,29 @@ Begin VB.Form frmMain
       TabIndex        =   42
       Top             =   30
       Width           =   2565
-      _extentx        =   4524
-      _extenty        =   1826
-      caption         =   "&Bloqueos (F7)"
-      capalign        =   2
-      backstyle       =   2
-      shape           =   3
-      cgradient       =   8421631
-      mode            =   1
-      value           =   0   'False
-      customclick     =   1
-      imgsize         =   24
-      imgalign        =   5
-      cback           =   -2147483633
-      lockhover       =   1
+      _ExtentX        =   4524
+      _ExtentY        =   1826
+      Caption         =   "&Bloqueos (F7)"
+      CapAlign        =   2
+      BackStyle       =   2
+      Shape           =   3
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Times New Roman"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      LockHover       =   1
+      cGradient       =   8421631
+      Mode            =   1
+      Value           =   0   'False
+      CustomClick     =   1
+      ImgAlign        =   5
+      ImgSize         =   24
+      cBack           =   -2147483633
    End
    Begin WorldEditor.lvButtons_H SelectPanel 
       Height          =   1035
@@ -204,19 +259,28 @@ Begin VB.Form frmMain
       TabIndex        =   41
       Top             =   30
       Width           =   2565
-      _extentx        =   4524
-      _extenty        =   1826
-      caption         =   "&Translados (F6)"
-      capalign        =   2
-      backstyle       =   2
-      shape           =   3
-      cgradient       =   8421631
-      mode            =   1
-      value           =   0   'False
-      imgsize         =   24
-      imgalign        =   5
-      cback           =   -2147483633
-      lockhover       =   1
+      _ExtentX        =   4524
+      _ExtentY        =   1826
+      Caption         =   "&Translados (F6)"
+      CapAlign        =   2
+      BackStyle       =   2
+      Shape           =   3
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Times New Roman"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      LockHover       =   1
+      cGradient       =   8421631
+      Mode            =   1
+      Value           =   0   'False
+      ImgAlign        =   5
+      ImgSize         =   24
+      cBack           =   -2147483633
    End
    Begin WorldEditor.lvButtons_H SelectPanel 
       Height          =   1035
@@ -225,20 +289,29 @@ Begin VB.Form frmMain
       TabIndex        =   40
       Top             =   30
       Width           =   1815
-      _extentx        =   3201
-      _extenty        =   1826
-      caption         =   "&Superficie (F5)"
-      capalign        =   2
-      backstyle       =   2
-      shape           =   2
-      cgradient       =   8421631
-      cfore           =   0
-      mode            =   1
-      value           =   0   'False
-      imgsize         =   24
-      imgalign        =   5
-      cfhover         =   0
-      cback           =   -2147483633
+      _ExtentX        =   3201
+      _ExtentY        =   1826
+      Caption         =   "&Superficie (F5)"
+      CapAlign        =   2
+      BackStyle       =   2
+      Shape           =   2
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Times New Roman"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      cFore           =   0
+      cFHover         =   0
+      cGradient       =   8421631
+      Mode            =   1
+      Value           =   0   'False
+      ImgAlign        =   5
+      ImgSize         =   24
+      cBack           =   -2147483633
    End
    Begin WorldEditor.lvButtons_H cmdQuitarFunciones 
       Height          =   435
@@ -247,15 +320,24 @@ Begin VB.Form frmMain
       ToolTipText     =   "Quitar Todas las Funciones Activadas"
       Top             =   1320
       Width           =   2655
-      _extentx        =   4683
-      _extenty        =   767
-      caption         =   "&Quitar Funciones (F4)"
-      capalign        =   2
-      backstyle       =   2
-      cgradient       =   0
-      mode            =   0
-      value           =   0   'False
-      cback           =   12632319
+      _ExtentX        =   4683
+      _ExtentY        =   767
+      Caption         =   "&Quitar Funciones (F4)"
+      CapAlign        =   2
+      BackStyle       =   2
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Times New Roman"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      cGradient       =   0
+      Mode            =   0
+      Value           =   0   'False
+      cBack           =   12632319
    End
    Begin VB.Timer TimAutoGuardarMapa 
       Enabled         =   0   'False
@@ -372,15 +454,24 @@ Begin VB.Form frmMain
          Top             =   1320
          Visible         =   0   'False
          Width           =   3855
-         _extentx        =   6800
-         _extenty        =   661
-         caption         =   "&Insertar Translado"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   1
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   6800
+         _ExtentY        =   661
+         Caption         =   "&Insertar Translado"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   1
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cInsertarTransOBJ 
          Height          =   375
@@ -389,15 +480,24 @@ Begin VB.Form frmMain
          Top             =   1680
          Visible         =   0   'False
          Width           =   3855
-         _extentx        =   6800
-         _extenty        =   661
-         caption         =   "Colocar automaticamente &Objeto"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   1
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   6800
+         _ExtentY        =   661
+         Caption         =   "Colocar automaticamente &Objeto"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   1
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cUnionManual 
          Height          =   375
@@ -406,15 +506,24 @@ Begin VB.Form frmMain
          Top             =   2160
          Visible         =   0   'False
          Width           =   3855
-         _extentx        =   6800
-         _extenty        =   661
-         caption         =   "&Union con Mapa Adyacente (manual)"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   1
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   6800
+         _ExtentY        =   661
+         Caption         =   "&Union con Mapa Adyacente (manual)"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   1
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cUnionAuto 
          Height          =   375
@@ -423,15 +532,24 @@ Begin VB.Form frmMain
          Top             =   2520
          Visible         =   0   'False
          Width           =   3855
-         _extentx        =   6800
-         _extenty        =   661
-         caption         =   "Union con Mapas &Adyacentes (auto)"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   0
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   6800
+         _ExtentY        =   661
+         Caption         =   "Union con Mapas &Adyacentes (auto)"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   0
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cQuitarTrans 
          Height          =   375
@@ -440,15 +558,24 @@ Begin VB.Form frmMain
          Top             =   3000
          Visible         =   0   'False
          Width           =   3855
-         _extentx        =   6800
-         _extenty        =   661
-         caption         =   "&Quitar Translados"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   1
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   6800
+         _ExtentY        =   661
+         Caption         =   "&Quitar Translados"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   1
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin VB.ComboBox cCapas 
          Appearance      =   0  'Flat
@@ -545,15 +672,24 @@ Begin VB.Form frmMain
          Top             =   3840
          Visible         =   0   'False
          Width           =   2175
-         _extentx        =   3836
-         _extenty        =   661
-         caption         =   "Quitar en &Capas 2 y 3"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   1
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   3836
+         _ExtentY        =   661
+         Caption         =   "Quitar en &Capas 2 y 3"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   1
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cQuitarEnEstaCapa 
          Height          =   375
@@ -562,15 +698,24 @@ Begin VB.Form frmMain
          Top             =   3480
          Visible         =   0   'False
          Width           =   2175
-         _extentx        =   3836
-         _extenty        =   661
-         caption         =   "&Quitar en esta Capa"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   1
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   3836
+         _ExtentY        =   661
+         Caption         =   "&Quitar en esta Capa"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   1
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cSeleccionarSuperficie 
          Height          =   735
@@ -579,15 +724,24 @@ Begin VB.Form frmMain
          Top             =   3480
          Visible         =   0   'False
          Width           =   1815
-         _extentx        =   3201
-         _extenty        =   1296
-         caption         =   "&Insertar Superficie"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   1
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   3201
+         _ExtentY        =   1296
+         Caption         =   "&Insertar Superficie"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   1
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin VB.ComboBox cNumFunc 
          Appearance      =   0  'Flat
@@ -855,15 +1009,24 @@ Begin VB.Form frmMain
          Top             =   3840
          Visible         =   0   'False
          Width           =   2175
-         _extentx        =   3836
-         _extenty        =   661
-         caption         =   "&Quitar Trigger's"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   1
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   3836
+         _ExtentY        =   661
+         Caption         =   "&Quitar Trigger's"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   1
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cVerTriggers 
          Height          =   375
@@ -872,15 +1035,24 @@ Begin VB.Form frmMain
          Top             =   3480
          Visible         =   0   'False
          Width           =   2175
-         _extentx        =   3836
-         _extenty        =   661
-         caption         =   "&Mostrar Trigger's"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   1
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   3836
+         _ExtentY        =   661
+         Caption         =   "&Mostrar Trigger's"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   1
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cInsertarTrigger 
          Height          =   735
@@ -889,15 +1061,24 @@ Begin VB.Form frmMain
          Top             =   3480
          Visible         =   0   'False
          Width           =   1815
-         _extentx        =   3201
-         _extenty        =   1296
-         caption         =   "&Insertar Trigger"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   1
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   3201
+         _ExtentY        =   1296
+         Caption         =   "&Insertar Trigger"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   1
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cAgregarFuncalAzar 
          Height          =   375
@@ -907,15 +1088,24 @@ Begin VB.Form frmMain
          Top             =   3480
          Visible         =   0   'False
          Width           =   2175
-         _extentx        =   3836
-         _extenty        =   661
-         caption         =   "Insetar NPC's al &Azar"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   0
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   3836
+         _ExtentY        =   661
+         Caption         =   "Insetar NPC's al &Azar"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   0
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cQuitarFunc 
          Height          =   375
@@ -925,15 +1115,24 @@ Begin VB.Form frmMain
          Top             =   3840
          Visible         =   0   'False
          Width           =   2175
-         _extentx        =   3836
-         _extenty        =   661
-         caption         =   "&Quitar NPC's"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   1
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   3836
+         _ExtentY        =   661
+         Caption         =   "&Quitar NPC's"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   1
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cInsertarFunc 
          Height          =   735
@@ -943,15 +1142,24 @@ Begin VB.Form frmMain
          Top             =   3480
          Visible         =   0   'False
          Width           =   1815
-         _extentx        =   3201
-         _extenty        =   1296
-         caption         =   "&Insertar NPC's"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   1
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   3201
+         _ExtentY        =   1296
+         Caption         =   "&Insertar NPC's"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   1
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cVerBloqueos 
          Height          =   495
@@ -960,15 +1168,24 @@ Begin VB.Form frmMain
          Top             =   120
          Visible         =   0   'False
          Width           =   4095
-         _extentx        =   7223
-         _extenty        =   873
-         caption         =   "&Mostrar Bloqueos"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   1
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   7223
+         _ExtentY        =   873
+         Caption         =   "&Mostrar Bloqueos"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   1
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cInsertarBloqueo 
          Height          =   735
@@ -977,15 +1194,24 @@ Begin VB.Form frmMain
          Top             =   720
          Visible         =   0   'False
          Width           =   4095
-         _extentx        =   7223
-         _extenty        =   1296
-         caption         =   "&Insertar Bloqueos"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   1
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   7223
+         _ExtentY        =   1296
+         Caption         =   "&Insertar Bloqueos"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   1
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cQuitarBloqueo 
          Height          =   735
@@ -994,15 +1220,24 @@ Begin VB.Form frmMain
          Top             =   1560
          Visible         =   0   'False
          Width           =   4095
-         _extentx        =   7223
-         _extenty        =   1296
-         caption         =   "&Quitar Bloqueos"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   1
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   7223
+         _ExtentY        =   1296
+         Caption         =   "&Quitar Bloqueos"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   1
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cAgregarFuncalAzar 
          Height          =   375
@@ -1012,15 +1247,24 @@ Begin VB.Form frmMain
          Top             =   3480
          Visible         =   0   'False
          Width           =   2175
-         _extentx        =   3836
-         _extenty        =   661
-         caption         =   "Insetar OBJ's al &Azar"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   0
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   3836
+         _ExtentY        =   661
+         Caption         =   "Insetar OBJ's al &Azar"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   0
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cQuitarFunc 
          Height          =   375
@@ -1030,15 +1274,24 @@ Begin VB.Form frmMain
          Top             =   3840
          Visible         =   0   'False
          Width           =   2175
-         _extentx        =   3836
-         _extenty        =   661
-         caption         =   "&Quitar OBJ's"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   1
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   3836
+         _ExtentY        =   661
+         Caption         =   "&Quitar OBJ's"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   1
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cInsertarFunc 
          Height          =   735
@@ -1048,15 +1301,24 @@ Begin VB.Form frmMain
          Top             =   3480
          Visible         =   0   'False
          Width           =   1815
-         _extentx        =   3201
-         _extenty        =   1296
-         caption         =   "&Insertar Objetos"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   1
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   3201
+         _ExtentY        =   1296
+         Caption         =   "&Insertar Objetos"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   1
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cInsertarFunc 
          Height          =   735
@@ -1066,15 +1328,24 @@ Begin VB.Form frmMain
          Top             =   3480
          Visible         =   0   'False
          Width           =   1815
-         _extentx        =   3201
-         _extenty        =   1296
-         caption         =   "&Insertar NPC's"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   1
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   3201
+         _ExtentY        =   1296
+         Caption         =   "&Insertar NPC's"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   1
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cQuitarFunc 
          Height          =   375
@@ -1084,15 +1355,24 @@ Begin VB.Form frmMain
          Top             =   3840
          Visible         =   0   'False
          Width           =   2175
-         _extentx        =   3836
-         _extenty        =   661
-         caption         =   "&Quitar NPC's"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   1
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   3836
+         _ExtentY        =   661
+         Caption         =   "&Quitar NPC's"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   1
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin WorldEditor.lvButtons_H cAgregarFuncalAzar 
          Height          =   375
@@ -1102,15 +1382,24 @@ Begin VB.Form frmMain
          Top             =   3480
          Visible         =   0   'False
          Width           =   2175
-         _extentx        =   3836
-         _extenty        =   661
-         caption         =   "Insetar NPC's al &Azar"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   0
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   3836
+         _ExtentY        =   661
+         Caption         =   "Insetar NPC's al &Azar"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   0
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin VB.ComboBox cCantFunc 
          Appearance      =   0  'Flat
@@ -1578,15 +1867,24 @@ Begin VB.Form frmMain
          TabIndex        =   96
          Top             =   600
          Width           =   3015
-         _extentx        =   5318
-         _extenty        =   661
-         caption         =   "&Información del Mapa"
-         capalign        =   2
-         backstyle       =   2
-         cgradient       =   0
-         mode            =   0
-         value           =   0   'False
-         cback           =   -2147483633
+         _ExtentX        =   5318
+         _ExtentY        =   661
+         Caption         =   "&Información del Mapa"
+         CapAlign        =   2
+         BackStyle       =   2
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+            Name            =   "Times New Roman"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         cGradient       =   0
+         Mode            =   0
+         Value           =   0   'False
+         cBack           =   -2147483633
       End
       Begin VB.Label lblMapVersion 
          AutoSize        =   -1  'True
@@ -2929,10 +3227,10 @@ Private Sub Form_Click()
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-Me.SetFocus
+picMain.SetFocus
 End Sub
 
-Private Sub Form_DblClick()
+Private Sub picMain_DblClick()
 '*************************************************
 'Author: ^[GS]^
 'Last modified: 28/05/06
@@ -2947,7 +3245,7 @@ If SobreX > 0 And SobreY > 0 Then
 End If
 End Sub
 
-Private Sub Form_KeyPress(KeyAscii As Integer)
+Private Sub picMain_KeyPress(KeyAscii As Integer)
 '*************************************************
 'Author: ^[GS]^
 'Last modified: 20/05/06
@@ -2982,35 +3280,27 @@ Select Case UCase$(Chr$(KeyAscii))
 End Select
 End Sub
 
-Private Sub Form_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub picMain_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
 Dim tx As Integer
 Dim tY As Integer
 
-MouseX = X - MainViewShp.Left
-MouseY = Y - MainViewShp.Top
-
-'Trim to fit screen
-If MouseX < 0 Then
-    MouseX = 0
-ElseIf MouseX > MainViewShp.Width Then
-    MouseX = MainViewShp.Width
-End If
-
-'Trim to fit screen
-If MouseY < 0 Then
-    MouseY = 0
-ElseIf MouseY > MainViewShp.Height Then
-    MouseY = MainViewShp.Height
-End If
-    
-'Make sure click is in view window
-If X <= MainViewShp.Left Or X >= MainViewShp.Left + MainViewWidth Or Y <= MainViewShp.Top Or Y >= MainViewShp.Top + MainViewHeight Then
-    Exit Sub
-End If
+MouseX = X
+MouseY = Y
 
 ConvertCPtoTP MouseX, MouseY, tx, tY
 
 If Button = vbLeftButton Then Call SelectTiles(True, tx, tY)
+End Sub
+
+Private Sub Form_Resize()
+    'TilePixelWidth = me.wi
+    'TilePixelHeight = 1
+    'Me.picMain.Width = Me.ScaleWidth - 1120
+    'Me.picMain.Height = Me.picMain.Width + 64
+    'TilePixelHeight = (Me.picMain.Height / 32) - 2
+    'TilePixelWidth = (Me.picMain.Width / 32) + 1
+    
+    'SetTileBuffer (Me.picMain.Height / 32) - 2, (Me.picMain.Height / 32)
 End Sub
 
 Private Sub lListado_Click(index As Integer)
@@ -3864,7 +4154,7 @@ MiRadarX = X
 MiRadarY = Y
 End Sub
 
-Private Sub Form_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub picMain_MouseDown(Button As Integer, Shift As Integer, X As Single, Y As Single)
     '*************************************************
 'Author: Unkwown
 'Last modified: 20/05/06 - GS
@@ -3875,10 +4165,6 @@ Dim tY As Integer
 
 If Not MapaCargado Then Exit Sub
 
-If X <= MainViewShp.Left Or X >= MainViewShp.Left + MainViewWidth Or Y <= MainViewShp.Top Or Y >= MainViewShp.Top + MainViewHeight Then
-    Exit Sub
-End If
-
 ConvertCPtoTP MouseX, MouseY, tx, tY
 
 ClickEdit Button, tx, tY
@@ -3887,7 +4173,7 @@ MouseDownX = tx
 MouseDownY = tY
 End Sub
 
-Private Sub Form_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub picMain_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
 '*************************************************
 'Author: Unkwown
 'Last modified: 20/05/06 - GS
@@ -3900,27 +4186,8 @@ Dim tY As Integer
 If Not MapaCargado Then Exit Sub
 HotKeysAllow = True
 
-MouseX = X - MainViewShp.Left
-MouseY = Y - MainViewShp.Top
-
-'Trim to fit screen
-If MouseX < 0 Then
-    MouseX = 0
-ElseIf MouseX > MainViewShp.Width Then
-    MouseX = MainViewShp.Width
-End If
-
-'Trim to fit screen
-If MouseY < 0 Then
-    MouseY = 0
-ElseIf MouseY > MainViewShp.Height Then
-    MouseY = MainViewShp.Height
-End If
-    
-'Make sure click is in view window
-If X <= MainViewShp.Left Or X >= MainViewShp.Left + MainViewWidth Or Y <= MainViewShp.Top Or Y >= MainViewShp.Top + MainViewHeight Then
-    Exit Sub
-End If
+MouseX = X
+MouseY = Y
 
 ConvertCPtoTP MouseX, MouseY, tx, tY
 

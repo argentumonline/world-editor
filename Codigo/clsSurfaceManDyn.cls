@@ -80,7 +80,7 @@ Private Declare Function GetTickCount Lib "kernel32" () As Long
 Private Const DIB_PAL_COLORS As Long = 1
 Private Const DIB_RGB_COLORS As Long = 0
 Private Declare Function SetDIBitsToDevice Lib "GDI32.dll" _
-    (ByVal hdc As Long, ByVal XDest As Long, ByVal YDest As Long, _
+    (ByVal hDC As Long, ByVal XDest As Long, ByVal YDest As Long, _
     ByVal dwWidth As Long, ByVal dwHeight As Long, ByVal xSrc As Long, _
     ByVal ySrc As Long, ByVal uStartScan As Long, ByVal CScanLine As Long, _
     lpBits As Any, lpbmi As BITMAPINFO, ByVal fuColorUse As Long) As Long
@@ -162,96 +162,7 @@ Private Property Get clsSurfaceManager_Surface(ByVal fileIndex As Long) As Direc
 End Property
 
 Private Function LoadSurface(ByVal fileIndex As Long) As DirectDrawSurface7
-'**************************************************************
-'Author: Nicolas Matias Gonzalez (NIGO)
-'Last Modify Date: 05/11/2009
-'Loads the surface named fileIndex + ".bmp" and inserts it to the
-'surface list in the listIndex position
-'**************************************************************
-On Error GoTo ErrHandler
 
-    Dim newSurface As SURFACE_ENTRY_DYN
-    Dim ddsd As DDSURFACEDESC2
-    Dim ddck As DDCOLORKEY
-    Dim data() As Byte
-    Dim bmpInfo As BITMAPINFO
-    Dim sDC As Long
-    
-    'get Bitmap
-    Call Get_Bitmap(ResourcePath, CStr(fileIndex) & ".BMP", bmpInfo, data)
-
-    'Set up the surface desc
-    ddsd.lFlags = DDSD_CAPS Or DDSD_HEIGHT Or DDSD_WIDTH
-    If useVideoMemory Then
-        ddsd.ddsCaps.lCaps = DDSCAPS_OFFSCREENPLAIN Or DDSCAPS_VIDEOMEMORY
-    Else
-        ddsd.ddsCaps.lCaps = DDSCAPS_OFFSCREENPLAIN Or DDSCAPS_SYSTEMMEMORY
-    End If
-    ddsd.lWidth = bmpInfo.bmiHeader.biWidth
-    ddsd.lHeight = bmpInfo.bmiHeader.biHeight
-        
-    With newSurface
-        .fileIndex = fileIndex
-        
-        'Set last access time (if we didn't we would reckon this texture as the one lru)
-        .lastAccess = GetTickCount
-        
-        'Load surface
-        Set .Surface = DirectDraw.CreateSurface(ddsd)
-        
-        sDC = .Surface.GetDC
-        
-        Call SetDIBitsToDevice(sDC, 0, 0, bmpInfo.bmiHeader.biWidth, bmpInfo.bmiHeader.biHeight, 0, 0, 0, bmpInfo.bmiHeader.biHeight, data(0), bmpInfo, DIB_RGB_COLORS)
-        
-        Call .Surface.ReleaseDC(sDC)
-        
-        'Set colorkey
-        ddck.high = 0
-        ddck.low = 0
-        Call .Surface.SetColorKey(DDCKEY_SRCBLT, ddck)
-        
-        'Retrieve the updated surface desc
-        Call .Surface.GetSurfaceDesc(ddsd)
-    End With
-    
-    'Insert surface to the list
-    With surfaceList(fileIndex Mod HASH_TABLE_SIZE)
-        .surfaceCount = .surfaceCount + 1
-        
-        ReDim Preserve .SurfaceEntry(1 To .surfaceCount) As SURFACE_ENTRY_DYN
-        
-        .SurfaceEntry(.surfaceCount) = newSurface
-        
-        Set LoadSurface = newSurface.Surface
-    End With
-    
-    'Update used bytes
-    usedBytes = usedBytes + ddsd.lHeight * ddsd.lPitch
-    
-    'Check if we have exceeded our allowed share of memory usage
-    Do While usedBytes > maxBytesToUse
-        'Remove a file. If no file could be removed we continue, if the file was previous to our surface we update the index
-        If Not RemoveLRU() Then
-            Exit Do
-        End If
-    Loop
-Exit Function
-
-ErrHandler:
-    If Err.Number = DDERR_OUTOFMEMORY Or Err.Number = DDERR_OUTOFVIDEOMEMORY Then
-        'Remove a surface and try again
-        If RemoveLRU() Then
-            Resume
-        Else
-            MsgBox "No hay memoria disponible! El programa abortará. Cierra algunos programas e intenta de nuevo"
-            End
-        End If
-    Else
-        MsgBox "Un error inesperado ocurrió al intentar cargar el gráfico " & CStr(fileIndex) & ".BMP" & ". " & vbCrLf & _
-                "El código de error es " & CStr(Err.Number) & " - " & Err.Description & vbCrLf & vbCrLf & "Copia este mensaje y notifica a los administradores.", _
-                vbOKOnly Or vbCritical Or vbExclamation, "Error"
-        End
-    End If
 End Function
 
 Private Function RemoveLRU() As Boolean

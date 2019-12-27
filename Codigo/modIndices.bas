@@ -45,7 +45,7 @@ On Error GoTo ErrorHandler
     Dim Grh As Long
     Dim Frame As Long
     Dim grhCount As Long
-    Dim Handle As Integer
+    Dim handle As Integer
     Dim fileVersion As Long
     Dim tmpSngl As Single
     
@@ -55,27 +55,27 @@ On Error GoTo ErrorHandler
     End If
     
     'Open files
-    Handle = FreeFile()
+    handle = FreeFile()
     
-    Open DirIndex & GraphicsFile For Binary Access Read As Handle
-    Seek Handle, 1
+    Open DirIndex & GraphicsFile For Binary Access Read As handle
+    Seek handle, 1
     
     'Get file version
-    Get Handle, , fileVersion
+    Get handle, , fileVersion
     
     'Get number of grhs
-    Get Handle, , grhCount
+    Get handle, , grhCount
     
     'Resize arrays
     ReDim GrhData(1 To grhCount) As GrhData
     
-    While Not EOF(Handle)
-        Get Handle, , Grh
+    While Not EOF(handle)
+        Get handle, , Grh
         
         If Grh Then
             With GrhData(Grh)
                 'Get number of frames
-                Get Handle, , .NumFrames
+                Get handle, , .NumFrames
                 If .NumFrames <= 0 Then GoTo ErrorHandler
                 
                 ReDim .Frames(1 To GrhData(Grh).NumFrames)
@@ -83,13 +83,13 @@ On Error GoTo ErrorHandler
                 If .NumFrames > 1 Then
                     'Read a animation GRH set
                     For Frame = 1 To .NumFrames
-                        Get Handle, , .Frames(Frame)
+                        Get handle, , .Frames(Frame)
                         If .Frames(Frame) <= 0 Or .Frames(Frame) > grhCount Then
                             GoTo ErrorHandler
                         End If
                     Next Frame
                     
-                    Get Handle, , .Speed
+                    Get handle, , .Speed
                     
                     If .Speed <= 0 Then GoTo ErrorHandler
                     
@@ -107,27 +107,29 @@ On Error GoTo ErrorHandler
                     If .TileHeight <= 0 Then GoTo ErrorHandler
                 Else
                     'Read in normal GRH data
-                    Get Handle, , .FileNum
-                    If .FileNum <= 0 Then GoTo ErrorHandler
+                    Get handle, , .fileNum
+                    If .fileNum <= 0 Then GoTo ErrorHandler
                     
-                    Get Handle, , GrhData(Grh).sX
+                    Get handle, , GrhData(Grh).sX
                     If .sX < 0 Then GoTo ErrorHandler
                     
-                    Get Handle, , .sY
+                    Get handle, , .sY
                     If .sY < 0 Then GoTo ErrorHandler
                     
-                    Get Handle, , .pixelWidth
+                    Get handle, , .pixelWidth
                     If .pixelWidth <= 0 Then GoTo ErrorHandler
                     
-                    Get Handle, , .pixelHeight
+                    Get handle, , .pixelHeight
                     If .pixelHeight <= 0 Then GoTo ErrorHandler
                     
                     ' Loading the normalized values used by wGL. Not used by the WE at this moment.
-                    Get Handle, , tmpSngl
-                    Get Handle, , tmpSngl
-                    Get Handle, , tmpSngl
-                    Get Handle, , tmpSngl
+                    Get handle, , .S0
+                    Get handle, , .T0
+                    Get handle, , .S1
+                    Get handle, , .T1
                     
+                    .S1 = .S0 + .S1
+                    .T1 = .T0 + .T1
                     
                     'Compute width and height
                     .TileWidth = .pixelWidth / TilePixelHeight
@@ -139,12 +141,12 @@ On Error GoTo ErrorHandler
         End If
     Wend
     
-    Close Handle
+    Close handle
     
     Exit Sub
 
 ErrorHandler:
-Close Handle
+Close handle
     MsgBox "Error al intentar cargar el Grh " & Grh & " de graficos.ind en " & DirIndex & vbCrLf & "Err: " & Err.Number & " - " & Err.Description, vbCritical + vbOKOnly
 
 End Sub
@@ -166,7 +168,7 @@ On Error GoTo Fallo
     End If
     
     Dim Leer As New clsIniReader
-    Dim I As Integer
+    Dim i As Integer
     
     Leer.Initialize IniPath & "GrhIndex\indices.ini"
     
@@ -175,19 +177,19 @@ On Error GoTo Fallo
     ReDim SupData(MaxSup) As SupData
     frmMain.lListado(0).Clear
     
-    For I = 0 To MaxSup
-        SupData(I).name = Leer.GetValue("REFERENCIA" & I, "Nombre")
-        SupData(I).Grh = Val(Leer.GetValue("REFERENCIA" & I, "GrhIndice"))
-        SupData(I).Width = Val(Leer.GetValue("REFERENCIA" & I, "Ancho"))
-        SupData(I).Height = Val(Leer.GetValue("REFERENCIA" & I, "Alto"))
-        SupData(I).block = IIf(Val(Leer.GetValue("REFERENCIA" & I, "Bloquear")) = 1, True, False)
-        SupData(I).Capa = Val(Leer.GetValue("REFERENCIA" & I, "Capa"))
-        frmMain.lListado(0).AddItem SupData(I).name & " - #" & I
-    Next I
+    For i = 0 To MaxSup
+        SupData(i).name = Leer.GetValue("REFERENCIA" & i, "Nombre")
+        SupData(i).Grh = Val(Leer.GetValue("REFERENCIA" & i, "GrhIndice"))
+        SupData(i).Width = Val(Leer.GetValue("REFERENCIA" & i, "Ancho"))
+        SupData(i).Height = Val(Leer.GetValue("REFERENCIA" & i, "Alto"))
+        SupData(i).block = IIf(Val(Leer.GetValue("REFERENCIA" & i, "Bloquear")) = 1, True, False)
+        SupData(i).Capa = Val(Leer.GetValue("REFERENCIA" & i, "Capa"))
+        frmMain.lListado(0).AddItem SupData(i).name & " - #" & i
+    Next i
     
     Exit Sub
 Fallo:
-    MsgBox "Error al intentar cargar el indice " & I & " de GrhIndex\indices.ini" & vbCrLf & "Err: " & Err.Number & " - " & Err.Description, vbCritical + vbOKOnly
+    MsgBox "Error al intentar cargar el indice " & i & " de GrhIndex\indices.ini" & vbCrLf & "Err: " & Err.Number & " - " & Err.Description, vbCritical + vbOKOnly
 End Sub
 
 ''
@@ -287,7 +289,7 @@ On Error GoTo Fallo
     End If
     
     Dim N As Integer
-    Dim I As Integer
+    Dim i As Integer
     
     N = FreeFile
     Open DirIndex & "Personajes.ind" For Binary Access Read As #N
@@ -300,21 +302,21 @@ On Error GoTo Fallo
         ReDim BodyData(1 To NumBodies) As tBodyData
         ReDim MisCuerpos(1 To NumBodies) As tIndiceCuerpo
         
-        For I = 1 To NumBodies
-            Get #N, , MisCuerpos(I)
+        For i = 1 To NumBodies
+            Get #N, , MisCuerpos(i)
             
-            InitGrh BodyData(I).Walk(1), MisCuerpos(I).Body(1), 0
-            InitGrh BodyData(I).Walk(2), MisCuerpos(I).Body(2), 0
-            InitGrh BodyData(I).Walk(3), MisCuerpos(I).Body(3), 0
-            InitGrh BodyData(I).Walk(4), MisCuerpos(I).Body(4), 0
+            InitGrh BodyData(i).Walk(1), MisCuerpos(i).Body(1), 0
+            InitGrh BodyData(i).Walk(2), MisCuerpos(i).Body(2), 0
+            InitGrh BodyData(i).Walk(3), MisCuerpos(i).Body(3), 0
+            InitGrh BodyData(i).Walk(4), MisCuerpos(i).Body(4), 0
             
-            BodyData(I).HeadOffset.X = MisCuerpos(I).HeadOffsetX
-            BodyData(I).HeadOffset.Y = MisCuerpos(I).HeadOffsetY
-        Next I
+            BodyData(i).HeadOffset.X = MisCuerpos(i).HeadOffsetX
+            BodyData(i).HeadOffset.Y = MisCuerpos(i).HeadOffsetY
+        Next i
     Close #N
 Exit Sub
 Fallo:
-    MsgBox "Error al intentar cargar el Cuerpo " & I & " de Personajes.ind en " & DirIndex & vbCrLf & "Err: " & Err.Number & " - " & Err.Description, vbCritical + vbOKOnly
+    MsgBox "Error al intentar cargar el Cuerpo " & i & " de Personajes.ind en " & DirIndex & vbCrLf & "Err: " & Err.Number & " - " & Err.Description, vbCritical + vbOKOnly
 
 End Sub
 
@@ -330,7 +332,7 @@ On Error GoTo Fallo
     End If
     
     Dim N As Integer
-    Dim I As Integer
+    Dim i As Integer
     Dim MisCabezas() As tIndiceCabeza
     
     N = FreeFile
@@ -344,19 +346,19 @@ On Error GoTo Fallo
         ReDim HeadData(0 To Numheads) As tHeadData
         ReDim MisCabezas(0 To Numheads) As tIndiceCabeza
         
-        For I = 1 To Numheads
-            Get #N, , MisCabezas(I)
-            If MisCabezas(I).Head(1) Then
-                Call InitGrh(HeadData(I).Head(1), MisCabezas(I).Head(1), 0)
-                Call InitGrh(HeadData(I).Head(2), MisCabezas(I).Head(2), 0)
-                Call InitGrh(HeadData(I).Head(3), MisCabezas(I).Head(3), 0)
-                Call InitGrh(HeadData(I).Head(4), MisCabezas(I).Head(4), 0)
+        For i = 1 To Numheads
+            Get #N, , MisCabezas(i)
+            If MisCabezas(i).Head(1) Then
+                Call InitGrh(HeadData(i).Head(1), MisCabezas(i).Head(1), 0)
+                Call InitGrh(HeadData(i).Head(2), MisCabezas(i).Head(2), 0)
+                Call InitGrh(HeadData(i).Head(3), MisCabezas(i).Head(3), 0)
+                Call InitGrh(HeadData(i).Head(4), MisCabezas(i).Head(4), 0)
             End If
-        Next I
+        Next i
     Close #N
 Exit Sub
 Fallo:
-    MsgBox "Error al intentar cargar la Cabeza " & I & " de Cabezas.ind en " & DirIndex & vbCrLf & "Err: " & Err.Number & " - " & Err.Description, vbCritical + vbOKOnly
+    MsgBox "Error al intentar cargar la Cabeza " & i & " de Cabezas.ind en " & DirIndex & vbCrLf & "Err: " & Err.Number & " - " & Err.Description, vbCritical + vbOKOnly
 
 End Sub
 

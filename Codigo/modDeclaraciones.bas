@@ -211,7 +211,7 @@ Public Type GrhData
     sX As Integer
     sY As Integer
     
-    FileNum As Long
+    fileNum As Long
     
     pixelWidth As Integer
     pixelHeight As Integer
@@ -224,7 +224,10 @@ Public Type GrhData
     
     Speed As Single
     
-    tmpSngl As Single
+    S0 As Single
+    T0 As Single
+    S1 As Single
+    T1 As Single
 End Type
 
 ' Cuerpos body.dat

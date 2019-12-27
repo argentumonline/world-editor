@@ -40,3 +40,29 @@ Public Function IsAppActive() As Boolean
 '***************************************************
     IsAppActive = (GetActiveWindow <> 0)
 End Function
+
+
+Public Sub LogError(ByVal errStr As String)
+
+    Dim path As String
+    Dim oFile As Integer
+    
+    Dim logsPath As String
+    logsPath = App.path & "\LOGS\"
+    
+    ' Check for logs folder
+    If Dir(logsPath, vbDirectory) = "" Then
+        Call MkDir(logsPath)
+    End If
+    
+    path = logsPath & "\Errores_" & format(Now, "yyyyMMdd") & ".log"
+    oFile = FreeFile
+    
+    Open path For Append As #oFile
+        Print #oFile, Time & " - " & errStr
+    Close #oFile
+  
+  Exit Sub
+  
+
+End Sub
