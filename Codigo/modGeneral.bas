@@ -31,6 +31,13 @@ Option Explicit
 
 Private lFrameTimer As Long
 
+Private intervalChecker As clsInterval
+Private Const KEY_CHECK_INTEVAL As Long = 50
+Private Sub InitGeneral()
+    Set intervalChecker = New clsInterval
+    Call intervalChecker.Init(KEY_CHECK_INTEVAL)
+End Sub
+
 ''
 ' Realiza acciones de desplasamiento segun las teclas que hallamos precionado
 '
@@ -53,6 +60,7 @@ Static LastMovement As Long
             Exit Sub
         End If
     End If
+    If Not intervalChecker.ICan Then Exit Sub
 
     If GetAsyncKeyState(vbKeyUp) < 0 Then
         If UserPos.Y > YMinMapSize Then
@@ -382,7 +390,7 @@ Dim OffsetCounterY As Integer
 Dim Chkflag As Integer
 
     If App.PrevInstance Then End
-    
+
     'Load ao.dat config file
     Call LoadClientSetup
     
@@ -446,6 +454,7 @@ Dim Chkflag As Integer
         frmCargando.L(5).Visible = True
     End If
     
+    Call InitGeneral
     Set TextDrawer = New clsTextDrawer
     Call TextDrawer.InitText(DirectDraw, ClientSetup.bUseVideo)
     
@@ -454,7 +463,7 @@ Dim Chkflag As Integer
     
     frmCargando.Hide
     frmMain.Show
-    modMapIO.NuevoMapa
+    'modMapIO.NuevoMapa
     
     Call ActualizarMosaico
     
@@ -463,7 +472,9 @@ Dim Chkflag As Integer
     Chkflag = 0
     dTiempoGT = GetTickCount
     CurLayer = 1
-    
+    MapaCargado = False
+    'clean the time(avoid the timeEngine overflow)
+    Call GetElapsedTime
     Do While prgRun
         'Sólo dibujamos si la ventana no está minimizada
         If frmMain.WindowState <> 1 And frmMain.Visible Then
@@ -479,8 +490,10 @@ Dim Chkflag As Integer
         If GetTickCount - lFrameTimer >= 1000 Then
             CaptionWorldEditor frmMain.Dialog.FileName, (MapInfo.Changed = 1)
             frmMain.FPS.Caption = "FPS: " & FPS
-            
             lFrameTimer = GetTickCount
+            FPS = 0
+        Else
+            FPS = FPS + 1
         End If
         
         If bRefreshRadar Then Call RefreshAllChars

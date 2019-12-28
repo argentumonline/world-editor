@@ -338,7 +338,7 @@ On Error Resume Next
 
     
  Dim Mode As Long
-    Mode = MODE_COMPATIBLE ' MODE_SYNCHRONISED MODE_COMPATIBLE
+    Mode = 0 'MODE_COMPATIBLE ' MODE_SYNCHRONISED MODE_COMPATIBLE
     
     If (wGL_Graphic.Create_Driver(DRIVER_DIRECT3D9, Mode, frmMain.picMain.hwnd, frmMain.picMain.ScaleWidth, frmMain.picMain.ScaleHeight)) = False Then
         MsgBox "No se pudo encontrar d3d9.dll. Esto puede deberse a que tu sistema operativo no es compatible, o que alguna de las librerías no está correctamente instalada o actualizada. " _
@@ -437,30 +437,29 @@ Public Sub ShowNextFrame(ByVal DisplayFormTop As Integer, ByVal DisplayFormLeft 
         End If
     End If
     
-                    Call wGL_Graphic.Use_Device(&H0)
-                    Call wGL_Graphic_Renderer.Update_Projection(&H0, frmMain.picMain.ScaleWidth, frmMain.picMain.ScaleHeight)
+    Call wGL_Graphic.Use_Device(&H0)
+    Call wGL_Graphic_Renderer.Update_Projection(&H0, frmMain.picMain.ScaleWidth, frmMain.picMain.ScaleHeight)
 
-                        g_Post_Effect_Uniform.Effect.X = 0
-                    
-                    
-                    Call wGL_Graphic.Use_Uniform(&H0, False, g_Post_Effect_Uniform, 1)
+        g_Post_Effect_Uniform.Effect.X = 0
     
-                    Dim destination As wGL_Rectangle, source As wGL_Rectangle
-                    destination.X1 = 0#: destination.X2 = frmMain.picMain.ScaleWidth: destination.Y1 = 0#: destination.Y2 = frmMain.picMain.ScaleHeight
-                    source.X1 = 0#: source.X2 = 1#: source.Y1 = 0#: source.Y2 = 1#
-                    Call wGL_Graphic_Renderer.Draw(destination, source, 0#, 0#, -1, g_Post_Effect_Material, g_Post_Effect_Technique)
-                        
-                    Call wGL_Graphic_Renderer.Flush
+    
+    Call wGL_Graphic.Use_Uniform(&H0, False, g_Post_Effect_Uniform, 1)
 
-                        '****** Update screen ******
-                    Call wGL_Graphic.Use_Device(g_Post_Effect_Device)
-                    
-                    Call wGL_Graphic.Clear(CLEAR_COLOR Or CLEAR_DEPTH Or CLEAR_STENCIL, &H0, 1#, 0)
-                    Call wGL_Graphic_Renderer.Update_Projection(&H0, frmMain.picMain.ScaleWidth, frmMain.picMain.ScaleHeight)
-                    
-                    
-                    Call RenderScreen(UserPos.X - AddtoUserPos.X, UserPos.Y - AddtoUserPos.Y, OffsetCounterX, OffsetCounterY)
-                        
+    Dim destination As wGL_Rectangle, source As wGL_Rectangle
+    destination.X1 = 0#: destination.X2 = frmMain.picMain.ScaleWidth: destination.Y1 = 0#: destination.Y2 = frmMain.picMain.ScaleHeight
+    source.X1 = 0#: source.X2 = 1#: source.Y1 = 0#: source.Y2 = 1#
+    Call wGL_Graphic_Renderer.Draw(destination, source, 0#, 0#, -1, g_Post_Effect_Material, g_Post_Effect_Technique)
+        
+    Call wGL_Graphic_Renderer.Flush
+
+        '****** Update screen ******
+    If MapaCargado Then
+        Call wGL_Graphic.Use_Device(g_Post_Effect_Device)
+        Call wGL_Graphic.Clear(CLEAR_COLOR Or CLEAR_DEPTH Or CLEAR_STENCIL, &H0, 1#, 0)
+        Call wGL_Graphic_Renderer.Update_Projection(&H0, frmMain.picMain.ScaleWidth, frmMain.picMain.ScaleHeight)
+        Call RenderScreen(UserPos.X - AddtoUserPos.X, UserPos.Y - AddtoUserPos.Y, OffsetCounterX, OffsetCounterY)
+        Call wGL_Graphic_Renderer.Flush
+    End If
                     'Call Dialogos.Render
             
                     'Call DialogosClanes.Draw(FuentesJuego.Guild)
@@ -470,21 +469,11 @@ Public Sub ShowNextFrame(ByVal DisplayFormTop As Integer, ByVal DisplayFormLeft 
                         'Call DrawRain
                     'End If
  
-                    Call wGL_Graphic_Renderer.Flush
+                    
     Call wGL_Graphic.Commit
-    'FPS update
-    If fpsLastCheck + 1000 < DirectX.TickCount Then
-        FPS = FramesPerSecCounter
-        FramesPerSecCounter = 1
-        fpsLastCheck = DirectX.TickCount
-    Else
-        FramesPerSecCounter = FramesPerSecCounter + 1
-    End If
     
     'Get timing info
-    timerElapsedTime = GetElapsedTime()
-    timerTicksPerFrame = timerElapsedTime * engineBaseSpeed
-    
+
         Dim Elapsed As Currency
         Elapsed = GetElapsedTime()
         timerTicksPerFrame = Elapsed * ENGINE_SPEED
@@ -664,23 +653,6 @@ On Error GoTo ErrHandler
                 If .Head.Head(.Heading).grhIndex Then
                     Call DrawGrh(.Head.Head(.Heading), PixelOffsetX + .Body.HeadOffset.X, PixelOffsetY + .Body.HeadOffset.Y, GetDepth(3, .Pos.X, .Pos.Y, 3), 1, 0, , , , True)
                 End If
-                
-                'Draw Helmet
-                'If .Casco.Head(.Heading).grhIndex Then
-                    'Call DrawGrh(.Casco.Head(.Heading), PixelOffsetX + .Body.HeadOffset.X, PixelOffsetY + .Body.HeadOffset.Y + OFFSET_HEAD, GetDepth(3, .Pos.X, .Pos.Y, 4), 1, 0, , , , True)
-                'End If
-                
-                'Draw Weapon
-                'If .Arma.WeaponWalk(.Heading).grhIndex Then _
-                    'Call DrawGrh(.Arma.WeaponWalk(.Heading), PixelOffsetX, PixelOffsetY, GetDepth(3, .Pos.X, .Pos.Y, 6), 1, 1, , 0, , True)
-                
-                'Draw Shield
-                'If .Escudo.ShieldWalk(.Heading).grhIndex Then _
-                    'Call DrawGrh(.Escudo.ShieldWalk(.Heading), PixelOffsetX, PixelOffsetY, GetDepth(3, .Pos.X, .Pos.Y, 5), 1, 1, , 0, , True)
-                
-                Dim fuente As tFuente
-                ' Set a default font.
-                fuente = FuentesJuego.FuenteBase
         End If
         
         ' Set chat text offsets
@@ -701,9 +673,6 @@ Public Sub DrawGrh(ByRef Grh As Grh, ByVal X As Integer, ByVal Y As Integer, ByV
 '*****************************************************************
 'Draws a GRH transparently to a X and Y position
 '*****************************************************************
-    If Grh.grhIndex = 0 Then
-     Exit Sub
-    End If
     Dim CurrentGrhIndex As Integer
     Dim CurrentFrame    As Integer
 

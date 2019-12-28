@@ -18,6 +18,7 @@ Begin VB.Form frmMain
    Visible         =   0   'False
    WindowState     =   2  'Maximized
    Begin ArgentumOCX.MyPicture picMain 
+      CausesValidation=   0   'False
       Height          =   12015
       Left            =   4560
       TabIndex        =   100
@@ -2712,6 +2713,8 @@ Option Explicit
 Public MouseX As Long
 Public MouseY As Long
 
+
+
 Private Sub PonerAlAzar(ByVal N As Integer, ByVal T As Byte)
 '*************************************************
 'Author: Unkwown
@@ -3229,7 +3232,6 @@ Private Sub Form_Click()
 '*************************************************
 picMain.SetFocus
 End Sub
-
 Private Sub picMain_DblClick()
 '*************************************************
 'Author: ^[GS]^
