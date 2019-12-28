@@ -68,6 +68,17 @@ Private g_Post_Effect_Technique As Integer
 Private g_Post_Effect_Uniform   As PostEffectUniform
 Private g_Rain_Material         As Integer
 Private GFX_PATH As String
+
+Public Declare Function InvalidateRect Lib "User32" (ByVal hwnd As Long, lpRect As RECT, ByVal bErase As Long) As Long
+Public Declare Function GetClientRect Lib "User32" (ByVal hwnd As Long, lpRect As RECT) As Long
+
+Public Sub Invalidate(ByVal hwnd As Long)
+    Dim udtRect As RECT
+
+    Call GetClientRect(hwnd, udtRect)
+    Call InvalidateRect(hwnd, udtRect, 1)
+End Sub
+
 Public Function GetImageFromNum(ByVal fileNum As Long) As Byte()
 On Error GoTo ErrHandler
   

@@ -28,8 +28,48 @@ Attribute VB_Name = "modPaneles"
 ' @date 20060530
 
 Option Explicit
+Private device As Integer
+Private pic As MyPicture
+Public Sub InitPanelModule(holder As MyPicture)
+    Set pic = holder
+    device = wGL_Graphic.Create_Device_From_Display(pic.hwnd, pic.ScaleWidth, pic.ScaleHeight)
+    
+    Call Invalidate(pic.hwnd)
+End Sub
 
-''
+Public Sub DestroyPanelModule()
+    wGL_Graphic.Destroy_Device (device)
+End Sub
+
+Public Sub Render()
+    Call wGL_Graphic.Use_Device(device)
+    Call wGL_Graphic.Clear(CLEAR_COLOR Or CLEAR_DEPTH Or CLEAR_STENCIL, &H0, 1#, 0)
+    Call wGL_Graphic_Renderer.Update_Projection(&H0, pic.ScaleWidth, pic.ScaleHeight)
+    
+    
+    If MosaicoChecked Then
+        Dim X As Integer, Y As Integer
+        
+        For X = 1 To mAncho
+            For Y = 1 To MAlto
+                If CurrentGrh(X, Y).grhIndex Then
+                    With GrhData(CurrentGrh(X, Y).grhIndex)
+                        Call DrawGrhIndex(.Frames(1), 0, 0, -1#, 0)
+                    End With
+                End If
+            Next Y
+        Next X
+    Else
+        If CurrentGrh(0).grhIndex > 0 Then
+            With GrhData(CurrentGrh(0).grhIndex)
+                Call DrawGrhIndex(.Frames(1), 0, 0, -1#, 0)
+            End With
+        End If
+    End If
+
+    Call wGL_Graphic_Renderer.Flush
+End Sub
+
 ' Activa/Desactiva el Estado de la Funcion en el Panel Superior
 '
 ' @param Numero Especifica en numero de funcion
@@ -54,13 +94,13 @@ Public Sub EstSelectPanel(ByVal Numero As Byte, ByVal Activado As Boolean)
                         bVerCapa(CurLayer) = True
                     End If
                 Case 2
-                    frmMain.cVerBloqueos.Tag = CInt(frmMain.cVerBloqueos.value)
-                    frmMain.cVerBloqueos.value = True
-                    frmMain.mnuVerBloqueos.Checked = frmMain.cVerBloqueos.value
+                    frmMain.cVerBloqueos.Tag = CInt(frmMain.cVerBloqueos.Value)
+                    frmMain.cVerBloqueos.Value = True
+                    frmMain.mnuVerBloqueos.Checked = frmMain.cVerBloqueos.Value
                 Case 6
-                    frmMain.cVerTriggers.Tag = CInt(frmMain.cVerTriggers.value)
-                    frmMain.cVerTriggers.value = True
-                    frmMain.mnuVerTriggers.Checked = frmMain.cVerTriggers.value
+                    frmMain.cVerTriggers.Tag = CInt(frmMain.cVerTriggers.Value)
+                    frmMain.cVerTriggers.Value = True
+                    frmMain.mnuVerTriggers.Checked = frmMain.cVerTriggers.Value
             End Select
         End If
     Else
@@ -78,12 +118,12 @@ Public Sub EstSelectPanel(ByVal Numero As Byte, ByVal Activado As Boolean)
                     End If
                 Case 2
                     If LenB(frmMain.cVerBloqueos.Tag) = 0 Then frmMain.cVerBloqueos.Tag = 0
-                    frmMain.cVerBloqueos.value = CBool(frmMain.cVerBloqueos.Tag)
-                    frmMain.mnuVerBloqueos.Checked = frmMain.cVerBloqueos.value
+                    frmMain.cVerBloqueos.Value = CBool(frmMain.cVerBloqueos.Tag)
+                    frmMain.mnuVerBloqueos.Checked = frmMain.cVerBloqueos.Value
                 Case 6
                     If LenB(frmMain.cVerTriggers.Tag) = 0 Then frmMain.cVerTriggers.Tag = 0
-                    frmMain.cVerTriggers.value = CBool(frmMain.cVerTriggers.Tag)
-                    frmMain.mnuVerTriggers.Checked = frmMain.cVerTriggers.value
+                    frmMain.cVerTriggers.Value = CBool(frmMain.cVerTriggers.Tag)
+                    frmMain.mnuVerTriggers.Checked = frmMain.cVerTriggers.Value
             End Select
         End If
     End If
@@ -182,13 +222,13 @@ Public Sub VerFuncion(ByVal Numero As Byte, ByVal Ver As Boolean, Optional Norma
     If Ver Then
         vMostrando = Numero
         If Numero < 0 Or Numero > 6 Then Exit Sub
-        If frmMain.SelectPanel(Numero).value = False Then
-            frmMain.SelectPanel(Numero).value = True
+        If frmMain.SelectPanel(Numero).Value = False Then
+            frmMain.SelectPanel(Numero).Value = True
         End If
     Else
         If Numero < 0 Or Numero > 6 Then Exit Sub
-        If frmMain.SelectPanel(Numero).value = True Then
-            frmMain.SelectPanel(Numero).value = False
+        If frmMain.SelectPanel(Numero).Value = True Then
+            frmMain.SelectPanel(Numero).Value = False
         End If
     End If
 End Sub
@@ -205,7 +245,7 @@ Public Sub Filtrar(ByVal Numero As Byte)
 '*************************************************
 
     Dim vDatos As String
-    Dim i As Long
+    Dim I As Long
     Dim Filtro As String
     
     If frmMain.cFiltro(Numero).ListCount > 5 Then
@@ -219,43 +259,43 @@ Public Sub Filtrar(ByVal Numero As Byte)
     
     Select Case Numero
         Case 0 ' superficie
-            For i = 0 To MaxSup
-                vDatos = SupData(i).name
+            For I = 0 To MaxSup
+                vDatos = SupData(I).name
                 
                 If (LenB(Filtro) = 0) Or (InStr(1, UCase$(vDatos), UCase$(Filtro))) Then
-                    frmMain.lListado(Numero).AddItem vDatos & " - #" & i
+                    frmMain.lListado(Numero).AddItem vDatos & " - #" & I
                 End If
-            Next i
+            Next I
             
         Case 1 ' NPCs
-            For i = 1 To NumNPCs
-                If Not NpcData(i).Hostile Then
-                    vDatos = NpcData(i).name
+            For I = 1 To NumNPCs
+                If Not NpcData(I).Hostile Then
+                    vDatos = NpcData(I).name
                     
                     If (LenB(Filtro) = 0) Or (InStr(1, UCase$(vDatos), UCase$(Filtro))) Then
-                        frmMain.lListado(Numero).AddItem vDatos & " - #" & i
+                        frmMain.lListado(Numero).AddItem vDatos & " - #" & I
                     End If
                 End If
-            Next i
+            Next I
         Case 2 ' NPCs Hostiles
-            For i = 1 To NumNPCs
-                If NpcData(i).Hostile Then
-                    vDatos = NpcData(i).name
+            For I = 1 To NumNPCs
+                If NpcData(I).Hostile Then
+                    vDatos = NpcData(I).name
                     
                     If (LenB(Filtro) = 0) Or (InStr(1, UCase$(vDatos), UCase$(Filtro))) Then
-                        frmMain.lListado(Numero).AddItem vDatos & " - #" & i
+                        frmMain.lListado(Numero).AddItem vDatos & " - #" & I
                     End If
                 End If
-            Next i
+            Next I
             
         Case 3 ' Objetos
-            For i = 1 To NumOBJs
-                vDatos = ObjData(i).name
+            For I = 1 To NumOBJs
+                vDatos = ObjData(I).name
                 
                 If (LenB(Filtro) = 0) Or (InStr(1, UCase$(vDatos), UCase$(Filtro))) Then
-                    frmMain.lListado(Numero).AddItem vDatos & " - #" & i
+                    frmMain.lListado(Numero).AddItem vDatos & " - #" & I
                 End If
-            Next i
+            Next I
     End Select
 End Sub
 
@@ -279,7 +319,7 @@ Else
 End If
 
 Call fPreviewGrh(frmMain.cGrh.Text)
-Call VistaPreviaDeSup
+Call Render
 End Sub
 
 Public Sub fPreviewGrh(ByVal GrhIn As Integer)
@@ -288,7 +328,7 @@ Public Sub fPreviewGrh(ByVal GrhIn As Integer)
 'Last modified: 22/05/06
 '*************************************************
 Dim X As Byte
-Dim y As Byte
+Dim Y As Byte
 
 If Val(GrhIn) < 1 Then
     frmMain.cGrh.Text = UBound(GrhData)
@@ -301,18 +341,18 @@ If Val(GrhIn) > UBound(GrhData) Then
 End If
 
 If MosaicoChecked Then
-    For y = 1 To MAlto
+    For Y = 1 To MAlto
         For X = 1 To mAncho
             'Change CurrentGrh
             If Not fullyBlack(GrhIn) Then
-                InitGrh CurrentGrh(X, y), GrhIn
+                InitGrh CurrentGrh(X, Y), GrhIn
             Else
-                InitGrh CurrentGrh(X, y), 0
+                InitGrh CurrentGrh(X, Y), 0
             End If
             
             GrhIn = GrhIn + 1
         Next X
-    Next y
+    Next Y
 Else
     If Not fullyBlack(GrhIn) Then
         InitGrh CurrentGrh(0), GrhIn
@@ -320,61 +360,4 @@ Else
         InitGrh CurrentGrh(0), 0
     End If
 End If
-End Sub
-
-''
-' Indica la accion de mostrar Vista Previa de la Superficie seleccionada
-'
-
-Public Sub VistaPreviaDeSup()
-'*************************************************
-'Author: ^[GS]^
-'Last modified: 26/05/06
-'*************************************************
-Dim SR As RECT, DR As RECT
-    
-    frmGrafico.ShowPic = frmGrafico.Picture1
-    
-    If MosaicoChecked Then
-        Dim X As Integer, y As Integer
-        
-        For X = 1 To mAncho
-            For y = 1 To MAlto
-                If CurrentGrh(X, y).grhIndex Then
-                    With GrhData(CurrentGrh(X, y).grhIndex)
-                        DR.Left = (X - 1) * .pixelWidth
-                        DR.Top = (y - 1) * .pixelHeight
-                        DR.Right = X * .pixelWidth
-                        DR.Bottom = y * .pixelHeight
-                        
-                        SR.Left = .sX
-                        SR.Top = .sY
-                        SR.Right = SR.Left + .pixelWidth
-                        SR.Bottom = SR.Top + .pixelHeight
-                        
-                        Call DrawGrhtoHdc(frmGrafico.ShowPic.hdc, .Frames(1), SR, DR)
-                    End With
-                End If
-            Next y
-        Next X
-    Else
-        If CurrentGrh(0).grhIndex Then
-            With GrhData(CurrentGrh(0).grhIndex)
-                DR.Left = 0
-                DR.Top = 0
-                DR.Bottom = .pixelHeight
-                DR.Right = .pixelWidth
-                
-                SR.Left = .sX
-                SR.Top = .sY
-                SR.Right = SR.Left + .pixelWidth
-                SR.Bottom = SR.Top + .pixelHeight
-                
-                Call DrawGrhtoHdc(frmGrafico.ShowPic.hdc, .Frames(1), SR, DR)
-            End With
-        End If
-    End If
-        
-    frmGrafico.ShowPic.Picture = frmGrafico.ShowPic.Image
-    frmMain.PreviewGrh = frmGrafico.ShowPic
 End Sub

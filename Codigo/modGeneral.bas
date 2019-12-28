@@ -462,6 +462,7 @@ Dim Chkflag As Integer
     
     Call InitGeneral
     Call modEdicion.InitEditionModule
+    Call modPaneles.InitPanelModule(frmMain.PreviewGrh)
     
     Set TextDrawer = New clsTextDrawer
     Call TextDrawer.InitText(DirectDraw, ClientSetup.bUseVideo)
@@ -506,7 +507,7 @@ Dim Chkflag As Integer
         
         If bRefreshRadar Then Call RefreshAllChars
 
-        'If frmMain.PreviewGrh.Visible Then Call modPaneles.VistaPreviaDeSup
+        'If frmMain.PreviewGrh.Visible Then Call modPaneles.Render
         DoEvents
     Loop
         
