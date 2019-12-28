@@ -138,190 +138,9 @@ Dim MyMaxY As Byte
         srcRect.Right = 83 * 32
     End If
 
-    Call renderSurface.BltColorFill(srcRect, 0)
+   ' Call renderSurface.BltColorFill(srcRect, 0)
     
-    If RenderAll = 1 Then
-        frmRenderAll.pgbProgress.Value = frmRenderAll.pgbProgress.Value + 1
-        frmRenderAll.lblEstado.Caption = "Renderizado de primer capa - 20%"
-    End If
-    'Draw floor layer
-    For Y = MyMinY To MyMaxY
-        For X = MyMinX To MyMaxX
-            If RenderAll = 0 Then
-                'Layer 1 **********************************
-                If MapData(X, Y).Graphic(1).grhIndex <> 0 Then
-                    Call DDrawGrhtoSurface(renderSurface, MapData(X, Y).Graphic(1), _
-                        (X - 1) * TilePixelWidth, _
-                        (Y - 1) * TilePixelHeight, _
-                        0, 1)
-                End If
-                '******************************************
-                frmRender.pgbProgress.Value = frmRender.pgbProgress.Value + 1
-                frmRender.lblEstado.Caption = "Renderizado de primer capa - " & (Y - 1) + (X / 100) & "%"
-            Else
-                'Layer 1 **********************************
-                If MapData(X, Y).Graphic(1).grhIndex <> 0 Then
-                    Call DDrawGrhtoSurface(renderSurface, MapData(X, Y).Graphic(1), _
-                        (X - 9) * TilePixelWidth, _
-                        (Y - 7) * TilePixelHeight, _
-                        0, 1)
-                End If
-                '******************************************
-            End If
-            DoEvents
-        Next X
-    Next Y
 
-    If RenderAll = 1 Then
-        frmRenderAll.pgbProgress.Value = frmRenderAll.pgbProgress.Value + 1
-        frmRenderAll.lblEstado.Caption = "Renderizado de segunda capa - 40%"
-    End If
-    
-    'Draw floor layer 2
-    For Y = MyMinY To MyMaxY
-        For X = MyMinX To MyMaxX
-            If RenderAll = 0 Then
-                'Layer 2 **********************************
-                If (MapData(X, Y).Graphic(2).grhIndex <> 0) And bVerCapa(2) Then
-                    Call DDrawTransGrhtoSurface(renderSurface, MapData(X, Y).Graphic(2), _
-                            (X - 1) * TilePixelWidth, _
-                            (Y - 1) * TilePixelHeight, _
-                            1, 1)
-                End If
-                '******************************************
-                frmRender.pgbProgress.Value = frmRender.pgbProgress.Value + 1
-                frmRender.lblEstado = "Renderizado de segunda capa - " & (Y - 1) + (X / 100) & "%"
-            Else
-                'Layer 2 **********************************
-                If (MapData(X, Y).Graphic(2).grhIndex <> 0) And bVerCapa(2) Then
-                    Call DDrawTransGrhtoSurface(renderSurface, MapData(X, Y).Graphic(2), _
-                            (X - 9) * TilePixelWidth, _
-                            (Y - 7) * TilePixelHeight, _
-                            1, 1)
-                End If
-                '******************************************
-            End If
-            DoEvents
-        Next X
-    Next Y
-    
-    If RenderAll = 1 Then
-        frmRenderAll.pgbProgress.Value = frmRenderAll.pgbProgress.Value + 1
-        frmRenderAll.lblEstado.Caption = "Renderizado de objetos y tercera capa - 60%"
-    End If
-    
-    'Draw Transparent Layers
-    For Y = MyMinY To MyMaxY
-        For X = MyMinX To MyMaxX
-            If RenderAll = 0 Then
-                PixelOffsetXTemp = (X - 1) * TilePixelWidth
-                PixelOffsetYTemp = (Y - 1) * TilePixelHeight
-            Else
-                PixelOffsetXTemp = (X - 9) * TilePixelWidth
-                PixelOffsetYTemp = (Y - 7) * TilePixelHeight
-            End If
-            
-            With MapData(X, Y)
-                'Object Layer **********************************
-                If (.ObjGrh.grhIndex <> 0) And bVerObjetos Then
-                    Call DDrawTransGrhtoSurface(renderSurface, .ObjGrh, _
-                            PixelOffsetXTemp, PixelOffsetYTemp, 1, 1)
-                End If
-                '***********************************************
-                
-                'Layer 3 *****************************************
-                If (.Graphic(3).grhIndex <> 0) And bVerCapa(3) Then
-                    'Draw
-                    Call DDrawTransGrhtoSurface(renderSurface, .Graphic(3), _
-                            PixelOffsetXTemp, PixelOffsetYTemp, 1, 1)
-                End If
-                '************************************************
-                
-                If RenderAll = 0 Then
-                    frmRender.pgbProgress.Value = frmRender.pgbProgress.Value + 1
-                    frmRender.lblEstado.Caption = "Renderizado de objetos y tercer capa - " & (Y - 1) + (X / 100) & "%"
-                End If
-                DoEvents
-            End With
-        Next X
-    Next Y
-    
-    Grh.FrameCounter = 1
-    Grh.Started = 0
-    
-    If RenderAll = 1 Then
-        frmRenderAll.pgbProgress.Value = frmRenderAll.pgbProgress.Value + 1
-        frmRenderAll.lblEstado.Caption = "Renderizado de cuarta capa - 80%"
-    End If
-    
-    'Draw layer 4
-    For Y = MyMinY To MyMaxY
-        For X = MyMinX To MyMaxX
-            With MapData(X, Y)
-                If RenderAll = 0 Then
-                    'Layer 4 **********************************
-                    If (.Graphic(4).grhIndex <> 0) And bVerCapa(4) Then
-                        'Draw
-                        Call DDrawTransGrhtoSurface(renderSurface, .Graphic(4), _
-                            (X - 1) * TilePixelWidth, _
-                            (Y - 1) * TilePixelHeight, _
-                            1, 1)
-                    End If
-                    '**********************************
-                    frmRender.pgbProgress.Value = frmRender.pgbProgress.Value + 1
-                    frmRender.lblEstado.Caption = "Renderizado de cuarta capa - " & (Y - 1) + (X / 100) & "%"
-                Else
-                    'Layer 4 **********************************
-                    If (.Graphic(4).grhIndex <> 0) And bVerCapa(4) Then
-                        'Draw
-                        Call DDrawTransGrhtoSurface(renderSurface, .Graphic(4), _
-                            (X - 9) * TilePixelWidth, _
-                            (Y - 7) * TilePixelHeight, _
-                            1, 1)
-                    End If
-                    '**********************************
-                End If
-                DoEvents
-            End With
-        Next X
-    Next Y
-    
-    If RenderAll = 0 Then
-        'Draw trans, bloqs, triggers and select tiles
-        For Y = MyMinY To MyMaxY
-            For X = MyMinX To MyMaxX
-                With MapData(X, Y)
-                    PixelOffsetXTemp = (X - 1) * TilePixelWidth
-                    PixelOffsetYTemp = (Y - 1) * TilePixelHeight
-                    
-                    '**********************************
-                    If (.TileExit.Map <> 0) And bTranslados Then
-                        Grh.grhIndex = 3
-                        
-                        Call DDrawTransGrhtoSurface(renderSurface, Grh, _
-                            PixelOffsetXTemp, _
-                            PixelOffsetYTemp, _
-                            1, 0)
-                    End If
-                    
-                    'Show blocked tiles
-                    If (.Blocked = 1) And bBloqs Then
-                        Grh.grhIndex = 4
-                        
-                        Call DDrawTransGrhtoSurface(renderSurface, Grh, _
-                            PixelOffsetXTemp, _
-                            PixelOffsetYTemp, _
-                            1, 0)
-                    End If
-                    '******************************************
-                    
-                    frmRender.pgbProgress.Value = frmRender.pgbProgress.Value + 1
-                    frmRender.lblEstado.Caption = "Renderizado de translados y bloqueos - " & (Y - 1) + (X / 100) & "%"
-                    DoEvents
-                End With
-            Next X
-        Next Y
-    End If
 
     destRect.Right = srcRect.Right
     destRect.Bottom = srcRect.Bottom
@@ -332,28 +151,28 @@ Dim MyMaxY As Byte
     frmRenderAll.picMap.Width = SizeX
     frmRenderAll.picMap.Height = SizeY
 
-    Call renderSurface.BltToDC(frmRenderAll.tmpPic.hDC, srcRect, destRect)
+    'Call renderSurface.BltToDC(frmRenderAll.tmpPic.hDC, srcRect, destRect)
 
-    frmRenderAll.tmpPic.Picture = frmRenderAll.tmpPic.image
+    frmRenderAll.tmpPic.Picture = frmRenderAll.tmpPic.Image
     
-    Dim token As Long
-    token = InitGDIPlus
-    frmRenderAll.picMap = Resize(frmRenderAll.tmpPic.Picture.handle, frmRenderAll.tmpPic.Picture.type, frmRenderAll.picMap.ScaleWidth, frmRenderAll.picMap.ScaleHeight, , False)
-    FreeGDIPlus token
+    Dim Token As Long
+    Token = InitGDIPlus
+    frmRenderAll.picMap = Resize(frmRenderAll.tmpPic.Picture.Handle, frmRenderAll.tmpPic.Picture.Type, frmRenderAll.picMap.ScaleWidth, frmRenderAll.picMap.ScaleHeight, , False)
+    FreeGDIPlus Token
 
     If Not FileExist(App.path & "\Renders", vbDirectory) Then MkDir (App.path & "\Renders")
     
     Select Case format
         Case eFormatPic.bmp
-            Call SavePicture(frmRenderAll.picMap.image, App.path & "\Renders\" & NumMap_Save & ".bmp")
+            Call SavePicture(frmRenderAll.picMap.Image, App.path & "\Renders\" & NumMap_Save & ".bmp")
             
         Case eFormatPic.png
-            Call StartUpGDIPlus(GdiPlusVersion)
+            Call StartUpGDIPlus(GdiplusVersion)
             Call SavePictureAsPNG(frmRenderAll.picMap.Picture, App.path & "\Renders\" & NumMap_Save & ".png")
             Call ShutdownGDIPlus
             
         Case eFormatPic.jpg
-            Call StartUpGDIPlus(GdiPlusVersion)
+            Call StartUpGDIPlus(GdiplusVersion)
             Call SavePictureAsJPG(frmRenderAll.picMap.Picture, App.path & "\Renders\" & NumMap_Save & ".jpg")
             Call ShutdownGDIPlus
     End Select

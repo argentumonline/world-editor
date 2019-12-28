@@ -452,7 +452,6 @@ Public PrimarySurface As DirectDrawSurface7
 Public PrimaryClipper As DirectDrawClipper
 Public SecundaryClipper As DirectDrawClipper
 Public BackBufferSurface As DirectDrawSurface7
-Public SurfaceDB As clsSurfaceManager
 
 Public TextDrawer As clsTextDrawer
 '********** OUTSIDE FUNCTIONS ***********

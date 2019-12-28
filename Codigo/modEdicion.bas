@@ -1272,6 +1272,10 @@ With MapData(X, Y)
                     .Graphic(3) = .ObjGrh
             End Select
             
+            With GrhData(ObjData(objindex).grhIndex)
+                Call g_Swarm.Insert(4, -1, X, Y, .TileWidth, .TileHeight)
+            End With
+            
             MapInfo.Changed = 1 'Set changed flag
         End If
     End If
@@ -1279,12 +1283,17 @@ End With
 End Sub
 
 Public Sub QuitarObjeto(ByVal X As Byte, ByVal Y As Byte, Optional ByVal ConDeshacer As Boolean)
+Dim grhIndex As Integer
 With MapData(X, Y)
     If .OBJInfo.objindex <> 0 Then
         If ConDeshacer Then _
             Call modEdicion.Deshacer_Add("Quitar objeto")
             
         If .Graphic(3).grhIndex = .ObjGrh.grhIndex Then .Graphic(3).grhIndex = 0
+        
+        With GrhData(.ObjGrh.grhIndex)
+            Call g_Swarm.Remove(4, -1, X, Y, .TileWidth, .TileHeight)
+        End With
         
         .ObjGrh.grhIndex = 0
         .OBJInfo.objindex = 0

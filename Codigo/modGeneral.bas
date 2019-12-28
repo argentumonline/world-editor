@@ -395,13 +395,7 @@ Dim Chkflag As Integer
 
     'Load ao.dat config file
     Call LoadClientSetup
-    
-    If ClientSetup.bDinamic Then
-        Set SurfaceDB = New clsSurfaceManDyn
-    Else
-        Set SurfaceDB = New clsSurfaceManStatic
-    End If
-    
+
     Call CargarMapIni
     Call IniciarCabecera(MiCabecera)
     DoEvents
