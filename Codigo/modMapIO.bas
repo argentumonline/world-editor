@@ -500,7 +500,7 @@ On Error Resume Next
     
     'Change mouse icon
     frmMain.MousePointer = 11
-       
+    g_Swarm.Clear
     'Open files
     FreeFileMap = FreeFile
     Open Map For Binary As FreeFileMap
@@ -537,9 +537,11 @@ On Error Resume Next
         For X = XMinMapSize To XMaxMapSize
     
             Get FreeFileMap, , ByFlags
-            
-            buffer(X, Y).Blocked = (ByFlags And 1)
-            
+            If (ByFlags And 1) Then
+                Call InsertarBloq(X, Y, False)
+            End If
+            'buffer(X, Y).Blocked =
+            '
             Get FreeFileMap, , buffer(X, Y).Graphic(1).grhIndex
             InitGrh buffer(X, Y).Graphic(1), buffer(X, Y).Graphic(1).grhIndex
             

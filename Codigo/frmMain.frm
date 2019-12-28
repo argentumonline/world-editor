@@ -3295,6 +3295,17 @@ If Button = vbLeftButton Then Call SelectTiles(True, tx, tY)
 End Sub
 
 Private Sub Form_Resize()
+    Dim newW As Integer
+    Dim newH As Integer
+    If AutoPantalla Then
+        newW = Me.ScaleWidth - 320
+        newH = Me.ScaleHeight - 110
+        PantallaX = CInt(newW / 32)
+        PantallaY = CInt(newH / 32)
+    End If
+    
+    Me.picMain.Width = PantallaX * 32
+    Me.picMain.Height = PantallaY * 32
     'TilePixelWidth = me.wi
     'TilePixelHeight = 1
     'Me.picMain.Width = Me.ScaleWidth - 1120

@@ -557,9 +557,9 @@ Public Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal Of
 
         Select Case (g_Swarm.Query_Layer(Drawable))
             Case 1
-            If bVerCapa(2) Then
-                Call DrawGrh(MapData(X, Y).Graphic(2), DrawableX, DrawableY, GetDepth(2, X, Y), 1, 1)
-            End If
+                If bVerCapa(2) Then
+                    Call DrawGrh(MapData(X, Y).Graphic(2), DrawableX, DrawableY, GetDepth(2, X, Y), 1, 1)
+                End If
             Case 2
                 If bVerCapa(3) Then
                     Call DrawGrh(MapData(X, Y).Graphic(3), DrawableX, DrawableY, GetDepth(3, X, Y, 2), 1, 1, , , , True)
@@ -575,6 +575,10 @@ Public Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal Of
             Case 5
                 If bVerNpcs Then
                     Call CharRender(MapData(X, Y).CharIndex, DrawableX, DrawableY)
+                End If
+            Case modEdicion.BLOCK_LAYER
+                If bBloqs Then
+                    Call DrawGrhIndex(modEdicion.BlockGrhIndex, DrawableX, DrawableY, GetDepth(modEdicion.BLOCK_LAYER, X, Y, 1), True)
                 End If
         End Select
     Next Drawable

@@ -33,6 +33,7 @@ Private lFrameTimer As Long
 
 Private intervalChecker As clsInterval
 Private Const KEY_CHECK_INTEVAL As Long = 50
+Public AutoPantalla As Boolean
 Private Sub InitGeneral()
     Set intervalChecker = New clsInterval
     Call intervalChecker.Init(KEY_CHECK_INTEVAL)
@@ -305,9 +306,10 @@ frmMain.cVerBloqueos.Value = bBloqs
 ' Tamaño de visualizacion
 PantallaX = Val(Leer.GetValue("MOSTRAR", "PantallaX"))
 PantallaY = Val(Leer.GetValue("MOSTRAR", "PantallaY"))
+AutoPantalla = Val(Leer.GetValue("MOSTRAR", "AutoPantalla"))
 
-If PantallaX > 27 Or PantallaX <= 3 Then PantallaX = 21
-If PantallaY > 25 Or PantallaY <= 3 Then PantallaY = 19
+If PantallaX > 35 Or PantallaX <= 3 Then PantallaX = 21
+If PantallaY > 33 Or PantallaY <= 3 Then PantallaY = 19
 
 ClienteHeight = Val(Leer.GetValue("MOSTRAR", "ClienteHeight"))
 ClienteWidth = Val(Leer.GetValue("MOSTRAR", "ClienteWidth"))
@@ -416,7 +418,11 @@ Dim Chkflag As Integer
     frmCargando.X.Caption = "Cargando Indice de Superficies..."
     modIndices.CargarIndicesSuperficie
     frmCargando.X.Caption = "Indexando Cargado de Imagenes..."
+    frmMain.Show
+    frmMain.Hide
     DoEvents
+    
+    
     
     If InitTileEngine(frmMain.hwnd, 0, 0, 32, 32, PantallaY, PantallaX, 9, 8, 8, 0.018) Then ' 30/05/2006
         'Display form handle, View window offset from 0,0 of display form, Tile Size, Display size in tiles, Screen buffer
@@ -455,6 +461,8 @@ Dim Chkflag As Integer
     End If
     
     Call InitGeneral
+    Call modEdicion.InitEditionModule
+    
     Set TextDrawer = New clsTextDrawer
     Call TextDrawer.InitText(DirectDraw, ClientSetup.bUseVideo)
     
