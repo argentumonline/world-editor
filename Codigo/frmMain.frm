@@ -604,7 +604,7 @@ Begin VB.Form frmMain
          Height          =   330
          ItemData        =   "frmMain.frx":628A
          Left            =   1080
-         List            =   "frmMain.frx":628C
+         List            =   "frmMain.frx":629A
          TabIndex        =   73
          Text            =   "1"
          Top             =   3120
@@ -666,9 +666,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   2580
          Index           =   0
-         ItemData        =   "frmMain.frx":628E
+         ItemData        =   "frmMain.frx":62C5
          Left            =   120
-         List            =   "frmMain.frx":6295
+         List            =   "frmMain.frx":62CC
          Sorted          =   -1  'True
          TabIndex        =   70
          Tag             =   "-1"
@@ -769,9 +769,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   2
-         ItemData        =   "frmMain.frx":62A3
+         ItemData        =   "frmMain.frx":62DA
          Left            =   3360
-         List            =   "frmMain.frx":62A5
+         List            =   "frmMain.frx":62DC
          TabIndex        =   66
          Text            =   "1"
          Top             =   3120
@@ -793,9 +793,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   2
-         ItemData        =   "frmMain.frx":62A7
+         ItemData        =   "frmMain.frx":62DE
          Left            =   840
-         List            =   "frmMain.frx":62A9
+         List            =   "frmMain.frx":62E0
          TabIndex        =   65
          Text            =   "1"
          Top             =   3120
@@ -816,9 +816,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   2580
          Index           =   3
-         ItemData        =   "frmMain.frx":62AB
+         ItemData        =   "frmMain.frx":62E2
          Left            =   120
-         List            =   "frmMain.frx":62B2
+         List            =   "frmMain.frx":62E9
          TabIndex        =   64
          Tag             =   "-1"
          Top             =   120
@@ -860,9 +860,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   0
-         ItemData        =   "frmMain.frx":62C0
+         ItemData        =   "frmMain.frx":62F7
          Left            =   840
-         List            =   "frmMain.frx":62C2
+         List            =   "frmMain.frx":62F9
          TabIndex        =   56
          Text            =   "1"
          Top             =   3120
@@ -884,9 +884,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   0
-         ItemData        =   "frmMain.frx":62C4
+         ItemData        =   "frmMain.frx":62FB
          Left            =   3360
-         List            =   "frmMain.frx":62C6
+         List            =   "frmMain.frx":62FD
          TabIndex        =   55
          Text            =   "1"
          Top             =   3120
@@ -927,9 +927,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   2580
          Index           =   1
-         ItemData        =   "frmMain.frx":62C8
+         ItemData        =   "frmMain.frx":62FF
          Left            =   120
-         List            =   "frmMain.frx":62CF
+         List            =   "frmMain.frx":6306
          TabIndex        =   53
          Tag             =   "-1"
          Top             =   120
@@ -950,9 +950,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   3210
          Index           =   4
-         ItemData        =   "frmMain.frx":62DD
+         ItemData        =   "frmMain.frx":6314
          Left            =   120
-         List            =   "frmMain.frx":62E4
+         List            =   "frmMain.frx":631B
          TabIndex        =   52
          Tag             =   "-1"
          Top             =   120
@@ -1427,9 +1427,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   1
-         ItemData        =   "frmMain.frx":62F2
+         ItemData        =   "frmMain.frx":6329
          Left            =   840
-         List            =   "frmMain.frx":62F4
+         List            =   "frmMain.frx":632B
          TabIndex        =   77
          Text            =   "1"
          Top             =   3120
@@ -1470,9 +1470,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   2580
          Index           =   2
-         ItemData        =   "frmMain.frx":62F6
+         ItemData        =   "frmMain.frx":632D
          Left            =   120
-         List            =   "frmMain.frx":62FD
+         List            =   "frmMain.frx":6334
          TabIndex        =   79
          Tag             =   "-1"
          Top             =   120
@@ -1494,9 +1494,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   1
-         ItemData        =   "frmMain.frx":630B
+         ItemData        =   "frmMain.frx":6342
          Left            =   3360
-         List            =   "frmMain.frx":630D
+         List            =   "frmMain.frx":6344
          TabIndex        =   80
          Text            =   "500"
          Top             =   3120
@@ -2745,11 +2745,11 @@ Do While I > 0
                     MapData(X, Y).Blocked = 0
                 End If
                   
-                If cNumFunc(2).Text > 0 Then
-                    objindex = cNumFunc(2).Text
+                If cNumFunc(2).text > 0 Then
+                    objindex = cNumFunc(2).text
                     InitGrh MapData(X, Y).ObjGrh, ObjData(objindex).grhIndex
                     MapData(X, Y).OBJInfo.objindex = objindex
-                    MapData(X, Y).OBJInfo.Amount = Val(cCantFunc(2).Text)
+                    MapData(X, Y).OBJInfo.Amount = Val(cCantFunc(2).text)
                     
                     Select Case ObjData(objindex).ObjType ' GS
                         Case 4, 8, 10, 22 ' Arboles, Carteles, Foros, Yacimientos
@@ -2762,8 +2762,8 @@ Do While I > 0
            If MapData(X, Y).Blocked = 0 Then
                 I = I - 1
                 
-                If cNumFunc(T - 1).Text > 0 Then
-                    NPCIndex = cNumFunc(T - 1).Text
+                If cNumFunc(T - 1).text > 0 Then
+                    NPCIndex = cNumFunc(T - 1).text
                     Body = NpcData(NPCIndex).Body
                     Head = NpcData(NPCIndex).Head
                     Heading = NpcData(NPCIndex).Heading
@@ -2782,13 +2782,13 @@ Private Sub cAgregarFuncalAzar_Click(index As Integer)
 'Last modified: 20/05/06
 '*************************************************
 On Error Resume Next
-If IsNumeric(cCantFunc(index).Text) = False Or cCantFunc(index).Text > 200 Then
+If IsNumeric(cCantFunc(index).text) = False Or cCantFunc(index).text > 200 Then
     MsgBox "El Valor de Cantidad introducido no es soportado!" & vbCrLf & "El valor maximo es 200.", vbCritical
     Exit Sub
 End If
 
 cAgregarFuncalAzar(index).Enabled = False
-Call PonerAlAzar(CInt(cCantFunc(index).Text), 1 + (IIf(index = 2, -1, index)))
+Call PonerAlAzar(CInt(cCantFunc(index).text), 1 + (IIf(index = 2, -1, index)))
 cAgregarFuncalAzar(index).Enabled = True
 End Sub
 
@@ -2802,11 +2802,11 @@ Private Sub cCantFunc_Change(index As Integer)
     Cant = Val(cCantFunc(index))
     
     If Cant < 1 Then
-      cCantFunc(index).Text = 1
+      cCantFunc(index).text = 1
     ElseIf Cant > 10000 Then
-      cCantFunc(index).Text = 10000
+      cCantFunc(index).text = 10000
     Else
-        cCantFunc(index).Text = Cant
+        cCantFunc(index).text = Cant
     End If
 End Sub
 
@@ -2815,29 +2815,13 @@ Private Sub cCapas_Change()
 'Author: ^[GS]^
 'Last modified: 31/05/06
 '*************************************************
-    cCapas.Text = Val(cCapas.Text)
-    
-    If (Val(cCapas.Text) >= 1) And (Val(cCapas.Text) <= 4) Then
-        CurLayer = Val(frmMain.cCapas.Text)
-    Else
-        CurLayer = 1
-        cCapas.Text = CurLayer
-    End If
-    
-    cCapas.Tag = vbNullString
+    CurLayer = GetLayerFromText(cCapas.text)
 End Sub
-
+Private Function GetLayerFromText(text As String) As Integer
+    GetLayerFromText = Val(mid$(text, 1, 1))
+End Function
 Private Sub cCapas_Click()
-    cCapas.Text = Val(cCapas.Text)
-    
-    If (Val(cCapas.Text) >= 1) And (Val(cCapas.Text) <= 4) Then
-        CurLayer = Val(frmMain.cCapas.Text)
-    Else
-        CurLayer = 1
-        cCapas.Text = CurLayer
-    End If
-    
-    cCapas.Tag = vbNullString
+    CurLayer = GetLayerFromText(cCapas.text)
 End Sub
 
 Private Sub cCapas_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -2845,7 +2829,7 @@ KeyCode = 0
 End Sub
 
 Private Sub cCapas_KeyPress(KeyAscii As Integer)
-If IsNumeric(Chr$(KeyAscii)) Then cCapas.Text = Chr$(KeyAscii)
+If IsNumeric(Chr$(KeyAscii)) Then cCapas.text = Chr$(KeyAscii)
 KeyAscii = 0
 End Sub
 
@@ -2883,18 +2867,18 @@ Private Sub cGrh_KeyPress(KeyAscii As Integer)
 
 On Error GoTo Fallo
 If KeyAscii = 13 Then
-    Call fPreviewGrh(cGrh.Text)
+    Call fPreviewGrh(cGrh.text)
     
     If frmMain.cGrh.ListCount > 5 Then
         frmMain.cGrh.RemoveItem 0
     End If
     
-    frmMain.cGrh.AddItem frmMain.cGrh.Text
+    frmMain.cGrh.AddItem frmMain.cGrh.text
 End If
 
 Exit Sub
 Fallo:
-    cGrh.Text = 1
+    cGrh.text = 1
 
 End Sub
 
@@ -3003,16 +2987,16 @@ On Error Resume Next
 If KeyAscii = 13 Then
     Dim Cont As String
     
-    Cont = frmMain.cNumFunc(index).Text
+    Cont = frmMain.cNumFunc(index).text
     Call cNumFunc_LostFocus(index)
     
-    If Cont <> frmMain.cNumFunc(index).Text Then Exit Sub
+    If Cont <> frmMain.cNumFunc(index).text Then Exit Sub
     
     If frmMain.cNumFunc(index).ListCount > 5 Then
         frmMain.cNumFunc(index).RemoveItem 0
     End If
     
-    frmMain.cNumFunc(index).AddItem frmMain.cNumFunc(index).Text
+    frmMain.cNumFunc(index).AddItem frmMain.cNumFunc(index).text
 ElseIf (Not IsNumeric(Chr$(KeyAscii))) And (KeyAscii <> 8) Then
     KeyAscii = 0
 End If
@@ -3025,8 +3009,8 @@ Private Sub cNumFunc_KeyUp(index As Integer, KeyCode As Integer, Shift As Intege
 'Last modified: 20/05/06
 '*************************************************
 On Error Resume Next
-If LenB(cNumFunc(index).Text) > 0 Then
-    frmMain.cNumFunc(index).Text = IIf(index = 1, 500, 1)
+If LenB(cNumFunc(index).text) > 0 Then
+    frmMain.cNumFunc(index).text = IIf(index = 1, 500, 1)
 End If
 End Sub
 
@@ -3037,16 +3021,16 @@ Private Sub cNumFunc_LostFocus(index As Integer)
 '*************************************************
 On Error Resume Next
     If index = 0 Then
-        If frmMain.cNumFunc(index).Text > 499 Or frmMain.cNumFunc(index).Text < 1 Then
-            frmMain.cNumFunc(index).Text = 1
+        If frmMain.cNumFunc(index).text > 499 Or frmMain.cNumFunc(index).text < 1 Then
+            frmMain.cNumFunc(index).text = 1
         End If
     ElseIf index = 1 Then
-        If frmMain.cNumFunc(index).Text < 500 Or frmMain.cNumFunc(index).Text > 32000 Then
-            frmMain.cNumFunc(index).Text = 500
+        If frmMain.cNumFunc(index).text < 500 Or frmMain.cNumFunc(index).text > 32000 Then
+            frmMain.cNumFunc(index).text = 500
         End If
     ElseIf index = 2 Then
-        If frmMain.cNumFunc(index).Text < 1 Or frmMain.cNumFunc(index).Text > 32000 Then
-            frmMain.cNumFunc(index).Text = 1
+        If frmMain.cNumFunc(index).text < 1 Or frmMain.cNumFunc(index).text > 32000 Then
+            frmMain.cNumFunc(index).text = 1
         End If
     End If
 End Sub
@@ -3326,11 +3310,11 @@ If HotKeysAllow = False Then
     lListado(index).Tag = lListado(index).ListIndex
     Select Case index
         Case 0
-            supNum = ReadField(2, lListado(index).Text, Asc("#"))
-            cGrh.Text = DameGrhIndex(supNum)
+            supNum = ReadField(2, lListado(index).text, Asc("#"))
+            cGrh.text = DameGrhIndex(supNum)
             
-            frmConfigSup.mAncho.Text = SupData(supNum).Width
-            frmConfigSup.mLargo.Text = SupData(supNum).Height
+            frmConfigSup.mAncho.text = SupData(supNum).Width
+            frmConfigSup.mLargo.text = SupData(supNum).Height
             
             If SupData(supNum).Width > 0 Then
                 frmConfigSup.MOSAICO.Value = vbChecked
@@ -3339,11 +3323,11 @@ If HotKeysAllow = False Then
             End If
 
             If SupData(supNum).Capa <> 0 Then
-                If LenB(supNum) = 0 Then cCapas.Tag = cCapas.Text
-                cCapas.Text = SupData(supNum).Capa
+                If LenB(supNum) = 0 Then cCapas.Tag = cCapas.text
+                cCapas.text = SupData(supNum).Capa
             Else
                 If LenB(cCapas.Tag) <> 0 Then
-                    cCapas.Text = cCapas.Tag
+                    cCapas.text = cCapas.Tag
                     cCapas.Tag = vbNullString
                 End If
             End If
@@ -3362,11 +3346,11 @@ If HotKeysAllow = False Then
             
             Call ActualizarMosaico
         Case 1
-            cNumFunc(0).Text = ReadField(2, lListado(index).Text, Asc("#")) 'Npcs no Hostiles
+            cNumFunc(0).text = ReadField(2, lListado(index).text, Asc("#")) 'Npcs no Hostiles
         Case 2
-            cNumFunc(1).Text = ReadField(2, lListado(index).Text, Asc("#")) 'Npcs hostiles
+            cNumFunc(1).text = ReadField(2, lListado(index).text, Asc("#")) 'Npcs hostiles
         Case 3
-            cNumFunc(2).Text = ReadField(2, lListado(index).Text, Asc("#")) 'Objetos
+            cNumFunc(2).text = ReadField(2, lListado(index).text, Asc("#")) 'Objetos
     End Select
 Else
     lListado(index).ListIndex = lListado(index).Tag
@@ -3610,7 +3594,7 @@ Private Sub mnuConfigObjTrans_Click()
 'Author: ^[GS]^
 'Last modified: 29/05/06
 '*************************************************
-Cfg_TrOBJ = cNumFunc(2).Text
+Cfg_TrOBJ = cNumFunc(2).text
 End Sub
 
 Private Sub mnuDeshacer_Click()
@@ -3956,7 +3940,7 @@ Private Sub mnuQuitarSuperficieDeCapa_Click()
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-Call modEdicion.Quitar_Capa(cCapas.Text)
+Call modEdicion.Quitar_Capa(cCapas.text)
 End Sub
 
 Private Sub mnuQuitarTODO_Click()

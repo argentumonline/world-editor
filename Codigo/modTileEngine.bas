@@ -349,7 +349,7 @@ On Error Resume Next
 
     
  Dim Mode As Long
-    Mode = 0 'MODE_COMPATIBLE ' MODE_SYNCHRONISED MODE_COMPATIBLE
+    Mode = 0 'MODE_SYNCHRONISED '0 'MODE_COMPATIBLE ' MODE_SYNCHRONISED MODE_COMPATIBLE
     
     If (wGL_Graphic.Create_Driver(DRIVER_DIRECT3D9, Mode, frmMain.picMain.hwnd, frmMain.picMain.ScaleWidth, frmMain.picMain.ScaleHeight)) = False Then
         MsgBox "No se pudo encontrar d3d9.dll. Esto puede deberse a que tu sistema operativo no es compatible, o que alguna de las librerías no está correctamente instalada o actualizada. " _

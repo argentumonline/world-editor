@@ -32,7 +32,7 @@ Option Explicit
 Private lFrameTimer As Long
 
 Private intervalChecker As clsInterval
-Private Const KEY_CHECK_INTEVAL As Long = 50
+Private Const KEY_CHECK_INTEVAL As Long = 100
 Public AutoPantalla As Boolean
 Private Sub InitGeneral()
     Set intervalChecker = New clsInterval
@@ -112,7 +112,7 @@ Static LastMovement As Long
     End If
 End Sub
 
-Public Function ReadField(ByVal Pos As Integer, ByRef Text As String, ByVal SepASCII As Integer) As String
+Public Function ReadField(ByVal Pos As Integer, ByRef text As String, ByVal SepASCII As Integer) As String
 '*************************************************
 'Author: Unkwown
 'Last modified: 20/05/06
@@ -127,13 +127,13 @@ Seperator = Chr$(SepASCII)
 LastPos = 0
 FieldNum = 0
 
-For I = 1 To Len(Text)
-    CurChar = mid$(Text, I, 1)
+For I = 1 To Len(text)
+    CurChar = mid$(text, I, 1)
     If CurChar = Seperator Then
         FieldNum = FieldNum + 1
         
         If FieldNum = Pos Then
-            ReadField = mid$(Text, LastPos + 1, (InStr(LastPos + 1, Text, Seperator, vbTextCompare) - 1) - (LastPos))
+            ReadField = mid$(text, LastPos + 1, (InStr(LastPos + 1, text, Seperator, vbTextCompare) - 1) - (LastPos))
             Exit Function
         End If
         LastPos = I
@@ -142,7 +142,7 @@ Next I
 FieldNum = FieldNum + 1
 
 If FieldNum = Pos Then
-    ReadField = mid$(Text, LastPos + 1)
+    ReadField = mid$(text, LastPos + 1)
 End If
 
 End Function
@@ -525,7 +525,7 @@ Dim Chkflag As Integer
 
 End Sub
 
-Public Function GetVar(ByRef File As String, ByRef Main As String, ByRef Var As String) As String
+Public Function GetVar(ByRef file As String, ByRef Main As String, ByRef Var As String) As String
 '*************************************************
 'Author: Unkwown
 'Last modified: 20/05/06
@@ -535,18 +535,18 @@ Dim szReturn As String ' This will be the defaul value if the string is not foun
 
 szReturn = vbNullString
 sSpaces = Space$(5000) ' This tells the computer how long the longest string can be. If you want, you can change the number 75 to any number you wish
-GetPrivateProfileString Main, Var, szReturn, sSpaces, Len(sSpaces), File
+GetPrivateProfileString Main, Var, szReturn, sSpaces, Len(sSpaces), file
 
 GetVar = RTrim$(sSpaces)
 GetVar = Left$(GetVar, Len(GetVar) - 1)
 End Function
 
-Public Sub WriteVar(ByRef File As String, ByRef Main As String, ByRef Var As String, ByRef Value As String)
+Public Sub WriteVar(ByRef file As String, ByRef Main As String, ByRef Var As String, ByRef Value As String)
 '*************************************************
 'Author: Unkwown
 'Last modified: 20/05/06
 '*************************************************
-writeprivateprofilestring Main, Var, Value, File
+writeprivateprofilestring Main, Var, Value, file
 End Sub
 
 Public Sub ToggleWalkMode()

@@ -1060,6 +1060,7 @@ End Function
 
 Public Sub InsertarGrh(ByVal X As Byte, ByVal Y As Byte, ByVal MOSAICO As Boolean, ByVal AutoCompletar As Boolean, ByVal Bloq As Boolean, Optional ByVal ConDeshacer As Boolean = True)
 Dim grhIndex As Integer
+Dim oldGrhIndex As Integer
 Dim OffsetX As Long
 Dim OffsetY As Long
 
@@ -1070,14 +1071,25 @@ If MOSAICO And AutoCompletar Then
     For OffsetX = 0 To mAncho - 1
         For OffsetY = 0 To MAlto - 1
             grhIndex = CurrentGrh(((X + OffsetX + DespX) Mod mAncho) + 1, ((Y + OffsetY + DespY) Mod MAlto) + 1).grhIndex
-                
+            oldGrhIndex = MapData(X + OffsetX, Y + OffsetY).Graphic(CurLayer).grhIndex
             If Bloq Then
-                MapData(X + OffsetX, Y + OffsetY).Blocked = 1
+                Call InsertarBloq(X + OffsetX, Y + OffsetY, ConDeshacer)
             Else
-                MapData(X + OffsetX, Y + OffsetY).Blocked = 0
+                Call QuitarBloq(X + OffsetX, Y + OffsetY, ConDeshacer)
             End If
             
             InitGrh MapData(X + OffsetX, Y + OffsetY).Graphic(CurLayer), grhIndex
+            
+            If CurLayer > 1 Then
+                If oldGrhIndex > 0 Then
+                    With GrhData(oldGrhIndex)
+                        Call g_Swarm.Remove(CurLayer - 1, -1, X + OffsetX, Y + OffsetY, .TileWidth, .TileHeight)
+                    End With
+                End If
+                With GrhData(grhIndex)
+                    Call g_Swarm.Insert(CurLayer - 1, -1, X + OffsetX, Y + OffsetY, .TileWidth, .TileHeight)
+                End With
+            End If
         Next OffsetY
     Next OffsetX
     
@@ -1090,24 +1102,35 @@ Else
     End If
     
     With MapData(X, Y)
-        If .Graphic(CurLayer).grhIndex <> grhIndex Then
+        oldGrhIndex = .Graphic(CurLayer).grhIndex
+        If oldGrhIndex <> grhIndex Then
             If ConDeshacer Then _
                 Call modEdicion.Deshacer_Add("Insertar superficie. Capa " & CurLayer)
                 
             If Bloq Then
-                .Blocked = 1
+                Call InsertarBloq(X, Y, ConDeshacer)
             Else
-                .Blocked = 0
+                Call QuitarBloq(X, Y, ConDeshacer)
             End If
             
             InitGrh .Graphic(CurLayer), grhIndex
             
+            If CurLayer > 1 Then
+                If oldGrhIndex > 0 Then
+                    With GrhData(oldGrhIndex)
+                        Call g_Swarm.Remove(CurLayer - 1, -1, X, Y, .TileWidth, .TileHeight)
+                    End With
+                End If
+                With GrhData(grhIndex)
+                    Call g_Swarm.Insert(CurLayer - 1, -1, X, Y, .TileWidth, .TileHeight)
+                End With
+            End If
+
             MapInfo.Changed = 1
         End If
     End With
 End If
 End Sub
-
 Public Sub InsertarBloq(ByVal X As Byte, ByVal Y As Byte, Optional ByVal ConDeshacer As Boolean = True)
 If MapData(X, Y).Blocked <> 1 Then
     If ConDeshacer Then _
