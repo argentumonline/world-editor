@@ -65,13 +65,13 @@ End Function
 ' @param FileType Especifica el tipo de archivo/directorio
 ' @return   Nos devuelve verdadero o falso
 
-Public Function FileExist(ByRef File As String, ByVal FileType As VbFileAttribute) As Boolean
+Public Function FileExist(ByRef file As String, ByVal FileType As VbFileAttribute) As Boolean
 '*************************************************
 'Author: Unkwown
 'Last modified: 26/05/06
 '*************************************************
 
-FileExist = (LenB(Dir$(File, FileType)) > 0)
+FileExist = (LenB(Dir$(file, FileType)) > 0)
 End Function
 
 ''
@@ -540,8 +540,7 @@ On Error Resume Next
             If (ByFlags And 1) Then
                 Call InsertarBloq(X, Y, False)
             End If
-            'buffer(X, Y).Blocked =
-            '
+            
             Get FreeFileMap, , buffer(X, Y).Graphic(1).grhIndex
             InitGrh buffer(X, Y).Graphic(1), buffer(X, Y).Graphic(1).grhIndex
             
@@ -581,7 +580,8 @@ On Error Resume Next
              
             'Trigger used?
             If ByFlags And 16 Then
-                Get FreeFileMap, , buffer(X, Y).Trigger
+                Get FreeFileMap, , TempInt
+                Call modEdicion.InsertarTrigger(X, Y, TempInt, False)
             Else
                 buffer(X, Y).Trigger = 0
             End If
@@ -594,6 +594,10 @@ On Error Resume Next
                     Get FreeFileInf, , buffer(X, Y).TileExit.Map
                     Get FreeFileInf, , buffer(X, Y).TileExit.X
                     Get FreeFileInf, , buffer(X, Y).TileExit.Y
+                    With buffer(X, Y).TileExit
+                        Call modEdicion.InsertarTileExit(X, Y, .X, .Y, .Map, False)
+                    End With
+                    
                 End If
         
                 If ByFlags And 2 Then

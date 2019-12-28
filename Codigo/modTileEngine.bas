@@ -69,8 +69,8 @@ Private g_Post_Effect_Uniform   As PostEffectUniform
 Private g_Rain_Material         As Integer
 Private GFX_PATH As String
 
-Public Declare Function InvalidateRect Lib "User32" (ByVal hwnd As Long, lpRect As RECT, ByVal bErase As Long) As Long
-Public Declare Function GetClientRect Lib "User32" (ByVal hwnd As Long, lpRect As RECT) As Long
+Public Declare Function InvalidateRect Lib "user32" (ByVal hwnd As Long, lpRect As RECT, ByVal bErase As Long) As Long
+Public Declare Function GetClientRect Lib "user32" (ByVal hwnd As Long, lpRect As RECT) As Long
 
 Public Sub Invalidate(ByVal hwnd As Long)
     Dim udtRect As RECT
@@ -111,44 +111,44 @@ End Function
 Public Sub LoadFontDescription()
 On Error GoTo ErrHandler
     
-    Dim Font As Integer
-    Font = wGL_Graphic_Renderer.Create_Font(LoadBytes("FONT/Primary.ttf"))
+    Dim font As Integer
+    font = wGL_Graphic_Renderer.Create_Font(LoadBytes("FONT/Primary.ttf"))
 
 
     ' RGBA
-    FuentesJuego.FuenteBase = CreateFont(Font, 14, &HFFFFFFFF)
-    FuentesJuego.NickCriminal = CreateFont(Font, 14, &HFFFF0000)
-    FuentesJuego.NickCiudadano = CreateFont(Font, 14, &HFF0080FF)
-    FuentesJuego.NickAtacable = CreateFont(Font, 14, &HFFB332FF)
-    FuentesJuego.NickAdmins = CreateFont(Font, 14, &HFFFFFFFF)
-    FuentesJuego.NickDios = CreateFont(Font, 14, &HFFFAFA96)
-    FuentesJuego.NickSemidios = CreateFont(Font, 14, &HFF1EFF30)
-    FuentesJuego.NickConsejero = CreateFont(Font, 14, &HFF1E9630)
-    FuentesJuego.NickAdmins = CreateFont(Font, 14, &HFFB4B4B4)
-    FuentesJuego.NickConcilio = CreateFont(Font, 14, &HFFFF3200)
-    FuentesJuego.NickConsejo = CreateFont(Font, 14, &HFF0C3FF)
-    FuentesJuego.NickNpcs = CreateFont(Font, 14, &HFFB6A951)
+    FuentesJuego.FuenteBase = CreateFont(font, 14, &HFFFFFFFF)
+    FuentesJuego.NickCriminal = CreateFont(font, 14, &HFFFF0000)
+    FuentesJuego.NickCiudadano = CreateFont(font, 14, &HFF0080FF)
+    FuentesJuego.NickAtacable = CreateFont(font, 14, &HFFB332FF)
+    FuentesJuego.NickAdmins = CreateFont(font, 14, &HFFFFFFFF)
+    FuentesJuego.NickDios = CreateFont(font, 14, &HFFFAFA96)
+    FuentesJuego.NickSemidios = CreateFont(font, 14, &HFF1EFF30)
+    FuentesJuego.NickConsejero = CreateFont(font, 14, &HFF1E9630)
+    FuentesJuego.NickAdmins = CreateFont(font, 14, &HFFB4B4B4)
+    FuentesJuego.NickConcilio = CreateFont(font, 14, &HFFFF3200)
+    FuentesJuego.NickConsejo = CreateFont(font, 14, &HFF0C3FF)
+    FuentesJuego.NickNpcs = CreateFont(font, 14, &HFFB6A951)
     
-    FuentesJuego.Talk = CreateFont(Font, 14, &HFFFFFFFF)
-    FuentesJuego.Fight = CreateFont(Font, 14, &HFFFF0000)
-    FuentesJuego.Warning = CreateFont(Font, 14, &HFF2033E9)
-    FuentesJuego.Info = CreateFont(Font, 14, &HFF41BE9C)
-    FuentesJuego.InfoBold = CreateFont(Font, 14, &HFF31BE9C)
-    FuentesJuego.Execution = CreateFont(Font, 14, &HFF828282)
-    FuentesJuego.Party = CreateFont(Font, 14, &HFFFFB4FF)
-    FuentesJuego.Poison = CreateFont(Font, 14, &HFF00FF00)
+    FuentesJuego.Talk = CreateFont(font, 14, &HFFFFFFFF)
+    FuentesJuego.Fight = CreateFont(font, 14, &HFFFF0000)
+    FuentesJuego.Warning = CreateFont(font, 14, &HFF2033E9)
+    FuentesJuego.Info = CreateFont(font, 14, &HFF41BE9C)
+    FuentesJuego.InfoBold = CreateFont(font, 14, &HFF31BE9C)
+    FuentesJuego.Execution = CreateFont(font, 14, &HFF828282)
+    FuentesJuego.Party = CreateFont(font, 14, &HFFFFB4FF)
+    FuentesJuego.Poison = CreateFont(font, 14, &HFF00FF00)
     
-    FuentesJuego.Guild = CreateFont(Font, 14, &HFFFFFFFF)
-    FuentesJuego.Server = CreateFont(Font, 14, &HFF00B900)
-    FuentesJuego.GuildMsg = CreateFont(Font, 14, &HFFFFC71B)
+    FuentesJuego.Guild = CreateFont(font, 14, &HFFFFFFFF)
+    FuentesJuego.Server = CreateFont(font, 14, &HFF00B900)
+    FuentesJuego.GuildMsg = CreateFont(font, 14, &HFFFFC71B)
     
-    FuentesJuego.ConsejoVesA = CreateFont(Font, 14, &HFF00C8FF)
-    FuentesJuego.ConcilioVesA = CreateFont(Font, 14, &HFFFF3200)
+    FuentesJuego.ConsejoVesA = CreateFont(font, 14, &HFF00C8FF)
+    FuentesJuego.ConcilioVesA = CreateFont(font, 14, &HFFFF3200)
     
-    FuentesJuego.Centinela = CreateFont(Font, 14, &HFF00FF00)
-    FuentesJuego.GMSG = CreateFont(Font, 14, &HFFFFFFFF)
+    FuentesJuego.Centinela = CreateFont(font, 14, &HFF00FF00)
+    FuentesJuego.GMSG = CreateFont(font, 14, &HFFFFFFFF)
 
-    FuentesJuego.Inventarios = CreateFont(Font, 12, &HFFFFFFFF)
+    FuentesJuego.Inventarios = CreateFont(font, 12, &HFFFFFFFF)
     
   Exit Sub
   
@@ -590,6 +590,14 @@ Public Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal Of
             Case modEdicion.BLOCK_LAYER
                 If bBloqs Then
                     Call DrawGrhIndex(modEdicion.BlockGrhIndex, DrawableX, DrawableY, GetDepth(modEdicion.BLOCK_LAYER, X, Y, 1), True)
+                End If
+            Case modEdicion.EXIT_LAYER
+                If bTranslados Then
+                    Call DrawGrhIndex(modEdicion.ExitGrhIndex, DrawableX, DrawableY, GetDepth(modEdicion.EXIT_LAYER, X, Y, 1), True)
+                End If
+            Case modEdicion.TRIGGER_LAYER
+                If bTriggers Then
+                    Call Draw_Text(FuentesJuego.Talk.id, FuentesJuego.Talk.Tamanio, DrawableX + 16, DrawableY + 16, GetDepth(modEdicion.TRIGGER_LAYER, X, Y, 1), FuentesJuego.Talk.color, FONT_ALIGNMENT_MIDDLE Or FONT_ALIGNMENT_CENTER, CStr(MapData(X, Y).Trigger))
                 End If
         End Select
     Next Drawable

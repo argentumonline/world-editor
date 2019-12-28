@@ -34,11 +34,14 @@ Public MinCopyX As Byte
 Public MaxCopyX As Byte
 Public MinCopyY As Byte
 Public MaxCopyY As Byte
-
-Public Const BLOCK_LAYER As Integer = 6
+Public Const EXIT_LAYER As Integer = 6
+Public ExitGrhIndex As Integer
+Public Const BLOCK_LAYER As Integer = 7
 Public BlockGrhIndex As Integer
+Public Const TRIGGER_LAYER As Integer = 8
 
 Public Sub InitEditionModule()
+    ExitGrhIndex = 3
     BlockGrhIndex = 4
 End Sub
 
@@ -1187,6 +1190,10 @@ With MapData(X, Y).TileExit
     .X = TargetX
     .Y = TargetY
     .Map = TargetMap
+        
+    With GrhData(ExitGrhIndex)
+        Call g_Swarm.Insert(EXIT_LAYER, -1, X, Y, .TileWidth, .TileHeight)
+    End With
     
     MapInfo.Changed = 1 'Set changed flag
 End With
@@ -1200,6 +1207,10 @@ With MapData(X, Y).TileExit
     .Map = 0
     .X = 0
     .Y = 0
+    
+    With GrhData(ExitGrhIndex)
+        Call g_Swarm.Remove(EXIT_LAYER, -1, X, Y, .TileWidth, .TileHeight)
+    End With
     
     MapInfo.Changed = 1 'Set changed flag
 End With
@@ -1289,8 +1300,14 @@ With MapData(X, Y)
     If .Trigger <> Trigger Then
         If ConDeshacer Then _
             Call modEdicion.Deshacer_Add("Insertar Trigger " & Trigger)
-            
+        
         .Trigger = Trigger
+        
+        If Trigger <> 0 Then
+            Call g_Swarm.Insert(TRIGGER_LAYER, -1, X, Y, 32, 32)
+        Else
+            Call g_Swarm.Remove(TRIGGER_LAYER, -1, X, Y, 32, 32)
+        End If
         MapInfo.Changed = 1 'Set changed flag
     End If
 End With
