@@ -2745,11 +2745,11 @@ Do While I > 0
                     MapData(X, Y).Blocked = 0
                 End If
                   
-                If cNumFunc(2).text > 0 Then
-                    objindex = cNumFunc(2).text
+                If cNumFunc(2).Text > 0 Then
+                    objindex = cNumFunc(2).Text
                     InitGrh MapData(X, Y).ObjGrh, ObjData(objindex).grhIndex
                     MapData(X, Y).OBJInfo.objindex = objindex
-                    MapData(X, Y).OBJInfo.Amount = Val(cCantFunc(2).text)
+                    MapData(X, Y).OBJInfo.Amount = Val(cCantFunc(2).Text)
                     
                     Select Case ObjData(objindex).ObjType ' GS
                         Case 4, 8, 10, 22 ' Arboles, Carteles, Foros, Yacimientos
@@ -2762,8 +2762,8 @@ Do While I > 0
            If MapData(X, Y).Blocked = 0 Then
                 I = I - 1
                 
-                If cNumFunc(T - 1).text > 0 Then
-                    NPCIndex = cNumFunc(T - 1).text
+                If cNumFunc(T - 1).Text > 0 Then
+                    NPCIndex = cNumFunc(T - 1).Text
                     Body = NpcData(NPCIndex).Body
                     Head = NpcData(NPCIndex).Head
                     Heading = NpcData(NPCIndex).Heading
@@ -2782,13 +2782,13 @@ Private Sub cAgregarFuncalAzar_Click(index As Integer)
 'Last modified: 20/05/06
 '*************************************************
 On Error Resume Next
-If IsNumeric(cCantFunc(index).text) = False Or cCantFunc(index).text > 200 Then
+If IsNumeric(cCantFunc(index).Text) = False Or cCantFunc(index).Text > 200 Then
     MsgBox "El Valor de Cantidad introducido no es soportado!" & vbCrLf & "El valor maximo es 200.", vbCritical
     Exit Sub
 End If
 
 cAgregarFuncalAzar(index).Enabled = False
-Call PonerAlAzar(CInt(cCantFunc(index).text), 1 + (IIf(index = 2, -1, index)))
+Call PonerAlAzar(CInt(cCantFunc(index).Text), 1 + (IIf(index = 2, -1, index)))
 cAgregarFuncalAzar(index).Enabled = True
 End Sub
 
@@ -2802,11 +2802,11 @@ Private Sub cCantFunc_Change(index As Integer)
     Cant = Val(cCantFunc(index))
     
     If Cant < 1 Then
-      cCantFunc(index).text = 1
+      cCantFunc(index).Text = 1
     ElseIf Cant > 10000 Then
-      cCantFunc(index).text = 10000
+      cCantFunc(index).Text = 10000
     Else
-        cCantFunc(index).text = Cant
+        cCantFunc(index).Text = Cant
     End If
 End Sub
 
@@ -2815,13 +2815,13 @@ Private Sub cCapas_Change()
 'Author: ^[GS]^
 'Last modified: 31/05/06
 '*************************************************
-    CurLayer = GetLayerFromText(cCapas.text)
+    CurLayer = GetLayerFromText(cCapas.Text)
 End Sub
-Private Function GetLayerFromText(text As String) As Integer
-    GetLayerFromText = Val(mid$(text, 1, 1))
+Private Function GetLayerFromText(Text As String) As Integer
+    GetLayerFromText = Val(mid$(Text, 1, 1))
 End Function
 Private Sub cCapas_Click()
-    CurLayer = GetLayerFromText(cCapas.text)
+    CurLayer = GetLayerFromText(cCapas.Text)
 End Sub
 
 Private Sub cCapas_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -2829,7 +2829,7 @@ KeyCode = 0
 End Sub
 
 Private Sub cCapas_KeyPress(KeyAscii As Integer)
-If IsNumeric(Chr$(KeyAscii)) Then cCapas.text = Chr$(KeyAscii)
+If IsNumeric(Chr$(KeyAscii)) Then cCapas.Text = Chr$(KeyAscii)
 KeyAscii = 0
 End Sub
 
@@ -2867,18 +2867,18 @@ Private Sub cGrh_KeyPress(KeyAscii As Integer)
 
 On Error GoTo Fallo
 If KeyAscii = 13 Then
-    Call fPreviewGrh(cGrh.text)
+    Call fPreviewGrh(cGrh.Text)
     
     If frmMain.cGrh.ListCount > 5 Then
         frmMain.cGrh.RemoveItem 0
     End If
     
-    frmMain.cGrh.AddItem frmMain.cGrh.text
+    frmMain.cGrh.AddItem frmMain.cGrh.Text
 End If
 
 Exit Sub
 Fallo:
-    cGrh.text = 1
+    cGrh.Text = 1
 
 End Sub
 
@@ -2987,16 +2987,16 @@ On Error Resume Next
 If KeyAscii = 13 Then
     Dim Cont As String
     
-    Cont = frmMain.cNumFunc(index).text
+    Cont = frmMain.cNumFunc(index).Text
     Call cNumFunc_LostFocus(index)
     
-    If Cont <> frmMain.cNumFunc(index).text Then Exit Sub
+    If Cont <> frmMain.cNumFunc(index).Text Then Exit Sub
     
     If frmMain.cNumFunc(index).ListCount > 5 Then
         frmMain.cNumFunc(index).RemoveItem 0
     End If
     
-    frmMain.cNumFunc(index).AddItem frmMain.cNumFunc(index).text
+    frmMain.cNumFunc(index).AddItem frmMain.cNumFunc(index).Text
 ElseIf (Not IsNumeric(Chr$(KeyAscii))) And (KeyAscii <> 8) Then
     KeyAscii = 0
 End If
@@ -3009,8 +3009,8 @@ Private Sub cNumFunc_KeyUp(index As Integer, KeyCode As Integer, Shift As Intege
 'Last modified: 20/05/06
 '*************************************************
 On Error Resume Next
-If LenB(cNumFunc(index).text) > 0 Then
-    frmMain.cNumFunc(index).text = IIf(index = 1, 500, 1)
+If LenB(cNumFunc(index).Text) > 0 Then
+    frmMain.cNumFunc(index).Text = IIf(index = 1, 500, 1)
 End If
 End Sub
 
@@ -3021,16 +3021,16 @@ Private Sub cNumFunc_LostFocus(index As Integer)
 '*************************************************
 On Error Resume Next
     If index = 0 Then
-        If frmMain.cNumFunc(index).text > 499 Or frmMain.cNumFunc(index).text < 1 Then
-            frmMain.cNumFunc(index).text = 1
+        If frmMain.cNumFunc(index).Text > 499 Or frmMain.cNumFunc(index).Text < 1 Then
+            frmMain.cNumFunc(index).Text = 1
         End If
     ElseIf index = 1 Then
-        If frmMain.cNumFunc(index).text < 500 Or frmMain.cNumFunc(index).text > 32000 Then
-            frmMain.cNumFunc(index).text = 500
+        If frmMain.cNumFunc(index).Text < 500 Or frmMain.cNumFunc(index).Text > 32000 Then
+            frmMain.cNumFunc(index).Text = 500
         End If
     ElseIf index = 2 Then
-        If frmMain.cNumFunc(index).text < 1 Or frmMain.cNumFunc(index).text > 32000 Then
-            frmMain.cNumFunc(index).text = 1
+        If frmMain.cNumFunc(index).Text < 1 Or frmMain.cNumFunc(index).Text > 32000 Then
+            frmMain.cNumFunc(index).Text = 1
         End If
     End If
 End Sub
@@ -3214,13 +3214,16 @@ Private Sub Form_Click()
 '*************************************************
 picMain.SetFocus
 End Sub
+
+Private Sub Form_Load()
+    PreviewGrh.Visible = False
+End Sub
+
 Private Sub picMain_DblClick()
 '*************************************************
 'Author: ^[GS]^
 'Last modified: 28/05/06
 '*************************************************
-Dim tx As Integer
-Dim tY As Integer
 
 If Not MapaCargado Then Exit Sub
 
@@ -3310,11 +3313,11 @@ If HotKeysAllow = False Then
     lListado(index).Tag = lListado(index).ListIndex
     Select Case index
         Case 0
-            supNum = ReadField(2, lListado(index).text, Asc("#"))
-            cGrh.text = DameGrhIndex(supNum)
+            supNum = ReadField(2, lListado(index).Text, Asc("#"))
+            cGrh.Text = DameGrhIndex(supNum)
             
-            frmConfigSup.mAncho.text = SupData(supNum).Width
-            frmConfigSup.mLargo.text = SupData(supNum).Height
+            frmConfigSup.mAncho.Text = SupData(supNum).Width
+            frmConfigSup.mLargo.Text = SupData(supNum).Height
             
             If SupData(supNum).Width > 0 Then
                 frmConfigSup.MOSAICO.Value = vbChecked
@@ -3323,11 +3326,11 @@ If HotKeysAllow = False Then
             End If
 
             If SupData(supNum).Capa <> 0 Then
-                If LenB(supNum) = 0 Then cCapas.Tag = cCapas.text
-                cCapas.text = SupData(supNum).Capa
+                If LenB(supNum) = 0 Then cCapas.Tag = cCapas.Text
+                cCapas.Text = SupData(supNum).Capa
             Else
                 If LenB(cCapas.Tag) <> 0 Then
-                    cCapas.text = cCapas.Tag
+                    cCapas.Text = cCapas.Tag
                     cCapas.Tag = vbNullString
                 End If
             End If
@@ -3346,11 +3349,11 @@ If HotKeysAllow = False Then
             
             Call ActualizarMosaico
         Case 1
-            cNumFunc(0).text = ReadField(2, lListado(index).text, Asc("#")) 'Npcs no Hostiles
+            cNumFunc(0).Text = ReadField(2, lListado(index).Text, Asc("#")) 'Npcs no Hostiles
         Case 2
-            cNumFunc(1).text = ReadField(2, lListado(index).text, Asc("#")) 'Npcs hostiles
+            cNumFunc(1).Text = ReadField(2, lListado(index).Text, Asc("#")) 'Npcs hostiles
         Case 3
-            cNumFunc(2).text = ReadField(2, lListado(index).text, Asc("#")) 'Objetos
+            cNumFunc(2).Text = ReadField(2, lListado(index).Text, Asc("#")) 'Objetos
     End Select
 Else
     lListado(index).ListIndex = lListado(index).Tag
@@ -3382,26 +3385,9 @@ Private Sub MapPest_Click(index As Integer)
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-Dialog.CancelError = True
-If (index + NumMap_Save - 4) <> NumMap_Save Then
-    On Error GoTo ErrHandler
-    
-        If MapInfo.Changed = 1 Then
-            If MsgBox(MSGMod, vbExclamation + vbYesNo) = vbYes Then
-                modMapIO.GuardarMapa PATH_Save & NameMap_Save & NumMap_Save & ".map"
-            End If
-        End If
-        
-        Call modMapIO.NuevoMapa
-        
-        Dialog.FileName = PATH_Save & NameMap_Save & (index + NumMap_Save - 4) & ".map"
-        modMapIO.AbrirMapa Dialog.FileName, MapData
-    Exit Sub
-    
-ErrHandler:
-    MsgBox Err.Description
 
-End If
+Call TryChangeMap(index + NumMap_Save - 4)
+
 End Sub
 
 Private Sub mnuActualizarCabezas_Click()
@@ -3594,7 +3580,7 @@ Private Sub mnuConfigObjTrans_Click()
 'Author: ^[GS]^
 'Last modified: 29/05/06
 '*************************************************
-Cfg_TrOBJ = cNumFunc(2).text
+Cfg_TrOBJ = cNumFunc(2).Text
 End Sub
 
 Private Sub mnuDeshacer_Click()
@@ -3940,7 +3926,7 @@ Private Sub mnuQuitarSuperficieDeCapa_Click()
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-Call modEdicion.Quitar_Capa(cCapas.text)
+Call modEdicion.Quitar_Capa(cCapas.Text)
 End Sub
 
 Private Sub mnuQuitarTODO_Click()

@@ -618,23 +618,19 @@ Dim tTrans As WorldPos
 tTrans = MapData(tx, tY).TileExit
 
 If tTrans.Map > 0 Then
-    If LenB(frmMain.Dialog.FileName) <> 0 Then
-        If FileExist(PATH_Save & NameMap_Save & tTrans.Map & ".map", vbArchive) = True Then
-            Call modMapIO.NuevoMapa
-            frmMain.Dialog.FileName = PATH_Save & NameMap_Save & tTrans.Map & ".map"
-            modMapIO.AbrirMapa frmMain.Dialog.FileName, MapData
-            UserPos.X = tTrans.X
-            UserPos.Y = tTrans.Y
-            
-            If WalkMode Then
-                With CharList(UserCharIndex)
-                    MakeChar UserCharIndex, .iBody, .iHead, E_Heading.SOUTH, UserPos.X, UserPos.Y
-                End With
-            End If
-            
-            frmMain.mnuReAbrirMapa.Enabled = True
+    If TryChangeMap(tTrans.Map) Then
+        UserPos.X = tTrans.X
+        UserPos.Y = tTrans.Y
+        
+        If WalkMode Then
+            With CharList(UserCharIndex)
+                MakeChar UserCharIndex, .iBody, .iHead, E_Heading.SOUTH, UserPos.X, UserPos.Y
+            End With
         End If
+        
+        frmMain.mnuReAbrirMapa.Enabled = True
     End If
+
 End If
 End Sub
 

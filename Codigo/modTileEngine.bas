@@ -53,8 +53,8 @@ Public FuentesJuego As tFuentesJuego
 '''''''''''''''''''''''''''''''''''''''''''''''
 
 Private g_Material(0 To 65535) As Integer
-Private g_Technique_1 As Integer
-Private g_Technique_2 As Integer
+Public g_Technique_1 As Integer
+Public g_Technique_2 As Integer
 Public g_Swarm As New wGL_Temp_Swarm
 
 
@@ -372,6 +372,7 @@ On Error Resume Next
     Dim Sampler As wGL_Graphic_Sampler
     Sampler.Address_X = SAMPLER_ADDRESS_WRAP
     Sampler.Address_Y = SAMPLER_ADDRESS_WRAP
+    
     Call wGL_Graphic_Renderer.Update_Technique_Sampler(g_Technique_1, 0, Sampler)
     
     g_Technique_2 = wGL_Graphic_Renderer.Create_Technique
@@ -406,7 +407,7 @@ On Error Resume Next
     Set DirectSound = DirectX.DirectSoundCreate("")
     DirectSound.SetCooperativeLevel setDisplayFormhWnd, DSSCL_PRIORITY
     LastSoundBufferUsed = 1
-    
+    Call modPrimitives.InitPrimitivesModule
     InitTileEngine = True
     Call TempClearForm
 End Function
@@ -549,16 +550,20 @@ Public Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal Of
         Next X
     Next Y
     
+    DrawableY = (SobreY - ScreenMinY) * TilePixelHeight + OffsetY
+    DrawableX = (SobreX - ScreenMinX) * TilePixelWidth + OffsetX
+    
     If bSelectSup Then
-        DrawableY = (SobreY - ScreenMinY) * TilePixelHeight + OffsetY
-        DrawableX = (SobreX - ScreenMinX) * TilePixelWidth + OffsetX
+       
         If MosaicoChecked Then
             Call DrawGrh(CurrentGrh(((X + DespX) Mod mAncho) + 1, ((Y + DespY) Mod MAlto) + 1), DrawableX, DrawableY, GetDepth(CurLayer + 1, X, Y), 0, 1)
         Else
             Call DrawGrh(CurrentGrh(0), DrawableX, DrawableY, GetDepth(CurLayer + 1, X, Y), 0, 1)
         End If
     End If
-        
+    
+    Call modPrimitives.DrawBox(DrawableX, DrawableY, DrawableX + 32, DrawableY + 32, &H60FFFFFF)
+    
     For Drawable = 0 To (g_Swarm.Query(MinX, MinY, MaxX, MaxY) - 1)
         X = g_Swarm.Query_X(Drawable)
         Y = g_Swarm.Query_Y(Drawable)
@@ -601,6 +606,7 @@ Public Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal Of
                 End If
         End Select
     Next Drawable
+    
 End Sub
 
 

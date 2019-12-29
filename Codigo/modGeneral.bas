@@ -112,7 +112,7 @@ Static LastMovement As Long
     End If
 End Sub
 
-Public Function ReadField(ByVal Pos As Integer, ByRef text As String, ByVal SepASCII As Integer) As String
+Public Function ReadField(ByVal Pos As Integer, ByRef Text As String, ByVal SepASCII As Integer) As String
 '*************************************************
 'Author: Unkwown
 'Last modified: 20/05/06
@@ -127,13 +127,13 @@ Seperator = Chr$(SepASCII)
 LastPos = 0
 FieldNum = 0
 
-For I = 1 To Len(text)
-    CurChar = mid$(text, I, 1)
+For I = 1 To Len(Text)
+    CurChar = mid$(Text, I, 1)
     If CurChar = Seperator Then
         FieldNum = FieldNum + 1
         
         If FieldNum = Pos Then
-            ReadField = mid$(text, LastPos + 1, (InStr(LastPos + 1, text, Seperator, vbTextCompare) - 1) - (LastPos))
+            ReadField = mid$(Text, LastPos + 1, (InStr(LastPos + 1, Text, Seperator, vbTextCompare) - 1) - (LastPos))
             Exit Function
         End If
         LastPos = I
@@ -142,7 +142,7 @@ Next I
 FieldNum = FieldNum + 1
 
 If FieldNum = Pos Then
-    ReadField = mid$(text, LastPos + 1)
+    ReadField = mid$(Text, LastPos + 1)
 End If
 
 End Function
@@ -525,7 +525,7 @@ Dim Chkflag As Integer
 
 End Sub
 
-Public Function GetVar(ByRef file As String, ByRef Main As String, ByRef Var As String) As String
+Public Function GetVar(ByRef File As String, ByRef Main As String, ByRef Var As String) As String
 '*************************************************
 'Author: Unkwown
 'Last modified: 20/05/06
@@ -535,18 +535,18 @@ Dim szReturn As String ' This will be the defaul value if the string is not foun
 
 szReturn = vbNullString
 sSpaces = Space$(5000) ' This tells the computer how long the longest string can be. If you want, you can change the number 75 to any number you wish
-GetPrivateProfileString Main, Var, szReturn, sSpaces, Len(sSpaces), file
+GetPrivateProfileString Main, Var, szReturn, sSpaces, Len(sSpaces), File
 
 GetVar = RTrim$(sSpaces)
 GetVar = Left$(GetVar, Len(GetVar) - 1)
 End Function
 
-Public Sub WriteVar(ByRef file As String, ByRef Main As String, ByRef Var As String, ByRef Value As String)
+Public Sub WriteVar(ByRef File As String, ByRef Main As String, ByRef Var As String, ByRef Value As String)
 '*************************************************
 'Author: Unkwown
 'Last modified: 20/05/06
 '*************************************************
-writeprivateprofilestring Main, Var, Value, file
+writeprivateprofilestring Main, Var, Value, File
 End Sub
 
 Public Sub ToggleWalkMode()
@@ -693,4 +693,33 @@ Public Function fullyBlack(ByVal grhIndex As Long) As Boolean
 'Return true if the grh is fully black
 '*************************************************************
     fullyBlack = False
+End Function
+Public Function TryChangeMap(mapNum As Integer) As Boolean
+    frmMain.Dialog.CancelError = True
+    If mapNum <> NumMap_Save Then
+        On Error GoTo ErrHandler
+        
+            If MapInfo.Changed = 1 Then
+                If MsgBox(MSGMod, vbExclamation + vbYesNo) = vbYes Then
+                    modMapIO.GuardarMapa PATH_Save & NameMap_Save & NumMap_Save & ".map"
+                Else
+                    TryChangeMap = False
+                    Exit Function
+                End If
+            End If
+            
+            Call modMapIO.NuevoMapa
+            
+            frmMain.Dialog.FileName = PATH_Save & NameMap_Save & mapNum & ".map"
+            modMapIO.AbrirMapa frmMain.Dialog.FileName, MapData
+            
+            TryChangeMap = True
+        Exit Function
+        
+ErrHandler:
+        MsgBox Err.Description
+    Else
+        TryChangeMap = True
+    End If
+
 End Function
