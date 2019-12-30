@@ -491,7 +491,7 @@ Dim Chkflag As Integer
         
         'FPS Counter - mostramos las FPS
         If GetTickCount - lFrameTimer >= 1000 Then
-            CaptionWorldEditor frmMain.Dialog.FileName, (MapInfo.Changed = 1)
+            CaptionWorldEditor frmMain.Dialog.filename, (MapInfo.Changed = 1)
             frmMain.FPS.Caption = "FPS: " & FPS
             lFrameTimer = GetTickCount
             FPS = 0
@@ -507,7 +507,7 @@ Dim Chkflag As Integer
         
     If MapInfo.Changed = 1 Then
         If MsgBox(MSGMod, vbExclamation + vbYesNo) = vbYes Then
-            modMapIO.GuardarMapa frmMain.Dialog.FileName
+            modMapIO.GuardarMapa frmMain.Dialog.filename
         End If
     End If
     
@@ -525,7 +525,7 @@ Dim Chkflag As Integer
 
 End Sub
 
-Public Function GetVar(ByRef File As String, ByRef Main As String, ByRef Var As String) As String
+Public Function GetVar(ByRef file As String, ByRef Main As String, ByRef Var As String) As String
 '*************************************************
 'Author: Unkwown
 'Last modified: 20/05/06
@@ -535,18 +535,18 @@ Dim szReturn As String ' This will be the defaul value if the string is not foun
 
 szReturn = vbNullString
 sSpaces = Space$(5000) ' This tells the computer how long the longest string can be. If you want, you can change the number 75 to any number you wish
-GetPrivateProfileString Main, Var, szReturn, sSpaces, Len(sSpaces), File
+GetPrivateProfileString Main, Var, szReturn, sSpaces, Len(sSpaces), file
 
 GetVar = RTrim$(sSpaces)
 GetVar = Left$(GetVar, Len(GetVar) - 1)
 End Function
 
-Public Sub WriteVar(ByRef File As String, ByRef Main As String, ByRef Var As String, ByRef Value As String)
+Public Sub WriteVar(ByRef file As String, ByRef Main As String, ByRef Var As String, ByRef Value As String)
 '*************************************************
 'Author: Unkwown
 'Last modified: 20/05/06
 '*************************************************
-writeprivateprofilestring Main, Var, Value, File
+writeprivateprofilestring Main, Var, Value, file
 End Sub
 
 Public Sub ToggleWalkMode()
@@ -710,8 +710,8 @@ Public Function TryChangeMap(mapNum As Integer) As Boolean
             
             Call modMapIO.NuevoMapa
             
-            frmMain.Dialog.FileName = PATH_Save & NameMap_Save & mapNum & ".map"
-            modMapIO.AbrirMapa frmMain.Dialog.FileName, MapData
+            frmMain.Dialog.filename = PATH_Save & NameMap_Save & mapNum & ".map"
+            modMapIO.AbrirMapa frmMain.Dialog.filename, MapData
             
             TryChangeMap = True
         Exit Function
@@ -722,4 +722,15 @@ ErrHandler:
         TryChangeMap = True
     End If
 
+End Function
+
+Public Function ReadAllBytes(filename As String) As Byte()
+    Dim fileNum As Integer
+    fileNum = FreeFile()
+ 
+    Open filename For Binary Access Read As fileNum
+        ReDim ReadAllBytes(LOF(fileNum) - 1)
+        Get fileNum, 1, ReadAllBytes
+    Close fileNum
+    
 End Function

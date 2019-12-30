@@ -67,7 +67,6 @@ Private g_Post_Effect_Material  As Integer
 Private g_Post_Effect_Technique As Integer
 Private g_Post_Effect_Uniform   As PostEffectUniform
 Private g_Rain_Material         As Integer
-Private GFX_PATH As String
 
 Public Declare Function InvalidateRect Lib "user32" (ByVal hwnd As Long, lpRect As RECT, ByVal bErase As Long) As Long
 Public Declare Function GetClientRect Lib "user32" (ByVal hwnd As Long, lpRect As RECT) As Long
@@ -83,21 +82,23 @@ Public Function GetImageFromNum(ByVal fileNum As Long) As Byte()
 On Error GoTo ErrHandler
   
     Dim InfoHead As INFOHEADER
-    GFX_PATH = "graphics"
-    If Get_InfoHeader(App.path & "\" & GFX_PATH & "\", fileNum & ".BMP", InfoHead) Then
-        Call Extract_File(App.path & "\" & GFX_PATH & "\", InfoHead, GetImageFromNum)
+    
+    If FileExist(DirGraficos & fileNum & ".PNG", vbArchive) Then
+        GetImageFromNum = modGeneral.ReadAllBytes(DirGraficos & fileNum & ".PNG")
+    ElseIf FileExist(DirGraficos & fileNum & ".BMP", vbArchive) Then
+        GetImageFromNum = modGeneral.ReadAllBytes(DirGraficos & fileNum & ".BMP")
+    ElseIf Get_InfoHeader(DirGraficos, fileNum & ".PNG", InfoHead) Then
+        Call Extract_File(DirGraficos, InfoHead, GetImageFromNum)
+    ElseIf Get_InfoHeader(DirGraficos, fileNum & ".BMP", InfoHead) Then
+        Call Extract_File(DirGraficos, InfoHead, GetImageFromNum)
     Else
-        If Get_InfoHeader(App.path & "\" & GFX_PATH & "\", fileNum & ".PNG", InfoHead) Then
-            Call Extract_File(App.path & "\" & GFX_PATH & "\", InfoHead, GetImageFromNum)
-        Else
-            GoTo ErrHandler
-        End If
+        Call LogError("Can't find image with number" & fileNum & "en Function GetImageFromNum de modTileEngie.bas")
     End If
-  
-  Exit Function
+
+    Exit Function
   
 ErrHandler:
-  Call LogError("Error" & Err.Number & "(" & Err.Description & ") en Function GetImageFromNum de ModDDEX.bas")
+  Call LogError("Error" & Err.Number & "(" & Err.Description & ") en Function GetImageFromNum de modTileEngie.bas")
 End Function
 
 Public Function CreateFont(ByVal id As Integer, ByVal Tamanio As Long, ByVal color As Long) As tFuente
@@ -219,9 +220,9 @@ Public Function GetDepth(ByVal Layer As Single, Optional ByVal X As Single = 1, 
     
 End Function
 
-Public Function LoadBytes(ByVal FileName As String) As Byte()
+Public Function LoadBytes(ByVal filename As String) As Byte()
 
-    Open App.path + "\" + FileName For Binary Access Read Lock Read As #1
+    Open App.path + "\" + filename For Binary Access Read Lock Read As #1
 
         ReDim LoadBytes(LOF(1) - 1)
     
@@ -561,8 +562,9 @@ Public Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal Of
             Call DrawGrh(CurrentGrh(0), DrawableX, DrawableY, GetDepth(CurLayer + 1, X, Y), 0, 1)
         End If
     End If
-    
-    Call modPrimitives.DrawBox(DrawableX, DrawableY, DrawableX + 32, DrawableY + 32, &H60FFFFFF)
+    If bCursor Then
+        Call modPrimitives.DrawBox(DrawableX, DrawableY, DrawableX + 32, DrawableY + 32, &H60FFFFFF)
+    End If
     
     For Drawable = 0 To (g_Swarm.Query(MinX, MinY, MaxX, MaxY) - 1)
         X = g_Swarm.Query_X(Drawable)

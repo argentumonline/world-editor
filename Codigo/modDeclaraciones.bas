@@ -431,6 +431,7 @@ Public GraphicsFile As String 'Que graficos.ind usamos
 Public bTriggers As Boolean
 Public bBloqs As Boolean
 Public bTranslados As Boolean
+Public bCursor As Boolean
 Public bVerCapa(2 To 4) As Boolean
 Public bAutoCompletarSuperficies As Boolean
 Public bVerNpcs As Boolean
