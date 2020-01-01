@@ -56,7 +56,7 @@ Description="WorldEditor"
 CompatibleMode="0"
 MajorVer=3
 MinorVer=5
-RevisionVer=59
+RevisionVer=71
 AutoIncrementVer=1
 ServerSupportFiles=0
 VersionCompanyName="Argentum Online"
@@ -80,3 +80,6 @@ DebugStartupOption=0
 
 [MS Transaction Server]
 AutoRefresh=1
+
+[Rubberduck]
+ProjectId=1cc0ce32-c63b-4893-b634-0e90db8f820d

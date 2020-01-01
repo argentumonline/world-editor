@@ -1,4 +1,5 @@
 Attribute VB_Name = "modCompression"
+'@Folder("WorldEditor.Modules")
 Option Explicit
 
 Public Const GRH_SOURCE_FILE_EXT As String = ".bmp"
@@ -191,7 +192,7 @@ End Function
 '
 ' @return   True if found.
 
-Public Function Get_InfoHeader(ByRef ResourcePath As String, ByRef fileName As String, ByRef InfoHead As INFOHEADER) As Boolean
+Public Function Get_InfoHeader(ByRef ResourcePath As String, ByRef FileName As String, ByRef InfoHead As INFOHEADER) As Boolean
 '*****************************************************************
 'Author: Nicolas Matias Gonzalez (NIGO)
 'Last Modify Date: 08/21/2007
@@ -206,7 +207,7 @@ On Local Error GoTo ErrHandler
     ResourceFilePath = ResourcePath & GRH_RESOURCE_FILE
     
     'Set InfoHeader we are looking for
-    InfoHead.strFileName = UCase$(fileName)
+    InfoHead.strFileName = UCase$(FileName)
     
 #If SeguridadAlkon Then
     Call Secure_Info_Header(InfoHead)
@@ -659,7 +660,7 @@ End Function
 '
 ' @remark   Data is desencrypted.
 
-Public Function Get_File_Data(ByRef ResourcePath As String, ByRef fileName As String, ByRef data() As Byte) As Boolean
+Public Function Get_File_Data(ByRef ResourcePath As String, ByRef FileName As String, ByRef data() As Byte) As Boolean
 '*****************************************************************
 'Author: Nicolas Matias Gonzalez (NIGO)
 'Last Modify Date: 08/21/2007
@@ -667,11 +668,11 @@ Public Function Get_File_Data(ByRef ResourcePath As String, ByRef fileName As St
 '*****************************************************************
     Dim InfoHead As INFOHEADER
     
-    If Get_InfoHeader(ResourcePath, fileName, InfoHead) Then
+    If Get_InfoHeader(ResourcePath, FileName, InfoHead) Then
         'Extract!
         Get_File_Data = Extract_File(ResourcePath, InfoHead, data)
     Else
-        Call MsgBox("No se se encontro el recurso " & fileName)
+        Call MsgBox("No se se encontro el recurso " & FileName)
     End If
 End Function
 
@@ -685,7 +686,7 @@ End Function
 '
 ' @return   True if no error occurred.
 
-Public Function Get_Bitmap(ByRef ResourcePath As String, ByRef fileName As String, ByRef bmpInfo As BITMAPINFO, ByRef data() As Byte) As Boolean
+Public Function Get_Bitmap(ByRef ResourcePath As String, ByRef FileName As String, ByRef bmpInfo As BITMAPINFO, ByRef data() As Byte) As Boolean
 '*****************************************************************
 'Author: Nicolas Matias Gonzalez (NIGO)
 'Last Modify Date: 11/30/2007
@@ -697,7 +698,7 @@ Public Function Get_Bitmap(ByRef ResourcePath As String, ByRef fileName As Strin
     Dim bitmapSize As Long
     Dim colorCount As Long
     
-    If Get_InfoHeader(ResourcePath, fileName, InfoHead) Then
+    If Get_InfoHeader(ResourcePath, FileName, InfoHead) Then
         'Extract the file and create the bitmap data from it.
         If Extract_File(ResourcePath, InfoHead, rawData) Then
             Call CopyMemory(offBits, rawData(10), 4)
@@ -726,7 +727,7 @@ Public Function Get_Bitmap(ByRef ResourcePath As String, ByRef fileName As Strin
             Get_Bitmap = True
         End If
     Else
-        Call MsgBox("No se encontro el recurso " & fileName)
+        Call MsgBox("No se encontro el recurso " & FileName)
     End If
 End Function
 
@@ -816,7 +817,7 @@ On Error Resume Next
     Dim ResourceFile As Integer
     Dim FileHead As FILEHEADER
     Dim InfoHead As INFOHEADER
-    Dim fileName As String
+    Dim FileName As String
     
     ResourceFile = FreeFile
     Open ResourcePath & GRH_RESOURCE_FILE For Binary Access Read Lock Write As ResourceFile
@@ -832,8 +833,8 @@ On Error Resume Next
 #End If
         
         Call Get_Bitmap(ResourcePath, InfoHead.strFileName, bmpInfo, data())
-        fileName = Trim$(InfoHead.strFileName)
-        fileIndex = CLng(Left$(fileName, Len(fileName) - 4))
+        FileName = Trim$(InfoHead.strFileName)
+        fileIndex = CLng(Left$(FileName, Len(FileName) - 4))
         
         GetNext_Bitmap = True
     End If

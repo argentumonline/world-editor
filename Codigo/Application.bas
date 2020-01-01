@@ -1,4 +1,5 @@
 Attribute VB_Name = "Application"
+'@Folder("WorldEditor.Modules")
 '**************************************************************
 ' Application.bas - General API methods regarding the Application in general.
 '**************************************************************
@@ -59,7 +60,7 @@ Public Sub LogError(ByVal errStr As String)
     oFile = FreeFile
     
     Open path For Append As #oFile
-        Print #oFile, Time & " - " & errStr
+        Print #oFile, time & " - " & errStr
     Close #oFile
   
   Exit Sub

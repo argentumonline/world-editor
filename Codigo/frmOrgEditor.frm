@@ -136,6 +136,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'@Folder("WorldEditor.Form")
 '*************************************************
 'Author: Anagrama
 'Last modified: 13/08/2016

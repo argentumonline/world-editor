@@ -1,4 +1,5 @@
 Attribute VB_Name = "modRender"
+'@Folder("WorldEditor.Modules.Render")
 '**************************************************************
 'This program is free software; you can redistribute it and/or modify
 'it under the terms of the GNU General Public License as published by
@@ -44,7 +45,7 @@ Public Sub RenderAllMaps(ByRef format As eFormatPic, ByVal SizeX As Long, ByVal 
 '12/08/2016: Anagrama - Genera una captura de cada mapa en la carpeta de mapas.
 '*************************************************
     Dim FileCount As String
-    Dim File() As String
+    Dim file() As String
     Dim FilePath As String
     Dim Extension As String
     Dim num As Integer
@@ -56,21 +57,21 @@ Public Sub RenderAllMaps(ByRef format As eFormatPic, ByVal SizeX As Long, ByVal 
     FileCount = Dir$(FilePath & Extension)
     Do While Len(FileCount)
         NumFiles = NumFiles + 1
-        ReDim Preserve File(1 To NumFiles) As String
-        File(UBound(File)) = FileCount
+        ReDim Preserve file(1 To NumFiles) As String
+        file(UBound(file)) = FileCount
         FileCount = Dir$
     Loop
     
-    frmRenderAll.pgbProgressTotal.Value = 0
+    frmRenderAll.pgbProgressTotal.value = 0
     frmRenderAll.pgbProgressTotal.max = NumFiles
     frmRenderAll.lblEstadoTotal = "0/" & NumFiles
     
-    For num = 1 To UBound(File)
+    For num = 1 To UBound(file)
         Call modMapIO.NuevoMapa
-        modMapIO.AbrirMapa FilePath & File(num), MapData
+        modMapIO.AbrirMapa FilePath & file(num), MapData
         Call MapCapture(format, SizeX, SizeY, 1)
-        frmRenderAll.pgbProgressTotal.Value = frmRenderAll.pgbProgressTotal.Value + 1
-        frmRenderAll.lblEstadoTotal = frmRenderAll.pgbProgressTotal.Value & "/" & NumFiles
+        frmRenderAll.pgbProgressTotal.value = frmRenderAll.pgbProgressTotal.value + 1
+        frmRenderAll.lblEstadoTotal = frmRenderAll.pgbProgressTotal.value & "/" & NumFiles
     Next num
     
 End Sub
@@ -121,14 +122,14 @@ Dim MyMaxY As Byte
     End With
 
     If RenderAll = 0 Then
-        frmRender.pgbProgress.Value = 0
+        frmRender.pgbProgress.value = 0
         frmRender.pgbProgress.max = 50000
         MyMinX = XMinMapSize
         MyMaxX = XMaxMapSize
         MyMinY = YMinMapSize
         MyMaxY = YMaxMapSize
     Else
-        frmRenderAll.pgbProgress.Value = 0
+        frmRenderAll.pgbProgress.value = 0
         frmRenderAll.pgbProgress.max = 5
         MyMinX = 9
         MyMaxX = 92
@@ -157,7 +158,7 @@ Dim MyMaxY As Byte
     
     Dim Token As Long
     Token = InitGDIPlus
-    frmRenderAll.picMap = Resize(frmRenderAll.tmpPic.Picture.Handle, frmRenderAll.tmpPic.Picture.Type, frmRenderAll.picMap.ScaleWidth, frmRenderAll.picMap.ScaleHeight, , False)
+    frmRenderAll.picMap = Resize(frmRenderAll.tmpPic.Picture.handle, frmRenderAll.tmpPic.Picture.Type, frmRenderAll.picMap.ScaleWidth, frmRenderAll.picMap.ScaleHeight, , False)
     FreeGDIPlus Token
 
     If Not FileExist(App.path & "\Renders", vbDirectory) Then MkDir (App.path & "\Renders")

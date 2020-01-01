@@ -1,4 +1,5 @@
 Attribute VB_Name = "modEdicion"
+'@Folder("WorldEditor.Modules.Editor")
 '**************************************************************
 'This program is free software; you can redistribute it and/or modify
 'it under the terms of the GNU General Public License as published by
@@ -53,10 +54,10 @@ Public Sub Deshacer_Clear()
 'Author: ^[GS]^
 'Last modified: 15/10/06
 '*************************************************
-Dim I As Integer
+Dim i As Integer
 ' Vacio todos los campos afectados
-For I = 1 To maxDeshacer
-    MapData_Deshacer_Info(I).Libre = True
+For i = 1 To maxDeshacer
+    MapData_Deshacer_Info(i).Libre = True
 Next
 ' no hay que deshacer
 frmMain.mnuDeshacer.Enabled = False
@@ -72,20 +73,20 @@ Public Sub Deshacer_Add(ByRef Desc As String)
 '*************************************************
 If Not frmMain.mnuUtilizarDeshacer.Checked Then Exit Sub
 
-Dim I As Integer
+Dim i As Integer
 Dim X As Integer
 Dim Y As Integer
 
 ' Desplazo todos los deshacer uno hacia atras
-For I = maxDeshacer To 2 Step -1
+For i = maxDeshacer To 2 Step -1
     For X = XMinMapSize To XMaxMapSize
         For Y = YMinMapSize To YMaxMapSize
-            MapData_Deshacer(I, X, Y) = MapData_Deshacer(I - 1, X, Y)
+            MapData_Deshacer(i, X, Y) = MapData_Deshacer(i - 1, X, Y)
         Next Y
     Next X
     
-    MapData_Deshacer_Info(I) = MapData_Deshacer_Info(I - 1)
-Next I
+    MapData_Deshacer_Info(i) = MapData_Deshacer_Info(i - 1)
+Next i
 
 ' Guardo los valores
 For X = XMinMapSize To XMaxMapSize
@@ -108,7 +109,7 @@ Public Sub Deshacer_Recover()
 'Author: ^[GS]^
 'Last modified: 15/10/06
 '*************************************************
-Dim I As Integer
+Dim i As Integer
 Dim f As Integer
 Dim j As Integer
 Dim Body As Integer
@@ -140,14 +141,14 @@ If Not MapData_Deshacer_Info(1).Libre Then
     
     MapData_Deshacer_Info(1).Libre = True
     ' Desplazo todos los deshacer uno hacia adelante
-    For I = 1 To maxDeshacer - 1
+    For i = 1 To maxDeshacer - 1
         For f = XMinMapSize To XMaxMapSize
             For j = YMinMapSize To YMaxMapSize
-                MapData_Deshacer(I, f, j) = MapData_Deshacer(I + 1, f, j)
+                MapData_Deshacer(i, f, j) = MapData_Deshacer(i + 1, f, j)
             Next j
         Next f
-        MapData_Deshacer_Info(I) = MapData_Deshacer_Info(I + 1)
-    Next I
+        MapData_Deshacer_Info(i) = MapData_Deshacer_Info(i + 1)
+    Next i
     
     ' borro el ultimo
     MapData_Deshacer_Info(maxDeshacer).Libre = True
@@ -1032,14 +1033,14 @@ End If
 End Sub
 
 Public Sub QuitarCapasMedias(ByVal X As Byte, ByVal Y As Byte, Optional ByVal ConDeshacer As Boolean = True)
-Dim I As Byte
+Dim i As Byte
     
 If ConDeshacer Then _
     Call modEdicion.Deshacer_Add("Quitar capas medias")
     
-For I = 2 To 3
-    MapData(X, Y).Graphic(I).grhIndex = 0
-Next I
+For i = 2 To 3
+    MapData(X, Y).Graphic(i).grhIndex = 0
+Next i
 
 MapInfo.Changed = 1
 End Sub

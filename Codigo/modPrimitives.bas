@@ -1,5 +1,7 @@
 Attribute VB_Name = "modPrimitives"
+'@Folder("WorldEditor.Modules.Render")
 Option Explicit
+
 Private primitiveTecnique As Integer
 
 Public Sub InitPrimitivesModule()

@@ -72,24 +72,15 @@ Begin VB.Form frmOptimizar
       TabIndex        =   5
       Top             =   2640
       Width           =   1815
-      _ExtentX        =   3201
-      _ExtentY        =   1296
-      Caption         =   "&Optimizar"
-      CapAlign        =   2
-      BackStyle       =   2
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      cGradient       =   0
-      Mode            =   0
-      Value           =   0   'False
-      cBack           =   12648384
+      _extentx        =   3201
+      _extenty        =   1296
+      caption         =   "&Optimizar"
+      capalign        =   2
+      backstyle       =   2
+      cgradient       =   0
+      mode            =   0
+      value           =   0   'False
+      cback           =   12648384
    End
    Begin WorldEditor.lvButtons_H cCancelar 
       Height          =   735
@@ -97,24 +88,15 @@ Begin VB.Form frmOptimizar
       TabIndex        =   6
       Top             =   2640
       Width           =   1575
-      _ExtentX        =   2778
-      _ExtentY        =   1296
-      Caption         =   "&Cancelar"
-      CapAlign        =   2
-      BackStyle       =   2
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      cGradient       =   0
-      Mode            =   1
-      Value           =   0   'False
-      cBack           =   -2147483633
+      _extentx        =   2778
+      _extenty        =   1296
+      caption         =   "&Cancelar"
+      capalign        =   2
+      backstyle       =   2
+      cgradient       =   0
+      mode            =   1
+      value           =   0   'False
+      cback           =   -2147483633
    End
 End
 Attribute VB_Name = "frmOptimizar"
@@ -122,6 +104,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'@Folder("WorldEditor.Form")
 Option Explicit
 
 
@@ -149,7 +132,7 @@ For Y = YMinMapSize To YMaxMapSize
     For X = XMinMapSize To XMaxMapSize
         With MapData(X, Y)
             ' ** Quitar NPCs, Objetos y Translados en los Bordes Exteriores
-            If (X < MinXBorder Or X > MaxXBorder Or Y < MinYBorder Or Y > MaxYBorder) And (chkQuitarTodoBordes.value = 1) Then
+            If (X < MinXBorder Or X > MaxXBorder Or Y < MinYBorder Or Y > MaxYBorder) And (chkQuitarTodoBordes.Value = 1) Then
                 'Quitar NPCs
                 If .NPCIndex > 0 Then
                     EraseChar .CharIndex
@@ -159,7 +142,7 @@ For Y = YMinMapSize To YMaxMapSize
                 ' Quitar Objetos
                 .OBJInfo.objindex = 0
                 .OBJInfo.Amount = 0
-                .ObjGrh.GrhIndex = 0
+                .ObjGrh.grhIndex = 0
                 ' Quitar Translados
                 .TileExit.Map = 0
                 .TileExit.X = 0
@@ -170,28 +153,28 @@ For Y = YMinMapSize To YMaxMapSize
             
             ' ** Quitar Translados y Triggers en Bloqueo
             If (.Blocked = 1) Then
-                If (.TileExit.Map > 0) And (chkQuitarTrans.value = 1) Then ' Quita Translado Bloqueado
+                If (.TileExit.Map > 0) And (chkQuitarTrans.Value = 1) Then ' Quita Translado Bloqueado
                     .TileExit.Map = 0
                     .TileExit.Y = 0
                     .TileExit.X = 0
-                ElseIf (.Trigger > 0) And (chkQuitarTrigBloq.value = 1) Then ' Quita Trigger Bloqueado
+                ElseIf (.Trigger > 0) And (chkQuitarTrigBloq.Value = 1) Then ' Quita Trigger Bloqueado
                     .Trigger = 0
                 End If
             End If
             
             ' ** Quitar Triggers en Translado
-            If (.TileExit.Map > 0) And (chkQuitarTrigTrans.value = 1) Then
+            If (.TileExit.Map > 0) And (chkQuitarTrigTrans.Value = 1) Then
                 If (.Trigger > 0) Then ' Quita Trigger en Translado
                     .Trigger = 0
                 End If
             End If
             
             ' ** Mapea Arboles, Carteles, Foros y Yacimientos que no esten en la 3ra Capa
-            If (.OBJInfo.objindex > 0) And ((chkMapearArbolesEtc.value = 1) Or (chkBloquearArbolesEtc.value = 1)) Then
+            If (.OBJInfo.objindex > 0) And ((chkMapearArbolesEtc.Value = 1) Or (chkBloquearArbolesEtc.Value = 1)) Then
                 Select Case ObjData(.OBJInfo.objindex).ObjType
                     Case 4, 8, 10, 22 ' Arboles, Carteles, Foros, Yacimientos
-                        If (.Graphic(3).GrhIndex <> .ObjGrh.GrhIndex) And (chkMapearArbolesEtc.value = 1) Then .Graphic(3) = .ObjGrh
-                        If (chkBloquearArbolesEtc.value = 1) And (.Blocked = 0) Then .Blocked = 1
+                        If (.Graphic(3).grhIndex <> .ObjGrh.grhIndex) And (chkMapearArbolesEtc.Value = 1) Then .Graphic(3) = .ObjGrh
+                        If (chkBloquearArbolesEtc.Value = 1) And (.Blocked = 0) Then .Blocked = 1
                 End Select
             End If
             ' ** Mapea Arboles, Carteles, Foros y Yacimientos que no esten en la 3ra Capa

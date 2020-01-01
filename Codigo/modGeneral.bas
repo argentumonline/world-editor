@@ -1,4 +1,5 @@
 Attribute VB_Name = "modGeneral"
+'@Folder("WorldEditor.Modules")
 '**************************************************************
 'This program is free software; you can redistribute it and/or modify
 'it under the terms of the GNU General Public License as published by
@@ -32,11 +33,12 @@ Option Explicit
 Private lFrameTimer As Long
 
 Private intervalChecker As clsInterval
-Private Const KEY_CHECK_INTEVAL As Long = 100
+Private Const KEY_CHECK_INTEVAL As Long = 80
 Public AutoPantalla As Boolean
 Private Sub InitGeneral()
     Set intervalChecker = New clsInterval
     Call intervalChecker.Init(KEY_CHECK_INTEVAL)
+    bCursor = True
 End Sub
 
 ''
@@ -117,7 +119,7 @@ Public Function ReadField(ByVal Pos As Integer, ByRef Text As String, ByVal SepA
 'Author: Unkwown
 'Last modified: 20/05/06
 '*************************************************
-Dim I As Integer
+Dim i As Integer
 Dim LastPos As Integer
 Dim CurChar As String * 1
 Dim FieldNum As Integer
@@ -127,8 +129,8 @@ Seperator = Chr$(SepASCII)
 LastPos = 0
 FieldNum = 0
 
-For I = 1 To Len(Text)
-    CurChar = mid$(Text, I, 1)
+For i = 1 To Len(Text)
+    CurChar = mid$(Text, i, 1)
     If CurChar = Seperator Then
         FieldNum = FieldNum + 1
         
@@ -136,9 +138,9 @@ For I = 1 To Len(Text)
             ReadField = mid$(Text, LastPos + 1, (InStr(LastPos + 1, Text, Seperator, vbTextCompare) - 1) - (LastPos))
             Exit Function
         End If
-        LastPos = I
+        LastPos = i
     End If
-Next I
+Next i
 FieldNum = FieldNum + 1
 
 If FieldNum = Pos Then
@@ -185,7 +187,7 @@ Private Sub CargarMapIni()
 On Error GoTo Fallo
 Dim tStr As String
 Dim Leer As New clsIniReader
-Dim I As Long
+Dim i As Long
 
 IniPath = App.path & "\"
 
@@ -283,10 +285,10 @@ End If
 ' Menu Mostrar
 frmMain.mnuVerAutomatico.Checked = Val(Leer.GetValue("MOSTRAR", "ControlAutomatico"))
 
-For I = 2 To 4
-    bVerCapa(I) = Val(Leer.GetValue("MOSTRAR", "Capa" & I))
-    frmMain.mnuVerCapa(I).Checked = bVerCapa(I)
-Next I
+For i = 2 To 4
+    bVerCapa(i) = Val(Leer.GetValue("MOSTRAR", "Capa" & i))
+    frmMain.mnuVerCapa(i).Checked = bVerCapa(i)
+Next i
 
 bTranslados = Val(Leer.GetValue("MOSTRAR", "Translados"))
 bTriggers = Val(Leer.GetValue("MOSTRAR", "Triggers"))
@@ -399,7 +401,7 @@ Dim Chkflag As Integer
     Call CargarMapIni
     Call IniciarCabecera(MiCabecera)
     DoEvents
-    
+    frmCargando.Show
     If FileExist(IniPath & "WorldEditor.jpg", vbArchive) Then frmCargando.Picture1.Picture = LoadPicture(IniPath & "WorldEditor.jpg")
     
     frmCargando.verX = "v" & App.Major & "." & App.Minor & "." & App.Revision
@@ -456,6 +458,7 @@ Dim Chkflag As Integer
     
     Call InitGeneral
     Call modEdicion.InitEditionModule
+    
     Call modPaneles.InitPanelModule(frmMain.PreviewGrh)
     
     Set TextDrawer = New clsTextDrawer
@@ -491,7 +494,7 @@ Dim Chkflag As Integer
         
         'FPS Counter - mostramos las FPS
         If GetTickCount - lFrameTimer >= 1000 Then
-            CaptionWorldEditor frmMain.Dialog.filename, (MapInfo.Changed = 1)
+            CaptionWorldEditor frmMain.Dialog.FileName, (MapInfo.Changed = 1)
             frmMain.FPS.Caption = "FPS: " & FPS
             lFrameTimer = GetTickCount
             FPS = 0
@@ -507,7 +510,7 @@ Dim Chkflag As Integer
         
     If MapInfo.Changed = 1 Then
         If MsgBox(MSGMod, vbExclamation + vbYesNo) = vbYes Then
-            modMapIO.GuardarMapa frmMain.Dialog.filename
+            modMapIO.GuardarMapa frmMain.Dialog.FileName
         End If
     End If
     
@@ -710,8 +713,8 @@ Public Function TryChangeMap(mapNum As Integer) As Boolean
             
             Call modMapIO.NuevoMapa
             
-            frmMain.Dialog.filename = PATH_Save & NameMap_Save & mapNum & ".map"
-            modMapIO.AbrirMapa frmMain.Dialog.filename, MapData
+            frmMain.Dialog.FileName = PATH_Save & NameMap_Save & mapNum & ".map"
+            modMapIO.AbrirMapa frmMain.Dialog.FileName, MapData
             
             TryChangeMap = True
         Exit Function
@@ -724,11 +727,11 @@ ErrHandler:
 
 End Function
 
-Public Function ReadAllBytes(filename As String) As Byte()
+Public Function ReadAllBytes(FileName As String) As Byte()
     Dim fileNum As Integer
     fileNum = FreeFile()
  
-    Open filename For Binary Access Read As fileNum
+    Open FileName For Binary Access Read As fileNum
         ReDim ReadAllBytes(LOF(fileNum) - 1)
         Get fileNum, 1, ReadAllBytes
     Close fileNum

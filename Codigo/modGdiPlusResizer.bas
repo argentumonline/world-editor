@@ -1,4 +1,5 @@
 Attribute VB_Name = "modGdiPlusResizer"
+'@Folder("WorldEditor.Modules")
 Option Explicit
 
 Private Type GUID

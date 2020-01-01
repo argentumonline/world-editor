@@ -1,4 +1,5 @@
 Attribute VB_Name = "modTileEngine"
+'@Folder("WorldEditor.Modules.Render")
 Option Explicit
 Public Const ENGINE_SPEED As Single = 0.018
 Public Type tFuente
@@ -174,7 +175,7 @@ Public Sub Draw(ByRef destination As wGL_Rectangle, ByRef source As wGL_Rectangl
 End Sub
 
 Public Function GetCharacterDimension(ByVal CharIndex As Integer, ByRef RangeX As Single, ByRef RangeY As Single)
-    Dim I As Long
+    Dim i As Long
     
     Dim BestRange As Long
             
@@ -182,29 +183,29 @@ Public Function GetCharacterDimension(ByVal CharIndex As Integer, ByRef RangeX A
     
         ' Try to calculate the best width and height using all four direction of the entity's body
         If (.iBody <> 0) Then
-            For I = 1 To 4
-                If (GrhData(.Body.Walk(I).grhIndex).TileWidth > RangeX) Then
-                    RangeX = GrhData(.Body.Walk(I).grhIndex).TileWidth
+            For i = 1 To 4
+                If (GrhData(.Body.Walk(i).grhIndex).TileWidth > RangeX) Then
+                    RangeX = GrhData(.Body.Walk(i).grhIndex).TileWidth
                 End If
-                If (GrhData(.Body.Walk(I).grhIndex).TileHeight > RangeY) Then
-                    RangeY = GrhData(.Body.Walk(I).grhIndex).TileHeight
+                If (GrhData(.Body.Walk(i).grhIndex).TileHeight > RangeY) Then
+                    RangeY = GrhData(.Body.Walk(i).grhIndex).TileHeight
                 End If
-            Next I
+            Next i
         End If
                 
         ' Try to calculate the best width and height using all four direction of the entity's body
         If (.iHead <> 0) Then
 
-            For I = 1 To 4
-                If (GrhData(.Head.Head(I).grhIndex).TileWidth > RangeX) Then
-                    RangeX = GrhData(.Head.Head(I).grhIndex).TileWidth
+            For i = 1 To 4
+                If (GrhData(.Head.Head(i).grhIndex).TileWidth > RangeX) Then
+                    RangeX = GrhData(.Head.Head(i).grhIndex).TileWidth
                 End If
-            Next I
-            For I = 1 To 4
-                If (GrhData(.Head.Head(I).grhIndex).TileHeight > BestRange) Then
-                    BestRange = GrhData(.Head.Head(I).grhIndex).TileHeight
+            Next i
+            For i = 1 To 4
+                If (GrhData(.Head.Head(i).grhIndex).TileHeight > BestRange) Then
+                    BestRange = GrhData(.Head.Head(i).grhIndex).TileHeight
                 End If
-            Next I
+            Next i
 
             RangeY = RangeY + BestRange
         End If
@@ -220,9 +221,9 @@ Public Function GetDepth(ByVal Layer As Single, Optional ByVal X As Single = 1, 
     
 End Function
 
-Public Function LoadBytes(ByVal filename As String) As Byte()
+Public Function LoadBytes(ByVal FileName As String) As Byte()
 
-    Open App.path + "\" + filename For Binary Access Read Lock Read As #1
+    Open App.path + "\" + FileName For Binary Access Read Lock Read As #1
 
         ReDim LoadBytes(LOF(1) - 1)
     
@@ -627,7 +628,7 @@ On Error GoTo ErrHandler
     Dim Pos As Integer
     Dim line As String
     Dim color As Long
-    Dim I As Byte
+    Dim i As Byte
     Dim LastIndex As Byte
     Dim TextOffsetY As Integer
     

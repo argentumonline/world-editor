@@ -1,4 +1,5 @@
 Attribute VB_Name = "modPicAdvanced"
+'@Folder("WorldEditor.Modules")
 '**************************************************************
 'This program is free software; you can redistribute it and/or modify
 'it under the terms of the GNU General Public License as published by
@@ -29,7 +30,7 @@ Attribute VB_Name = "modPicAdvanced"
 Option Explicit
 
 ' ----==== GDIPlus Const ====----
-Public Const GdiPlusVersion As Long = 1
+Public Const GdiplusVersion As Long = 1
 Private Const mimeJPG As String = "image/jpeg"
 Private Const mimePNG As String = "image/png"
 Private Const mimeTIFF As String = "image/tiff"
@@ -40,7 +41,7 @@ Private Const EncoderCompression As String = "{E09D739D-CCD4-44EE-8EBA-3FBF8BE4F
 ' ----==== Sonstige Types ====----
 Private Type PICTDESC
     cbSizeOfStruct As Long
-    picType As Long
+    PicType As Long
     hgdiObj As Long
     hPalOrXYExt As Long
 End Type
@@ -60,8 +61,8 @@ Private Type GUID
 End Type
 
 ' ----==== GDIPlus Types ====----
-Private Type GDIPlusStartupInput
-    GdiPlusVersion As Long
+Private Type GdiplusStartupInput
+    GdiplusVersion As Long
     DebugEventCallback As Long
     SuppressBackgroundThread As Long
     SuppressExternalCodecs As Long
@@ -75,7 +76,7 @@ End Type
 Private Type EncoderParameter
     GUID As GUID
     NumberOfValues As Long
-    type As Long
+    Type As Long
     Value As Long
 End Type
 
@@ -247,7 +248,7 @@ Private Enum PaletteType
 End Enum
 ' ----==== GDI+ 5.xx und 6.xx API Deklarationen ====----
 Private Declare Function GdipCloneBitmapArea Lib "gdiplus" _
-    (ByVal X As Single, ByVal y As Single, ByVal Width As Single, _
+    (ByVal X As Single, ByVal Y As Single, ByVal Width As Single, _
     ByVal Height As Single, ByVal format As PixelFormats, _
     ByVal srcBitmap As Long, ByRef dstBitmap As Long) As Status
 
@@ -255,7 +256,7 @@ Private Declare Function GdipCreateBitmapFromFile Lib "gdiplus" _
     (ByVal FileName As Long, ByRef BITMAP As Long) As Status
 
 Private Declare Function GdipCreateBitmapFromHBITMAP Lib "gdiplus" _
-    (ByVal hbm As Long, ByVal hpal As Long, _
+    (ByVal hbm As Long, ByVal hPal As Long, _
     ByRef BITMAP As Long) As Status
 
 Private Declare Function GdipCreateHBITMAPFromBitmap Lib "gdiplus" _
@@ -263,31 +264,31 @@ Private Declare Function GdipCreateHBITMAPFromBitmap Lib "gdiplus" _
     ByVal background As Long) As Status
 
 Private Declare Function GdipDisposeImage Lib "gdiplus" _
-    (ByVal image As Long) As Status
+    (ByVal Image As Long) As Status
 
 Private Declare Function GdipGetImageEncoders Lib "gdiplus" _
-    (ByVal numEncoders As Long, ByVal Size As Long, _
+    (ByVal numEncoders As Long, ByVal size As Long, _
     ByRef Encoders As Any) As Status
 
 Private Declare Function GdipGetImageEncodersSize Lib "gdiplus" _
-    (ByRef numEncoders As Long, ByRef Size As Long) As Status
+    (ByRef numEncoders As Long, ByRef size As Long) As Status
 
 Private Declare Function GdipGetImagePixelFormat Lib "gdiplus" _
-    (ByVal image As Long, ByRef PixelFormat As PixelFormats) As Status
+    (ByVal Image As Long, ByRef PixelFormat As PixelFormats) As Status
 
 Private Declare Function GdipGetImageDimension Lib "gdiplus" _
-    (ByVal image As Long, ByRef sngWidth As Single, _
+    (ByVal Image As Long, ByRef sngWidth As Single, _
     ByRef sngHeight As Single) As Status
 
 Private Declare Function GdiplusShutdown Lib "gdiplus" _
-    (ByVal token As Long) As Status
+    (ByVal Token As Long) As Status
 
 Private Declare Function GdiplusStartup Lib "gdiplus" _
-    (ByRef token As Long, ByRef lpInput As GDIPlusStartupInput, _
+    (ByRef Token As Long, ByRef lpInput As GdiplusStartupInput, _
     Optional ByRef lpOutput As Any) As Status
 
 Private Declare Function GdipSaveImageToFile Lib "gdiplus" _
-    (ByVal image As Long, ByVal FileName As Long, _
+    (ByVal Image As Long, ByVal FileName As Long, _
     ByRef clsidEncoder As GUID, _
     ByRef encoderParams As Any) As Status
 
@@ -341,8 +342,8 @@ Public UseGDI6 As Boolean
 
 Public Function StartUpGDIPlus(ByVal GdipVersion As Long) As Status
  ' Initialisieren der GDI+ Instanz
- Dim GdipStartupInput As GDIPlusStartupInput
- GdipStartupInput.GdiPlusVersion = GdipVersion
+ Dim GdipStartupInput As GdiplusStartupInput
+ GdipStartupInput.GdiplusVersion = GdipVersion
  StartUpGDIPlus = GdiplusStartup(GdipToken, GdipStartupInput, ByVal 0)
 End Function
 
@@ -460,7 +461,7 @@ End Function
 
 Private Function HandleToPicture(ByVal hGDIHandle As Long, _
     ByVal ObjectType As PictureTypeConstants, _
-    Optional ByVal hpal As Long = 0) As StdPicture
+    Optional ByVal hPal As Long = 0) As StdPicture
  
 Dim tPictDesc As PICTDESC
 Dim IID_IPicture As IID
@@ -469,9 +470,9 @@ Dim oPicture As IPicture
 ' Initialisiert die PICTDESC Structur
 With tPictDesc
     .cbSizeOfStruct = Len(tPictDesc)
-    .picType = ObjectType
+    .PicType = ObjectType
     .hgdiObj = hGDIHandle
-    .hPalOrXYExt = hpal
+    .hPalOrXYExt = hPal
 End With
 
 ' Initialisiert das IPicture Interface ID
@@ -497,20 +498,20 @@ End Function
 
 Private Function GetEncoderClsid(mimeType As String, pClsid As GUID) As Boolean
 Dim num As Long
-Dim Size As Long
+Dim size As Long
 Dim pImageCodecInfo() As ImageCodecInfo
 Dim j As Long
 Dim buffer As String
  
-Call GdipGetImageEncodersSize(num, Size)
+Call GdipGetImageEncodersSize(num, size)
 
-If (Size = 0) Then
+If (size = 0) Then
     GetEncoderClsid = False '// fehlgeschlagen
     Exit Function
 End If
 
-ReDim pImageCodecInfo(0 To Size \ Len(pImageCodecInfo(0)) - 1)
-Call GdipGetImageEncoders(num, Size, pImageCodecInfo(0))
+ReDim pImageCodecInfo(0 To size \ Len(pImageCodecInfo(0)) - 1)
+Call GdipGetImageEncoders(num, size, pImageCodecInfo(0))
 
 For j = 0 To num - 1
     buffer = Space$(lstrlenW(ByVal pImageCodecInfo(j).MimeTypePtr))
@@ -583,7 +584,7 @@ If GetEncoderClsid(mimeTIFF, tPicEncoder) = True Then
         ' Setzen der Kompressions GUID
         CLSIDFromString StrPtr(EncoderCompression), .GUID
         .NumberOfValues = 1
-        .type = EncoderParameterValueTypeLong
+        .Type = EncoderParameterValueTypeLong
         ' Kompressionstyp
         .Value = VarPtr(eTifCompression)
     End With
@@ -645,7 +646,7 @@ If GetEncoderClsid(mimeTIFF, tPicEncoder) = True Then
         ' Setzen der Kompressions GUID
         CLSIDFromString StrPtr(EncoderCompression), .GUID
         .NumberOfValues = 1
-        .type = EncoderParameterValueTypeLong
+        .Type = EncoderParameterValueTypeLong
         ' Kompressionstyp
         .Value = VarPtr(eTifCompression)
     End With
@@ -718,7 +719,7 @@ If GetEncoderClsid(mimeTIFF, tPicEncoder) = True Then
         ' Setzen der Kompressions GUID
         CLSIDFromString StrPtr(EncoderCompression), .GUID
         .NumberOfValues = 1
-        .type = EncoderParameterValueTypeLong
+        .Type = EncoderParameterValueTypeLong
         ' Kompressionstyp
         .Value = VarPtr(eTifCompression)
     End With
@@ -747,7 +748,7 @@ Dim lBitmap As Long
 ' Erzeugt eine GDI+ Bitmap vom
 ' StdPicture Handle -> lBitmap
 If Execute(GdipCreateBitmapFromHBITMAP( _
-    Pic.handle, 0, lBitmap)) = OK Then
+    Pic.Handle, 0, lBitmap)) = OK Then
     
     ' Kompressionstyp
     Select Case eTifCompression
@@ -802,7 +803,7 @@ Dim retVal As Boolean
 Dim lBitmap As Long
  
 ' Erzeugt eine GDI+ Bitmap vom StdPicture Handle -> lBitmap
-retStatus = Execute(GdipCreateBitmapFromHBITMAP(Pic.handle, 0, lBitmap))
+retStatus = Execute(GdipCreateBitmapFromHBITMAP(Pic.Handle, 0, lBitmap))
 
 If retStatus = OK Then
  
@@ -824,7 +825,7 @@ If retStatus = OK Then
             ' Setzen der Quality GUID
             CLSIDFromString StrPtr(EncoderQuality), .GUID
             .NumberOfValues = 1
-            .type = EncoderParameterValueTypeLong
+            .Type = EncoderParameterValueTypeLong
             .Value = VarPtr(Quality)
         End With
       
@@ -857,7 +858,7 @@ Dim tPicEncoder As GUID
 ' Erzeugt eine GDI+ Bitmap vom
 ' StdPicture Handle -> lBitmap
 If Execute(GdipCreateBitmapFromHBITMAP( _
-    Pic.handle, 0, lBitmap)) = OK Then
+    Pic.Handle, 0, lBitmap)) = OK Then
     
     ' Ermitteln der CLSID vom mimeType Encoder
     If GetEncoderClsid(mimePNG, tPicEncoder) = True Then

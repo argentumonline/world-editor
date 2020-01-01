@@ -1,4 +1,5 @@
 Attribute VB_Name = "modDirectDraw"
+'@Folder("WorldEditor.Modules")
 '**************************************************************
 'This program is free software; you can redistribute it and/or modify
 'it under the terms of the GNU General Public License as published by
@@ -411,7 +412,7 @@ Sub DrawGrhtoHdc(ByVal hDC As Long, ByVal grhIndex As Integer, ByRef SourceRect 
     'Call SurfaceDB.Surface(GrhData(grhIndex).fileNum).BltToDC(hDC, SourceRect, destRect)
 End Sub
 
-Sub PlayWaveDS(ByRef File As String)
+Sub PlayWaveDS(ByRef file As String)
 '*************************************************
 'Author: Unkwown
 'Last modified: 20/05/06
@@ -423,7 +424,7 @@ Sub PlayWaveDS(ByRef File As String)
         LastSoundBufferUsed = 1
     End If
     
-    If LoadWavetoDSBuffer(DirectSound, DSBuffers(LastSoundBufferUsed), File) Then
+    If LoadWavetoDSBuffer(DirectSound, DSBuffers(LastSoundBufferUsed), file) Then
         DSBuffers(LastSoundBufferUsed).Play DSBPLAY_DEFAULT
     End If
 

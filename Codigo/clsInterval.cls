@@ -11,6 +11,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+'@Folder("WorldEditor.Class")
 Option Explicit
 'Private Declare Function GetTickCount Lib "kernel32" () As Long
 
