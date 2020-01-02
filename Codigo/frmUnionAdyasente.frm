@@ -83,7 +83,7 @@ Begin VB.Form frmUnionAdyacente
       backstyle       =   2
       cgradient       =   0
       mode            =   0
-      value           =   0   'False
+      value           =   0
       cback           =   -2147483633
    End
    Begin VB.TextBox PosLim 
@@ -408,7 +408,7 @@ Begin VB.Form frmUnionAdyacente
       backstyle       =   2
       cgradient       =   0
       mode            =   0
-      value           =   0   'False
+      value           =   0
       cback           =   -2147483633
    End
    Begin WorldEditor.lvButtons_H cmdDefault 
@@ -424,7 +424,7 @@ Begin VB.Form frmUnionAdyacente
       backstyle       =   2
       cgradient       =   0
       mode            =   0
-      value           =   0   'False
+      value           =   0
       cback           =   -2147483633
    End
    Begin VB.CheckBox AutoMapeo 
@@ -948,7 +948,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'@Folder("WorldEditor.Form")
+'@Folder("WorldEditor.Form.Tools")
 '**************************************************************
 'This program is free software; you can redistribute it and/or modify
 'it under the terms of the GNU General Public License as published by

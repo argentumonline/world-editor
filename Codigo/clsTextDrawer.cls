@@ -11,6 +11,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+'@Folder("WorldEditor.Class")
 Option Explicit
 
 Private Type RECTO ' xD
@@ -27,10 +28,10 @@ Private Declare Function SetBkColor Lib "gdi32" (ByVal hDC As Long, ByVal crColo
 Private Declare Function SelectObject Lib "gdi32" (ByVal hDC As Long, ByVal hObject As Long) As Long
 Private Declare Function DeleteObject Lib "gdi32" (ByVal hObject As Long) As Long
 Private Declare Function CreateFont Lib "gdi32" Alias "CreateFontA" (ByVal H As Long, _
-    ByVal W As Long, ByVal E As Long, ByVal O As Long, ByVal W As Long, ByVal i As Long, _
+    ByVal W As Long, ByVal E As Long, ByVal O As Long, ByVal W As Long, ByVal I As Long, _
     ByVal u As Long, ByVal s As Long, ByVal c As Long, ByVal OP As Long, ByVal CP As Long, _
     ByVal Q As Long, ByVal PAF As Long, ByVal f As String) As Long
-Private Declare Function GetTextExtentPoint32 Lib "gdi32" Alias "GetTextExtentPoint32A" (ByVal hDC As Long, ByVal lpsz As String, ByVal cbString As Long, lpSize As Size) As Long
+Private Declare Function GetTextExtentPoint32 Lib "gdi32" Alias "GetTextExtentPoint32A" (ByVal hDC As Long, ByVal lpsz As String, ByVal cbString As Long, lpSize As size) As Long
 Private Declare Function Rectangle Lib "gdi32" (ByVal hDC As Long, ByVal X1 As Long, ByVal Y1 As Long, ByVal X2 As Long, ByVal Y2 As Long) As Long
 Private Declare Function InvalidateRect Lib "user32" ( _
     ByVal hwnd As Long, lpRect As RECTO, ByVal bErase As Long) As Long
@@ -81,7 +82,7 @@ Private Type TextInfo
     Text As String
 End Type
 
-Private Type Size
+Private Type size
     cx As Long
     cy As Long
 End Type
@@ -99,7 +100,7 @@ Private useVideoMemory As Boolean
 Private TextSurfaces(MAX_COLORS - 1) As Long
 Private Surface(MAX_COLORS - 1) As DirectDrawSurface7
 Private CantColors As Long
-Private surfacesize As Size
+Private surfacesize As size
 Private letters As String
 Private lettersrect(255) As RECT
 Private font As Integer
@@ -113,24 +114,24 @@ Public Function InitText(ByRef DD As DirectDraw7, ByVal videoMemory As Boolean)
   
     font = wGL_Graphic_Renderer.Create_Font(LoadBytes("FONT/Primary.ttf"))
     
-Dim ret As Size
+Dim ret As size
 Dim tsize As Integer
-Dim i As Long
+Dim I As Long
 
 tsize = 0
 letters = ""
 
-For i = 32 To 255
-    letters = letters & Chr$(i)
+For I = 32 To 255
+    letters = letters & Chr$(I)
     
-    lettersrect(i).Left = tsize
-    lettersrect(i).Right = tsize + ret.cx
-    lettersrect(i).Top = 0
-    lettersrect(i).Bottom = 13
+    lettersrect(I).Left = tsize
+    lettersrect(I).Right = tsize + ret.cx
+    lettersrect(I).Top = 0
+    lettersrect(I).Bottom = 13
     
     tsize = tsize + ret.cx
-    If i = 126 Then i = 160
-Next i
+    If I = 126 Then I = 160
+Next I
 
 CantColors = 1
 End Function
@@ -181,10 +182,10 @@ Private Sub Class_Terminate()
 '
 '**************************************************************
 
-Dim i As Long
+Dim I As Long
 
-For i = 0 To CantColors
-    Set Surface(i) = Nothing
-Next i
+For I = 0 To CantColors
+    Set Surface(I) = Nothing
+Next I
 
 End Sub

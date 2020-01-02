@@ -79,7 +79,7 @@ Begin VB.Form frmOptimizar
       backstyle       =   2
       cgradient       =   0
       mode            =   0
-      value           =   0   'False
+      value           =   0
       cback           =   12648384
    End
    Begin WorldEditor.lvButtons_H cCancelar 
@@ -95,7 +95,7 @@ Begin VB.Form frmOptimizar
       backstyle       =   2
       cgradient       =   0
       mode            =   1
-      value           =   0   'False
+      value           =   0
       cback           =   -2147483633
    End
 End
@@ -104,7 +104,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'@Folder("WorldEditor.Form")
+'@Folder("WorldEditor.Form.Tools")
 Option Explicit
 
 

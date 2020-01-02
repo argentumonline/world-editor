@@ -34,7 +34,7 @@ Begin VB.Form frmMusica
       backstyle       =   2
       cgradient       =   0
       mode            =   0
-      value           =   0   'False
+      value           =   0
       cback           =   -2147483633
    End
    Begin WorldEditor.lvButtons_H cmdAplicarYCerrar 
@@ -50,8 +50,8 @@ Begin VB.Form frmMusica
       backstyle       =   2
       cgradient       =   0
       mode            =   0
-      value           =   0   'False
-      enabled         =   0   'False
+      value           =   0
+      enabled         =   0
       cback           =   12648447
    End
    Begin WorldEditor.lvButtons_H cmdDetener 
@@ -67,8 +67,8 @@ Begin VB.Form frmMusica
       backstyle       =   2
       cgradient       =   0
       mode            =   0
-      value           =   0   'False
-      enabled         =   0   'False
+      value           =   0
+      enabled         =   0
       cback           =   12632319
    End
    Begin WorldEditor.lvButtons_H cmdEscuchar 
@@ -84,7 +84,7 @@ Begin VB.Form frmMusica
       backstyle       =   2
       cgradient       =   0
       mode            =   0
-      value           =   0   'False
+      value           =   0
       cback           =   12648384
    End
 End
@@ -93,7 +93,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'@Folder("WorldEditor.Form")
+'@Folder("WorldEditor.Form.Tools")
 '**************************************************************
 'This program is free software; you can redistribute it and/or modify
 'it under the terms of the GNU General Public License as published by

@@ -19,24 +19,15 @@ Begin VB.Form frmConfigSup
       TabIndex        =   15
       Top             =   2280
       Width           =   1935
-      _ExtentX        =   3413
-      _ExtentY        =   661
-      Caption         =   "&Aceptar"
-      CapAlign        =   2
-      BackStyle       =   2
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Times New Roman"
-         Size            =   9
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      cGradient       =   0
-      Mode            =   0
-      Value           =   0   'False
-      cBack           =   -2147483633
+      _extentx        =   3413
+      _extenty        =   661
+      caption         =   "&Aceptar"
+      capalign        =   2
+      backstyle       =   2
+      cgradient       =   0
+      mode            =   0
+      value           =   0
+      cback           =   -2147483633
    End
    Begin VB.CommandButton cmdDM 
       Caption         =   "+"
@@ -362,7 +353,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'@Folder("WorldEditor.Form")
+'@Folder("WorldEditor.Form.Tools")
 '**************************************************************
 'This program is free software; you can redistribute it and/or modify
 'it under the terms of the GNU General Public License as published by
