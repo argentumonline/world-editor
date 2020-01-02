@@ -38,7 +38,7 @@ Public AutoPantalla As Boolean
 Private Sub InitGeneral()
     Set intervalChecker = New clsInterval
     Call intervalChecker.Init(KEY_CHECK_INTEVAL)
-    bCursor = True
+    bCursor = False
 End Sub
 
 ''

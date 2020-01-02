@@ -761,7 +761,26 @@ Public Sub DrawGrh(ByRef Grh As Grh, ByVal X As Integer, ByVal Y As Integer, ByV
     End With
 
 End Sub
+Public Sub DrawGrhIndexWithLimit(ByVal grhIndex As Integer, ByVal X As Integer, ByVal Y As Integer, ByVal Z As Single, ByVal maxWidth As Integer, ByVal maxHeight As Integer)
 
+    With GrhData(grhIndex)
+  
+        Dim source As wGL_Rectangle, destination As wGL_Rectangle
+    
+        source.X1 = .S0
+        source.Y1 = .T0
+        source.X2 = .S1
+        source.Y2 = .T1
+        destination.X1 = X
+        destination.Y1 = Y
+        destination.X2 = X + IIf(.pixelWidth > maxWidth, maxWidth, .pixelWidth)
+        destination.Y2 = Y + IIf(.pixelHeight > maxHeight, maxHeight, .pixelHeight)
+        
+        Call Draw(destination, source, Z, 0, -1#, .fileNum, False)
+ 
+    End With
+  
+End Sub
 Sub DrawGrhIndex(ByVal grhIndex As Integer, ByVal X As Integer, ByVal Y As Integer, ByVal Z As Single, ByVal Center As Byte, Optional ByVal color As Long = -1, Optional ByVal Angle As Integer = 0)
 
     With GrhData(grhIndex)

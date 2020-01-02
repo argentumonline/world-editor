@@ -42,7 +42,7 @@ End Enum
 
 
 Private Type PanelType
-    panelFrame As frame
+    panelFrame As Frame
     btn As lvButtons_H
     usePreview As Boolean
 End Type
@@ -52,7 +52,7 @@ Private Pic As MyPicture
 Private currentPanel As PanelsTypes
 Private panels(PanelsTypes.Count) As PanelType
 
-Private Sub SetFrameAs(ByRef f As frame, pType As PanelsTypes, btn As lvButtons_H, usePreview As Boolean)
+Private Sub SetFrameAs(ByRef f As Frame, pType As PanelsTypes, btn As lvButtons_H, usePreview As Boolean)
     With panels(pType)
         Set .panelFrame = f
         Set .btn = btn
@@ -112,12 +112,12 @@ Public Sub Render()
     
     If MosaicoChecked Then
         Dim X As Integer, Y As Integer
-        
         For X = 1 To mAncho
             For Y = 1 To MAlto
                 If CurrentGrh(X, Y).grhIndex Then
                     With GrhData(CurrentGrh(X, Y).grhIndex)
-                        Call DrawGrhIndex(.frames(1), 0, 0, -1#, 0)
+                        'TODO fix for grh size
+                        Call DrawGrhIndex(.Frames(1), (X * 32) - 32, (Y * 32) - 32, -1#, 0)
                     End With
                 End If
             Next Y
@@ -125,7 +125,8 @@ Public Sub Render()
     Else
         If CurrentGrh(0).grhIndex > 0 Then
             With GrhData(CurrentGrh(0).grhIndex)
-                Call DrawGrhIndex(.frames(1), 0, 0, -1#, 0)
+                'Call DrawGrhIndex(.Frames(1), 0, 0, -1#, 0)
+                Call DrawGrhIndexWithLimit(.Frames(1), 0, 0, -1#, Pic.ScaleWidth, Pic.ScaleHeight)
             End With
         End If
     End If
