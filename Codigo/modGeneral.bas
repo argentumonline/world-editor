@@ -119,7 +119,7 @@ Public Function ReadField(ByVal Pos As Integer, ByRef Text As String, ByVal SepA
 'Author: Unkwown
 'Last modified: 20/05/06
 '*************************************************
-Dim i As Integer
+Dim I As Integer
 Dim LastPos As Integer
 Dim CurChar As String * 1
 Dim FieldNum As Integer
@@ -129,8 +129,8 @@ Seperator = Chr$(SepASCII)
 LastPos = 0
 FieldNum = 0
 
-For i = 1 To Len(Text)
-    CurChar = mid$(Text, i, 1)
+For I = 1 To Len(Text)
+    CurChar = mid$(Text, I, 1)
     If CurChar = Seperator Then
         FieldNum = FieldNum + 1
         
@@ -138,9 +138,9 @@ For i = 1 To Len(Text)
             ReadField = mid$(Text, LastPos + 1, (InStr(LastPos + 1, Text, Seperator, vbTextCompare) - 1) - (LastPos))
             Exit Function
         End If
-        LastPos = i
+        LastPos = I
     End If
-Next i
+Next I
 FieldNum = FieldNum + 1
 
 If FieldNum = Pos Then
@@ -187,7 +187,7 @@ Private Sub CargarMapIni()
 On Error GoTo Fallo
 Dim tStr As String
 Dim Leer As New clsIniReader
-Dim i As Long
+Dim I As Long
 
 IniPath = App.path & "\"
 
@@ -285,10 +285,10 @@ End If
 ' Menu Mostrar
 frmMain.mnuVerAutomatico.Checked = Val(Leer.GetValue("MOSTRAR", "ControlAutomatico"))
 
-For i = 2 To 4
-    bVerCapa(i) = Val(Leer.GetValue("MOSTRAR", "Capa" & i))
-    frmMain.mnuVerCapa(i).Checked = bVerCapa(i)
-Next i
+For I = 2 To 4
+    bVerCapa(I) = Val(Leer.GetValue("MOSTRAR", "Capa" & I))
+    frmMain.mnuVerCapa(I).Checked = bVerCapa(I)
+Next I
 
 bTranslados = Val(Leer.GetValue("MOSTRAR", "Translados"))
 bTriggers = Val(Leer.GetValue("MOSTRAR", "Triggers"))

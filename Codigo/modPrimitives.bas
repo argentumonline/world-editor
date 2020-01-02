@@ -21,7 +21,7 @@ Public Sub InitPrimitivesModule()
     Call wGL_Graphic_Renderer.Update_Technique_Descriptor(primitiveTecnique, Descriptor)
     
 End Sub
-Public Sub DrawBox(X1 As Integer, Y1 As Integer, X2 As Integer, Y2 As Integer, color As Long)
+Public Sub DrawBox(ByVal X1 As Integer, ByVal Y1 As Integer, ByVal X2 As Integer, ByVal Y2 As Integer, color As Long)
                     Dim source As wGL_Rectangle, destination As wGL_Rectangle
     
         destination.X1 = X1
