@@ -1300,17 +1300,13 @@ With MapData(X, Y)
                 
             .OBJInfo.objindex = objindex
             .OBJInfo.Amount = Amount
-            
-            InitGrh .ObjGrh, ObjData(objindex).grhIndex
-            
-            Select Case ObjData(objindex).ObjType
-                Case 4, 8, 10, 22 ' Arboles, Carteles, Foros, Yacimientos
-                    .Graphic(3) = .ObjGrh
-            End Select
-            
-            With GrhData(ObjData(objindex).grhIndex)
-                Call g_Swarm.Insert(4, -1, X, Y, .TileWidth, .TileHeight)
-            End With
+            If ObjData(objindex).grhIndex <> 0 Then
+                InitGrh .ObjGrh, ObjData(objindex).grhIndex
+                        
+                With GrhData(ObjData(objindex).grhIndex)
+                    Call g_Swarm.Insert(4, -1, X, Y, .TileWidth, .TileHeight)
+                End With
+            End If
             
             MapInfo.Changed = 1 'Set changed flag
         End If
@@ -1324,12 +1320,12 @@ With MapData(X, Y)
     If .OBJInfo.objindex <> 0 Then
         If ConDeshacer Then _
             Call modEdicion.Deshacer_Add("Quitar objeto")
-            
-        If .Graphic(3).grhIndex = .ObjGrh.grhIndex Then .Graphic(3).grhIndex = 0
-        
-        With GrhData(.ObjGrh.grhIndex)
-            Call g_Swarm.Remove(4, -1, X, Y, .TileWidth, .TileHeight)
-        End With
+        If .ObjGrh.grhIndex <> 0 Then
+
+            With GrhData(.ObjGrh.grhIndex)
+                Call g_Swarm.Remove(4, -1, X, Y, .TileWidth, .TileHeight)
+            End With
+        End If
         
         .ObjGrh.grhIndex = 0
         .OBJInfo.objindex = 0

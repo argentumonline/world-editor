@@ -180,7 +180,7 @@ For loopc = 1 To LastChar
 Next loopc
 
 MapInfo.MapVersion = 0
-MapInfo.name = "Nuevo Mapa"
+MapInfo.Name = "Nuevo Mapa"
 MapInfo.Music = 0
 MapInfo.PK = True
 MapInfo.MagiaSinEfecto = 0
@@ -498,7 +498,7 @@ On Error Resume Next
     Dim ByFlags As Byte
     Dim FreeFileMap As Long
     Dim FreeFileInf As Long
-    
+    Call frmErrors.ClearErrors
     'Change mouse icon
     frmMain.MousePointer = 11
     g_Swarm.Clear
@@ -543,6 +543,10 @@ On Error Resume Next
             End If
             
             Get FreeFileMap, , buffer(X, Y).Graphic(1).grhIndex
+            If buffer(X, Y).Graphic(1).grhIndex = 0 Then
+                Call frmErrors.AddError("Grhindex 0 en capa de pisos en X:" & X & " Y:" & Y & " Se remplazara por 1(vacio).")
+                buffer(X, Y).Graphic(1).grhIndex = 1
+            End If
             InitGrh buffer(X, Y).Graphic(1), buffer(X, Y).Graphic(1).grhIndex
             
             'Layer 2 used?
@@ -620,10 +624,22 @@ On Error Resume Next
                     Get FreeFileInf, , buffer(X, Y).OBJInfo.objindex
                     Get FreeFileInf, , buffer(X, Y).OBJInfo.Amount
                     If buffer(X, Y).OBJInfo.objindex > 0 Then
-                        InitGrh buffer(X, Y).ObjGrh, ObjData(buffer(X, Y).OBJInfo.objindex).grhIndex
-                         With GrhData(ObjData(buffer(X, Y).OBJInfo.objindex).grhIndex)
-                            Call g_Swarm.Insert(4, -1, X, Y, .TileWidth, .TileHeight)
-                        End With
+                        'INVALID OBJECT1
+                        If ObjData(buffer(X, Y).OBJInfo.objindex).ObjType = 0 Then
+                            Call frmErrors.AddError("Objeto " & buffer(X, Y).OBJInfo.objindex & " invalido en X:" & X & " Y:" & Y & " Se quitara el objeto.")
+                            buffer(X, Y).OBJInfo.Amount = 0
+                            buffer(X, Y).OBJInfo.objindex = 0
+                        Else
+                            If ObjData(buffer(X, Y).OBJInfo.objindex).grhIndex <> 0 Then
+                                InitGrh buffer(X, Y).ObjGrh, ObjData(buffer(X, Y).OBJInfo.objindex).grhIndex
+                                 With GrhData(ObjData(buffer(X, Y).OBJInfo.objindex).grhIndex)
+                                    Call g_Swarm.Insert(4, -1, X, Y, .TileWidth, .TileHeight)
+                                End With
+                            End If
+                            
+                        End If
+                        
+                        
                     End If
                 End If
             End If
@@ -655,6 +671,10 @@ On Error Resume Next
     'Change mouse icon
     frmMain.MousePointer = 0
     MapaCargado = True
+    
+    If frmErrors.HasErrors() Then
+        frmErrors.Show , frmMain
+    End If
 End Sub
 
 ''
@@ -813,7 +833,7 @@ Public Sub MapInfo_Guardar(ByVal Archivo As String)
         MapTitulo = NameMap_Save
     End If
 
-    Call WriteVar(Archivo, MapTitulo, "Name", MapInfo.name)
+    Call WriteVar(Archivo, MapTitulo, "Name", MapInfo.Name)
     Call WriteVar(Archivo, MapTitulo, "MusicNum", MapInfo.Music)
     Call WriteVar(Archivo, MapTitulo, "MagiaSinefecto", Val(MapInfo.MagiaSinEfecto))
     Call WriteVar(Archivo, MapTitulo, "NoEncriptarMP", Val(MapInfo.NoEncriptarMP))
@@ -869,7 +889,7 @@ On Error Resume Next
     Archivo = Right$(Archivo, Len(Archivo) - (Len(path)))
     MapTitulo = UCase$(Left$(Archivo, Len(Archivo) - 4))
 
-    MapInfo.name = Leer.GetValue(MapTitulo, "Name")
+    MapInfo.Name = Leer.GetValue(MapTitulo, "Name")
     MapInfo.Music = Leer.GetValue(MapTitulo, "MusicNum")
     MapInfo.MagiaSinEfecto = Val(Leer.GetValue(MapTitulo, "MagiaSinEfecto"))
     MapInfo.NoEncriptarMP = Val(Leer.GetValue(MapTitulo, "NoEncriptarMP"))
@@ -911,7 +931,7 @@ Public Sub MapInfo_Actualizar()
 
 On Error Resume Next
     ' Mostrar en Formularios
-    frmMapInfo.txtMapNombre.Text = MapInfo.name
+    frmMapInfo.txtMapNombre.Text = MapInfo.Name
     frmMapInfo.txtMapMusica.Text = MapInfo.Music
     frmMapInfo.txtMapTerreno.Text = MapInfo.Terreno
     frmMapInfo.txtMapZona.Text = MapInfo.Zona
@@ -921,7 +941,7 @@ On Error Resume Next
     frmMapInfo.chkMapNoEncriptarMP.Value = MapInfo.NoEncriptarMP
     frmMapInfo.chkMapPK.Value = IIf(MapInfo.PK = True, 1, 0)
     frmMapInfo.txtMapVersion = MapInfo.MapVersion
-    frmMain.lblMapNombre = MapInfo.name
+    frmMain.lblMapNombre = MapInfo.Name
     frmMain.lblMapMusica = MapInfo.Music
     frmMapInfo.chkTierra.Value = MapInfo.MapaTierra
     frmMapInfo.chkMismoBando.Value = MapInfo.MismoBando
