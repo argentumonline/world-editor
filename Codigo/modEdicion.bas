@@ -758,15 +758,15 @@ With MapData(X, Y)
     ' NPCs
     If .NPCIndex > 0 Then
         If NpcData(.NPCIndex).Hostile Then
-            frmMain.StatTxt.Text = frmMain.StatTxt.Text & " (NPC-Hostil: " & .NPCIndex & " - " & NpcData(.NPCIndex).name & ")"
+            frmMain.StatTxt.Text = frmMain.StatTxt.Text & " (NPC-Hostil: " & .NPCIndex & " - " & NpcData(.NPCIndex).Name & ")"
         Else
-            frmMain.StatTxt.Text = frmMain.StatTxt.Text & " (NPC: " & .NPCIndex & " - " & NpcData(.NPCIndex).name & ")"
+            frmMain.StatTxt.Text = frmMain.StatTxt.Text & " (NPC: " & .NPCIndex & " - " & NpcData(.NPCIndex).Name & ")"
         End If
     End If
     
     ' OBJs
     If .OBJInfo.objindex > 0 Then
-        frmMain.StatTxt.Text = frmMain.StatTxt.Text & " (Obj: " & .OBJInfo.objindex & " - " & ObjData(.OBJInfo.objindex).name & " - Cant.:" & .OBJInfo.Amount & ")"
+        frmMain.StatTxt.Text = frmMain.StatTxt.Text & " (Obj: " & .OBJInfo.objindex & " - " & ObjData(.OBJInfo.objindex).Name & " - Cant.:" & .OBJInfo.Amount & ")"
     End If
     
     ' Capas
@@ -1039,6 +1039,14 @@ If ConDeshacer Then _
     Call modEdicion.Deshacer_Add("Quitar capas medias")
     
 For i = 2 To 3
+    
+    If MapData(X, Y).Graphic(i).grhIndex <> 0 Then
+        With GrhData(MapData(X, Y).Graphic(i).grhIndex)
+            Call g_Swarm.Remove(i - 1, -1, X, Y, .TileWidth, .TileHeight)
+        End With
+    End If
+
+        
     MapData(X, Y).Graphic(i).grhIndex = 0
 Next i
 
@@ -1049,6 +1057,12 @@ Public Function QuitarEstaCapa(ByVal X As Byte, ByVal Y As Byte, Optional ByVal 
 If MapData(X, Y).Graphic(CurLayer).grhIndex <> 0 Then
     If ConDeshacer Then _
         Call modEdicion.Deshacer_Add("Quitar capa " & CurLayer)
+    
+    If CurLayer <> 1 Then
+        With GrhData(MapData(X, Y).Graphic(CurLayer).grhIndex)
+            Call g_Swarm.Remove(CurLayer, -1, X, Y, .TileWidth, .TileHeight)
+        End With
+    End If
     
     MapData(X, Y).Graphic(CurLayer).grhIndex = 0
     MapInfo.Changed = 1

@@ -546,8 +546,10 @@ Public Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal Of
     
         For X = MinX To MaxX
             DrawableX = (X - ScreenMinX) * TilePixelWidth + OffsetX
-        
-            Call DrawGrh(MapData(X, Y).Graphic(1), DrawableX, DrawableY, GetDepth(1, X, Y), 0, 1)
+            
+            If MapData(X, Y).Graphic(1).grhIndex <> 0 Then
+                Call DrawGrh(MapData(X, Y).Graphic(1), DrawableX, DrawableY, GetDepth(1, X, Y), 0, 1)
+            End If
             
         Next X
     Next Y
