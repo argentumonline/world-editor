@@ -1062,9 +1062,11 @@ If MapData(X, Y).Graphic(CurLayer).grhIndex <> 0 Then
         With GrhData(MapData(X, Y).Graphic(CurLayer).grhIndex)
             Call g_Swarm.Remove(CurLayer, -1, X, Y, .TileWidth, .TileHeight)
         End With
+        MapData(X, Y).Graphic(CurLayer).grhIndex = 0
+    Else
+        MapData(X, Y).Graphic(CurLayer).grhIndex = 1
     End If
     
-    MapData(X, Y).Graphic(CurLayer).grhIndex = 0
     MapInfo.Changed = 1
 End If
 End Function
