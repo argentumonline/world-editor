@@ -624,22 +624,12 @@ On Error Resume Next
                     Get FreeFileInf, , buffer(X, Y).OBJInfo.objindex
                     Get FreeFileInf, , buffer(X, Y).OBJInfo.Amount
                     If buffer(X, Y).OBJInfo.objindex > 0 Then
-                        'INVALID OBJECT1
-                        If ObjData(buffer(X, Y).OBJInfo.objindex).ObjType = 0 Then
-                            Call frmErrors.AddError("Objeto " & buffer(X, Y).OBJInfo.objindex & " invalido en X:" & X & " Y:" & Y & " Se quitara el objeto.")
-                            buffer(X, Y).OBJInfo.Amount = 0
-                            buffer(X, Y).OBJInfo.objindex = 0
-                        Else
-                            If ObjData(buffer(X, Y).OBJInfo.objindex).grhIndex <> 0 Then
-                                InitGrh buffer(X, Y).ObjGrh, ObjData(buffer(X, Y).OBJInfo.objindex).grhIndex
-                                 With GrhData(ObjData(buffer(X, Y).OBJInfo.objindex).grhIndex)
-                                    Call g_Swarm.Insert(4, -1, X, Y, .TileWidth, .TileHeight)
-                                End With
-                            End If
-                            
+                        If ObjData(buffer(X, Y).OBJInfo.objindex).grhIndex <> 0 Then
+                            InitGrh buffer(X, Y).ObjGrh, ObjData(buffer(X, Y).OBJInfo.objindex).grhIndex
+                             With GrhData(ObjData(buffer(X, Y).OBJInfo.objindex).grhIndex)
+                                Call g_Swarm.Insert(4, -1, X, Y, .TileWidth, .TileHeight)
+                            End With
                         End If
-                        
-                        
                     End If
                 End If
             End If

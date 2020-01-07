@@ -16,6 +16,7 @@ Begin VB.Form frmMain
    ScaleWidth      =   1449
    StartUpPosition =   1  'CenterOwner
    Visible         =   0   'False
+   WindowState     =   2  'Maximized
    Begin VB.Timer Timer_KeyPress 
       Interval        =   1
       Left            =   720
@@ -262,7 +263,7 @@ Begin VB.Form frmMain
    Begin ArgentumOCX.MyPicture picMain 
       CausesValidation=   0   'False
       Height          =   12015
-      Left            =   4410
+      Left            =   4380
       TabIndex        =   31
       Top             =   900
       Width           =   16455
