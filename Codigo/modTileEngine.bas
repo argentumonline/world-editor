@@ -609,6 +609,62 @@ Public Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal Of
     
 End Sub
 
+Public Sub RenderFullMap()
+    Dim ScreenMinY  As Integer  'Start Y pos on current screen
+    Dim ScreenMaxY  As Integer  'End Y pos on current screen
+    Dim ScreenMinX  As Integer  'Start X pos on current screen
+    Dim ScreenMaxX  As Integer  'End X pos on current screen
+    Dim MinY        As Integer  'Start Y pos on current map
+    Dim MaxY        As Integer  'End Y pos on current map
+    Dim MinX        As Integer  'Start X pos on current map
+    Dim MaxX        As Integer  'End X pos on current map
+    Dim X           As Integer
+    Dim Y           As Integer
+    Dim Drawable    As Integer
+    Dim DrawableX   As Integer
+    Dim DrawableY   As Integer
+    
+    'Calculate ceiling alpha
+    Dim Alpha As Long
+    Alpha = IIf(bTecho, &H60FFFFFF, -1)
+
+    
+    MinY = YMinMapSize
+    MaxY = YMaxMapSize
+    MinX = XMinMapSize
+    MaxX = XMaxMapSize
+
+    For Y = MinY To MaxY
+        DrawableY = (Y * TilePixelHeight) - 32
+        For X = MinX To MaxX
+            DrawableX = (X * TilePixelWidth) - 32
+            Call DrawGrh(MapData(X, Y).Graphic(1), DrawableX, DrawableY, GetDepth(1, X, Y), 0, 1)
+        Next X
+    Next Y
+
+    For Drawable = 0 To (g_Swarm.Query(MinX, MinY, MaxX, MaxY) - 1)
+        X = g_Swarm.Query_X(Drawable)
+        Y = g_Swarm.Query_Y(Drawable)
+
+        DrawableX = (X * TilePixelWidth) - 32
+        DrawableY = (Y * TilePixelHeight) - 32
+
+        Select Case (g_Swarm.Query_Layer(Drawable))
+            Case 1
+                Call DrawGrh(MapData(X, Y).Graphic(2), DrawableX, DrawableY, GetDepth(2, X, Y), 1, 1)
+            Case 2
+                Call DrawGrh(MapData(X, Y).Graphic(3), DrawableX, DrawableY, GetDepth(3, X, Y, 2), 1, 1, , , , True)
+            Case 3
+                Call DrawGrh(MapData(X, Y).Graphic(4), DrawableX, DrawableY, GetDepth(4, X, Y), 1, 1)
+            Case 4
+                Call DrawGrh(MapData(X, Y).ObjGrh, DrawableX, DrawableY, GetDepth(3, X, Y, 1), 1, 1, , , , True)
+            Case 5
+                Call CharRender(MapData(X, Y).CharIndex, DrawableX, DrawableY)
+        End Select
+    Next Drawable
+    
+End Sub
+
 
 Private Sub CharRender(ByVal CharIndex As Long, ByVal PixelOffsetX As Single, ByVal PixelOffsetY As Single)
 '***************************************************
