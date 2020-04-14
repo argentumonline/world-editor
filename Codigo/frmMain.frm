@@ -32,15 +32,6 @@ Begin VB.Form frmMain
       Begin VB.ComboBox cGrh 
          Appearance      =   0  'Flat
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   330
          Left            =   2880
@@ -52,15 +43,6 @@ Begin VB.Form frmMain
       Begin VB.ComboBox cCapas 
          Appearance      =   0  'Flat
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   330
          ItemData        =   "frmMain.frx":628A
@@ -73,15 +55,6 @@ Begin VB.Form frmMain
       End
       Begin VB.ListBox lListado 
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   2580
          Index           =   0
@@ -96,15 +69,6 @@ Begin VB.Form frmMain
       End
       Begin VB.ComboBox cFiltro 
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   0
@@ -192,15 +156,6 @@ Begin VB.Form frmMain
          AutoSize        =   -1  'True
          BackColor       =   &H80000012&
          Caption         =   "Filtrar:"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   210
          Index           =   0
@@ -213,15 +168,6 @@ Begin VB.Form frmMain
          AutoSize        =   -1  'True
          BackColor       =   &H80000012&
          Caption         =   "Grh:"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   210
          Left            =   2520
@@ -233,15 +179,6 @@ Begin VB.Form frmMain
          AutoSize        =   -1  'True
          BackColor       =   &H80000012&
          Caption         =   "Capa Actual:"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   210
          Left            =   120
@@ -560,15 +497,6 @@ Begin VB.Form frmMain
       Alignment       =   2  'Center
       BackColor       =   &H80000012&
       BorderStyle     =   0  'None
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
       ForeColor       =   &H00FFFFFF&
       Height          =   4275
       Left            =   30
@@ -672,15 +600,6 @@ Begin VB.Form frmMain
          BackColor       =   &H8000000D&
          BackStyle       =   0  'Transparent
          Caption         =   "0"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H00000000&
          Height          =   210
          Left            =   1440
@@ -692,15 +611,6 @@ Begin VB.Form frmMain
          BackStyle       =   0  'Transparent
          BorderStyle     =   1  'Fixed Single
          Caption         =   "Nuevo Mapa"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          Height          =   270
          Left            =   60
          TabIndex        =   4
@@ -711,15 +621,6 @@ Begin VB.Form frmMain
          BackStyle       =   0  'Transparent
          BorderStyle     =   1  'Fixed Single
          Caption         =   "Musica:"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H00004000&
          Height          =   270
          Left            =   45
@@ -731,15 +632,6 @@ Begin VB.Form frmMain
          BackStyle       =   0  'Transparent
          BorderStyle     =   1  'Fixed Single
          Caption         =   "Versión:"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H00004000&
          Height          =   285
          Left            =   45
@@ -757,15 +649,6 @@ Begin VB.Form frmMain
       Width           =   4335
       Begin VB.ListBox lListado 
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   3210
          Index           =   4
@@ -863,15 +746,6 @@ Begin VB.Form frmMain
       Begin VB.ComboBox cCantFunc 
          Appearance      =   0  'Flat
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   2
@@ -886,15 +760,6 @@ Begin VB.Form frmMain
       Begin VB.ComboBox cNumFunc 
          Appearance      =   0  'Flat
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   2
@@ -908,15 +773,6 @@ Begin VB.Form frmMain
       End
       Begin VB.ComboBox cFiltro 
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   3
@@ -927,15 +783,6 @@ Begin VB.Form frmMain
       End
       Begin VB.ListBox lListado 
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   2580
          Index           =   3
@@ -1029,15 +876,6 @@ Begin VB.Form frmMain
          AutoSize        =   -1  'True
          BackColor       =   &H80000012&
          Caption         =   "Cantidad:"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   210
          Index           =   2
@@ -1050,15 +888,6 @@ Begin VB.Form frmMain
          AutoSize        =   -1  'True
          BackColor       =   &H80000012&
          Caption         =   "Filtrar:"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   210
          Index           =   3
@@ -1071,15 +900,6 @@ Begin VB.Form frmMain
          AutoSize        =   -1  'True
          BackColor       =   &H80000012&
          Caption         =   "Numero de OBJ:"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   210
          Index           =   2
@@ -1099,15 +919,6 @@ Begin VB.Form frmMain
       Begin VB.ComboBox cCantFunc 
          Appearance      =   0  'Flat
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   0
@@ -1122,15 +933,6 @@ Begin VB.Form frmMain
       Begin VB.ComboBox cNumFunc 
          Appearance      =   0  'Flat
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   0
@@ -1144,15 +946,6 @@ Begin VB.Form frmMain
       End
       Begin VB.ComboBox cFiltro 
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   1
@@ -1163,15 +956,6 @@ Begin VB.Form frmMain
       End
       Begin VB.ListBox lListado 
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   2580
          Index           =   1
@@ -1265,15 +1049,6 @@ Begin VB.Form frmMain
          AutoSize        =   -1  'True
          BackColor       =   &H80000012&
          Caption         =   "Cantidad:"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   210
          Index           =   0
@@ -1286,15 +1061,6 @@ Begin VB.Form frmMain
          AutoSize        =   -1  'True
          BackColor       =   &H80000012&
          Caption         =   "Filtrar:"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   210
          Index           =   1
@@ -1307,15 +1073,6 @@ Begin VB.Form frmMain
          AutoSize        =   -1  'True
          BackColor       =   &H80000012&
          Caption         =   "Numero de NPC:"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   210
          Index           =   0
@@ -1335,15 +1092,6 @@ Begin VB.Form frmMain
       Begin VB.ComboBox cCantFunc 
          Appearance      =   0  'Flat
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   1
@@ -1358,15 +1106,6 @@ Begin VB.Form frmMain
       Begin VB.ComboBox cNumFunc 
          Appearance      =   0  'Flat
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   1
@@ -1380,15 +1119,6 @@ Begin VB.Form frmMain
       End
       Begin VB.ComboBox cFiltro 
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   330
          Index           =   2
@@ -1399,15 +1129,6 @@ Begin VB.Form frmMain
       End
       Begin VB.ListBox lListado 
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   2580
          Index           =   2
@@ -1501,15 +1222,6 @@ Begin VB.Form frmMain
          AutoSize        =   -1  'True
          BackColor       =   &H80000012&
          Caption         =   "Cantidad:"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   210
          Index           =   1
@@ -1522,15 +1234,6 @@ Begin VB.Form frmMain
          AutoSize        =   -1  'True
          BackColor       =   &H80000012&
          Caption         =   "Filtrar:"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   210
          Index           =   2
@@ -1543,15 +1246,6 @@ Begin VB.Form frmMain
          AutoSize        =   -1  'True
          BackColor       =   &H80000012&
          Caption         =   "Numero de NPC:"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   210
          Index           =   1
@@ -1653,15 +1347,6 @@ Begin VB.Form frmMain
       Width           =   4335
       Begin VB.TextBox tTMapa 
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   315
          Left            =   1200
@@ -1672,15 +1357,6 @@ Begin VB.Form frmMain
       End
       Begin VB.TextBox tTX 
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   315
          Left            =   1200
@@ -1691,15 +1367,6 @@ Begin VB.Form frmMain
       End
       Begin VB.TextBox tTY 
          BackColor       =   &H80000012&
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   315
          Left            =   1200
@@ -1837,15 +1504,6 @@ Begin VB.Form frmMain
          AutoSize        =   -1  'True
          BackColor       =   &H80000012&
          Caption         =   "Y vertical:"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   210
          Left            =   120
@@ -1857,15 +1515,6 @@ Begin VB.Form frmMain
          AutoSize        =   -1  'True
          BackColor       =   &H80000012&
          Caption         =   "X horizontal:"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   210
          Left            =   120
@@ -1877,15 +1526,6 @@ Begin VB.Form frmMain
          AutoSize        =   -1  'True
          BackColor       =   &H80000012&
          Caption         =   "Mapa:"
-         BeginProperty Font 
-            Name            =   "Arial"
-            Size            =   8.25
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
          ForeColor       =   &H80000014&
          Height          =   210
          Left            =   120
@@ -1898,15 +1538,6 @@ Begin VB.Form frmMain
       Alignment       =   2  'Center
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Mapa1"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
       Height          =   255
       Index           =   12
       Left            =   13830
@@ -1919,15 +1550,6 @@ Begin VB.Form frmMain
       Alignment       =   2  'Center
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Mapa1"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
       Height          =   255
       Index           =   11
       Left            =   13065
@@ -1940,15 +1562,6 @@ Begin VB.Form frmMain
       Alignment       =   2  'Center
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Mapa1"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
       Height          =   255
       Index           =   1
       Left            =   5415
@@ -1961,15 +1574,6 @@ Begin VB.Form frmMain
       Alignment       =   2  'Center
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Mapa1"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
       Height          =   255
       Index           =   2
       Left            =   6180
@@ -1982,15 +1586,6 @@ Begin VB.Form frmMain
       Alignment       =   2  'Center
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Mapa1"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
       Height          =   255
       Index           =   3
       Left            =   6945
@@ -2004,15 +1599,6 @@ Begin VB.Form frmMain
       BackColor       =   &H00C0FFC0&
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Mapa1"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
       Height          =   255
       Index           =   4
       Left            =   7710
@@ -2025,15 +1611,6 @@ Begin VB.Form frmMain
       Alignment       =   2  'Center
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Mapa1"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
       Height          =   255
       Index           =   5
       Left            =   8475
@@ -2046,15 +1623,6 @@ Begin VB.Form frmMain
       Alignment       =   2  'Center
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Mapa1"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
       Height          =   255
       Index           =   6
       Left            =   9240
@@ -2067,15 +1635,6 @@ Begin VB.Form frmMain
       Alignment       =   2  'Center
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Mapa1"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
       Height          =   255
       Index           =   7
       Left            =   10005
@@ -2088,15 +1647,6 @@ Begin VB.Form frmMain
       Alignment       =   2  'Center
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Mapa1"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
       Height          =   255
       Index           =   8
       Left            =   10770
@@ -2109,15 +1659,6 @@ Begin VB.Form frmMain
       Alignment       =   2  'Center
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Mapa1"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
       Height          =   255
       Index           =   9
       Left            =   11535
@@ -2130,15 +1671,6 @@ Begin VB.Form frmMain
       Alignment       =   2  'Center
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Mapa1"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
       Height          =   255
       Index           =   0
       Left            =   4650
@@ -2151,15 +1683,6 @@ Begin VB.Form frmMain
       Alignment       =   2  'Center
       BorderStyle     =   1  'Fixed Single
       Caption         =   "Mapa1"
-      BeginProperty Font 
-         Name            =   "Arial"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
       Height          =   255
       Index           =   10
       Left            =   12300
@@ -3060,6 +2583,8 @@ End Sub
 Private Sub Form_Load()
     PreviewGrh.Visible = False
 End Sub
+
+
 
 Private Sub mnuPalett_Click()
     frmPalett.Visible = True

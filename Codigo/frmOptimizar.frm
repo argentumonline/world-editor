@@ -2,32 +2,38 @@ VERSION 5.00
 Begin VB.Form frmOptimizar 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Optimizar Mapa"
-   ClientHeight    =   3525
+   ClientHeight    =   4125
    ClientLeft      =   45
    ClientTop       =   435
    ClientWidth     =   3600
    Icon            =   "frmOptimizar.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   ScaleHeight     =   3525
+   ScaleHeight     =   4125
    ScaleWidth      =   3600
    StartUpPosition =   2  'CenterScreen
+   Begin VB.CheckBox chkRemoverRecursosCapa3 
+      Caption         =   "Eliminar Recursos (Arboles y Yacimientos) de capa 3"
+      Height          =   375
+      Left            =   120
+      TabIndex        =   8
+      Top             =   2640
+      Width           =   3375
+   End
    Begin VB.CheckBox chkBloquearArbolesEtc 
       Caption         =   "Bloquear Arboles, Carteles, Foros y Yacimientos"
       Height          =   375
       Left            =   120
       TabIndex        =   7
       Top             =   2160
-      Value           =   1  'Checked
       Width           =   3375
    End
    Begin VB.CheckBox chkMapearArbolesEtc 
-      Caption         =   "Mapear Arboles, Carteles, Foros y Yacimientos que no esten en la 3ra Capa"
+      Caption         =   "Mapear  Carteles y Foros que no esten en la 3ra Capa"
       Height          =   375
       Left            =   120
       TabIndex        =   4
       Top             =   1680
-      Value           =   1  'Checked
       Width           =   3375
    End
    Begin VB.CheckBox chkQuitarTodoBordes 
@@ -44,7 +50,6 @@ Begin VB.Form frmOptimizar
       Left            =   120
       TabIndex        =   2
       Top             =   840
-      Value           =   1  'Checked
       Width           =   3375
    End
    Begin VB.CheckBox chkQuitarTrigBloq 
@@ -53,7 +58,6 @@ Begin VB.Form frmOptimizar
       Left            =   120
       TabIndex        =   1
       Top             =   480
-      Value           =   1  'Checked
       Width           =   3375
    End
    Begin VB.CheckBox chkQuitarTrans 
@@ -62,7 +66,6 @@ Begin VB.Form frmOptimizar
       Left            =   120
       TabIndex        =   0
       Top             =   120
-      Value           =   1  'Checked
       Width           =   3375
    End
    Begin WorldEditor.lvButtons_H cOptimizar 
@@ -70,33 +73,51 @@ Begin VB.Form frmOptimizar
       Height          =   735
       Left            =   120
       TabIndex        =   5
-      Top             =   2640
+      Top             =   3240
       Width           =   1815
-      _extentx        =   3201
-      _extenty        =   1296
-      caption         =   "&Optimizar"
-      capalign        =   2
-      backstyle       =   2
-      cgradient       =   0
-      mode            =   0
-      value           =   0
-      cback           =   12648384
+      _ExtentX        =   3201
+      _ExtentY        =   1296
+      Caption         =   "&Optimizar"
+      CapAlign        =   2
+      BackStyle       =   2
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Times New Roman"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      cGradient       =   0
+      Mode            =   0
+      Value           =   0   'False
+      cBack           =   12648384
    End
    Begin WorldEditor.lvButtons_H cCancelar 
       Height          =   735
       Left            =   1920
       TabIndex        =   6
-      Top             =   2640
+      Top             =   3240
       Width           =   1575
-      _extentx        =   2778
-      _extenty        =   1296
-      caption         =   "&Cancelar"
-      capalign        =   2
-      backstyle       =   2
-      cgradient       =   0
-      mode            =   1
-      value           =   0
-      cback           =   -2147483633
+      _ExtentX        =   2778
+      _ExtentY        =   1296
+      Caption         =   "&Cancelar"
+      CapAlign        =   2
+      BackStyle       =   2
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Times New Roman"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      cGradient       =   0
+      Mode            =   1
+      Value           =   0   'False
+      cBack           =   -2147483633
    End
 End
 Attribute VB_Name = "frmOptimizar"
@@ -115,6 +136,7 @@ Private Sub Optimizar()
 '*************************************************
 Dim Y As Integer
 Dim X As Integer
+Dim CleanedSomething As Boolean
 
 If Not MapaCargado Then
     Exit Sub
@@ -149,6 +171,7 @@ For Y = YMinMapSize To YMaxMapSize
                 .TileExit.Y = 0
                 ' Quitar Triggers
                 .Trigger = 0
+                
             End If
             
             ' ** Quitar Translados y Triggers en Bloqueo
@@ -172,20 +195,54 @@ For Y = YMinMapSize To YMaxMapSize
             ' ** Mapea Arboles, Carteles, Foros y Yacimientos que no esten en la 3ra Capa
             If (.OBJInfo.objindex > 0) And ((chkMapearArbolesEtc.Value = 1) Or (chkBloquearArbolesEtc.Value = 1)) Then
                 Select Case ObjData(.OBJInfo.objindex).ObjType
-                    Case 4, 8, 10, 22 ' Arboles, Carteles, Foros, Yacimientos
+                    Case 8, 10 ' Carteles, Foros
+                        If (.Graphic(3).grhIndex <> .ObjGrh.grhIndex) And (chkMapearArbolesEtc.Value = 1) Then .Graphic(3) = .ObjGrh
+                        If (chkBloquearArbolesEtc.Value = 1) And (.Blocked = 0) Then .Blocked = 1
+                    Case 45
+                        
+                End Select
+            End If
+            
+            
+            ' ** Mapea Arboles, Carteles, Foros y Yacimientos que no esten en la 3ra Capa
+            If (.OBJInfo.objindex > 0) And ((chkMapearArbolesEtc.Value = 1) Or (chkBloquearArbolesEtc.Value = 1)) Then
+                Select Case ObjData(.OBJInfo.objindex).ObjType
+                    Case 8, 10 ' Carteles, Foros
                         If (.Graphic(3).grhIndex <> .ObjGrh.grhIndex) And (chkMapearArbolesEtc.Value = 1) Then .Graphic(3) = .ObjGrh
                         If (chkBloquearArbolesEtc.Value = 1) And (.Blocked = 0) Then .Blocked = 1
                 End Select
             End If
-            ' ** Mapea Arboles, Carteles, Foros y Yacimientos que no esten en la 3ra Capa
+            
+            ' ** Borrar Recursos (Arboles y Yacimientos) de capa 3
+            If .OBJInfo.objindex > 0 And chkRemoverRecursosCapa3.Value = 1 Then
+                If .OBJInfo.objindex > 0 Then
+                    Dim GrhToClean As Integer
+                    GrhToClean = ObjData(.OBJInfo.objindex).grhIndex
+                    
+                    If ObjData(MapData(X, Y).OBJInfo.objindex).ObjType = 45 And .Graphic(3).grhIndex = GrhToClean Then
+                        CleanedSomething = True
+                        Call QuitarGrhDeCapa(3, X, Y, True)
+                        frmResultados.AgregarLinea ("Removiendo Grh de posicion X-Y(" & X & "-" & Y & ") porque era el mismo que el objeto " & .OBJInfo.objindex)
+                    End If
+                End If
+                
+            End If
+            
+            
+            
         End With
     Next X
 Next Y
+
+If CleanedSomething Then
+    frmResultados.Show
+End If
 
 'Set changed flag
 MapInfo.Changed = 1
 
 End Sub
+
 
 Private Sub cCancelar_Click()
 '*************************************************

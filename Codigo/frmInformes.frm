@@ -24,19 +24,28 @@ Begin VB.Form frmInformes
    End
    Begin WorldEditor.lvButtons_H cmdObjetos 
       Height          =   495
-      Left            =   120
+      Left            =   240
       TabIndex        =   1
       Top             =   4200
-      Width           =   2055
-      _extentx        =   3625
-      _extenty        =   873
-      caption         =   "&Objetos"
-      capalign        =   2
-      backstyle       =   2
-      cgradient       =   0
-      mode            =   0
-      value           =   0
-      cback           =   -2147483633
+      Width           =   1515
+      _ExtentX        =   2672
+      _ExtentY        =   873
+      Caption         =   "&Objetos"
+      CapAlign        =   2
+      BackStyle       =   2
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Times New Roman"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      cGradient       =   0
+      Mode            =   0
+      Value           =   0   'False
+      cBack           =   -2147483633
    End
    Begin WorldEditor.lvButtons_H cmdCerrar 
       Height          =   495
@@ -44,47 +53,99 @@ Begin VB.Form frmInformes
       TabIndex        =   2
       Top             =   4920
       Width           =   2175
-      _extentx        =   3836
-      _extenty        =   873
-      caption         =   "&Cerrar"
-      capalign        =   2
-      backstyle       =   2
-      cgradient       =   0
-      mode            =   0
-      value           =   0
-      cback           =   -2147483633
+      _ExtentX        =   3836
+      _ExtentY        =   873
+      Caption         =   "&Cerrar"
+      CapAlign        =   2
+      BackStyle       =   2
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Times New Roman"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      cGradient       =   0
+      Mode            =   0
+      Value           =   0   'False
+      cBack           =   -2147483633
    End
    Begin WorldEditor.lvButtons_H cmdTranslados 
       Height          =   495
-      Left            =   2280
+      Left            =   3360
       TabIndex        =   3
       Top             =   4200
-      Width           =   2175
-      _extentx        =   3836
-      _extenty        =   873
-      caption         =   "&Translados"
-      capalign        =   2
-      backstyle       =   2
-      cgradient       =   0
-      mode            =   0
-      value           =   0
-      cback           =   -2147483633
+      Width           =   1515
+      _ExtentX        =   2672
+      _ExtentY        =   873
+      Caption         =   "&Translados"
+      CapAlign        =   2
+      BackStyle       =   2
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Times New Roman"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      cGradient       =   0
+      Mode            =   0
+      Value           =   0   'False
+      cBack           =   -2147483633
    End
    Begin WorldEditor.lvButtons_H cmdNPCs 
       Height          =   495
-      Left            =   4560
+      Left            =   4920
       TabIndex        =   4
       Top             =   4200
-      Width           =   1935
-      _extentx        =   3413
-      _extenty        =   873
-      caption         =   "&NPCs/Hostiles"
-      capalign        =   2
-      backstyle       =   2
-      cgradient       =   0
-      mode            =   0
-      value           =   0
-      cback           =   -2147483633
+      Width           =   1515
+      _ExtentX        =   2672
+      _ExtentY        =   873
+      Caption         =   "&NPCs/Hostiles"
+      CapAlign        =   2
+      BackStyle       =   2
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Times New Roman"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      cGradient       =   0
+      Mode            =   0
+      Value           =   0   'False
+      cBack           =   -2147483633
+   End
+   Begin WorldEditor.lvButtons_H cmdArboles 
+      Height          =   495
+      Left            =   1800
+      TabIndex        =   5
+      Top             =   4200
+      Width           =   1515
+      _ExtentX        =   2672
+      _ExtentY        =   873
+      Caption         =   "&Recursos"
+      CapAlign        =   2
+      BackStyle       =   2
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Times New Roman"
+         Size            =   9
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      cGradient       =   0
+      Mode            =   0
+      Value           =   0   'False
+      cBack           =   -2147483633
    End
    Begin VB.Line Line4 
       BorderColor     =   &H00808080&
@@ -142,12 +203,47 @@ Attribute VB_Exposed = False
 '**************************************************************
 Option Explicit
 
+Private Sub cmdArboles_Click()
+    Call InformeRecursos
+End Sub
+
 Private Sub cmdCerrar_Click()
 '*************************************************
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
 Unload Me
+End Sub
+
+''
+'   Genera el informe de Recursos (Arboles, Yacimientos, Cardúmenes
+'
+
+Private Sub InformeRecursos()
+'*************************************************
+'Author: ^[GS]^
+'Last modified: 20/05/06
+'*************************************************
+On Error Resume Next
+Dim Y As Integer
+Dim X As Integer
+
+If Not MapaCargado Then
+    Exit Sub
+End If
+
+txtInfo.Text = "Informe de Recursos (X,Y)"
+
+For Y = YMinMapSize To YMaxMapSize
+    For X = XMinMapSize To XMaxMapSize
+        If MapData(X, Y).OBJInfo.objindex > 0 Then
+            If IsResource(ObjData(MapData(X, Y).OBJInfo.objindex).ObjType) Then
+                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & Y & " tiene " & MapData(X, Y).OBJInfo.Amount & " del Objeto " & MapData(X, Y).OBJInfo.objindex & " - " & ObjData(MapData(X, Y).OBJInfo.objindex).Name
+            End If
+        End If
+    Next X
+Next Y
+
 End Sub
 
 ''
@@ -172,7 +268,9 @@ txtInfo.Text = "Informe de Objetos (X,Y)"
 For Y = YMinMapSize To YMaxMapSize
     For X = XMinMapSize To XMaxMapSize
         If MapData(X, Y).OBJInfo.objindex > 0 Then
-            txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & Y & " tiene " & MapData(X, Y).OBJInfo.Amount & " del Objeto " & MapData(X, Y).OBJInfo.objindex & " - " & ObjData(MapData(X, Y).OBJInfo.objindex).name
+            If Not IsResource(ObjData(MapData(X, Y).OBJInfo.objindex).ObjType) Then
+                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & Y & " tiene " & MapData(X, Y).OBJInfo.Amount & " del Objeto " & MapData(X, Y).OBJInfo.objindex & " - " & ObjData(MapData(X, Y).OBJInfo.objindex).Name
+            End If
         End If
     Next X
 Next Y
@@ -205,9 +303,9 @@ For Y = YMinMapSize To YMaxMapSize
         
         If NPCIndex > 0 Then
             If NpcData(NPCIndex).Hostile Then
-                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & Y & " tiene " & NpcData(NPCIndex).name & " (Hostil)"
+                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & Y & " tiene " & NpcData(NPCIndex).Name & " (Hostil)"
             Else
-                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & Y & " tiene " & NpcData(NPCIndex).name
+                txtInfo.Text = txtInfo.Text & vbCrLf & X & "," & Y & " tiene " & NpcData(NPCIndex).Name
             End If
         End If
     Next X
@@ -273,3 +371,8 @@ Private Sub cmdTranslados_Click()
 '*************************************************
 Call ActalizarTranslados
 End Sub
+
+
+Private Function IsResource(ByVal ObjType As Integer) As Boolean
+    IsResource = ObjType = 4 Or ObjType = 22 Or ObjType = 45
+End Function

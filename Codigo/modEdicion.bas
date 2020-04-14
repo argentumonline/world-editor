@@ -1054,17 +1054,22 @@ MapInfo.Changed = 1
 End Sub
 
 Public Function QuitarEstaCapa(ByVal X As Byte, ByVal Y As Byte, Optional ByVal ConDeshacer As Boolean = True) As Boolean
-If MapData(X, Y).Graphic(CurLayer).grhIndex <> 0 Then
+    QuitarEstaCapa = QuitarGrhDeCapa(CurLayer, X, Y, ConDeshacer)
+End Function
+
+
+Public Function QuitarGrhDeCapa(ByVal Capa As Byte, ByVal X As Byte, ByVal Y As Byte, Optional ByVal ConDeshacer As Boolean = True) As Boolean
+If MapData(X, Y).Graphic(Capa).grhIndex <> 0 Then
     If ConDeshacer Then _
-        Call modEdicion.Deshacer_Add("Quitar capa " & CurLayer)
+        Call modEdicion.Deshacer_Add("Quitar capa " & Capa)
     
-    If CurLayer <> 1 Then
-        With GrhData(MapData(X, Y).Graphic(CurLayer).grhIndex)
-            Call g_Swarm.Remove(CurLayer - 1, -1, X, Y, .TileWidth, .TileHeight)
+    If Capa <> 1 Then
+        With GrhData(MapData(X, Y).Graphic(Capa).grhIndex)
+            Call g_Swarm.Remove(Capa - 1, -1, X, Y, .TileWidth, .TileHeight)
         End With
-        MapData(X, Y).Graphic(CurLayer).grhIndex = 0
+        MapData(X, Y).Graphic(Capa).grhIndex = 0
     Else
-        MapData(X, Y).Graphic(CurLayer).grhIndex = 1
+        MapData(X, Y).Graphic(Capa).grhIndex = 1
     End If
     
     MapInfo.Changed = 1
