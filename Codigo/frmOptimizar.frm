@@ -241,6 +241,8 @@ End If
 'Set changed flag
 MapInfo.Changed = 1
 
+Unload Me
+
 End Sub
 
 

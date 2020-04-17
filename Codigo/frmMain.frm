@@ -1993,6 +1993,7 @@ Begin VB.Form frmMain
       Caption         =   "&Opciones"
       Begin VB.Menu mnuInformes 
          Caption         =   "&Informes"
+         Shortcut        =   ^I
       End
       Begin VB.Menu mnuActualizarIndices 
          Caption         =   "&Actualizar Indices de..."
