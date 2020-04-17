@@ -174,8 +174,8 @@ Begin VB.Form frmInformes
       Left            =   6720
       TabIndex        =   7
       Top             =   3960
-      Width           =   4275
-      _ExtentX        =   7541
+      Width           =   5475
+      _ExtentX        =   9657
       _ExtentY        =   873
       Caption         =   "&Eliminar Objetos Seleccionados"
       CapAlign        =   2

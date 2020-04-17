@@ -21,13 +21,13 @@ Begin VB.Form frmResultados
    End
    Begin WorldEditor.lvButtons_H cmdCerrar 
       Height          =   495
-      Left            =   7200
+      Left            =   240
       TabIndex        =   0
       Top             =   9000
-      Width           =   2055
-      _ExtentX        =   3625
+      Width           =   9015
+      _ExtentX        =   15901
       _ExtentY        =   873
-      Caption         =   "&Objetos"
+      Caption         =   "Cerrar"
       CapAlign        =   2
       BackStyle       =   2
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -61,9 +61,13 @@ Option Explicit
 
 Private Sub cmdCerrar_Click()
     txtResultados.Text = ""
+    Unload Me
 End Sub
 
 Public Sub AgregarLinea(ByRef Texto As String)
     txtResultados.Text = txtResultados.Text & vbCrLf & Texto
 End Sub
 
+Private Sub Form_Load()
+
+End Sub
