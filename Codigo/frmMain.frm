@@ -56,7 +56,7 @@ Begin VB.Form frmMain
       Begin VB.ListBox lListado 
          BackColor       =   &H80000012&
          ForeColor       =   &H80000014&
-         Height          =   2580
+         Height          =   2400
          Index           =   0
          ItemData        =   "frmMain.frx":62C5
          Left            =   120
@@ -650,7 +650,7 @@ Begin VB.Form frmMain
       Begin VB.ListBox lListado 
          BackColor       =   &H80000012&
          ForeColor       =   &H80000014&
-         Height          =   3210
+         Height          =   3180
          Index           =   4
          ItemData        =   "frmMain.frx":62DA
          Left            =   120
@@ -784,7 +784,7 @@ Begin VB.Form frmMain
       Begin VB.ListBox lListado 
          BackColor       =   &H80000012&
          ForeColor       =   &H80000014&
-         Height          =   2580
+         Height          =   2400
          Index           =   3
          ItemData        =   "frmMain.frx":62F7
          Left            =   120
@@ -957,7 +957,7 @@ Begin VB.Form frmMain
       Begin VB.ListBox lListado 
          BackColor       =   &H80000012&
          ForeColor       =   &H80000014&
-         Height          =   2580
+         Height          =   2400
          Index           =   1
          ItemData        =   "frmMain.frx":6314
          Left            =   120
@@ -1130,7 +1130,7 @@ Begin VB.Form frmMain
       Begin VB.ListBox lListado 
          BackColor       =   &H80000012&
          ForeColor       =   &H80000014&
-         Height          =   2580
+         Height          =   2400
          Index           =   2
          ItemData        =   "frmMain.frx":6331
          Left            =   120
@@ -1741,15 +1741,6 @@ Begin VB.Form frmMain
       End
       Begin VB.Menu mnuExportar 
          Caption         =   "&Exportar"
-         Begin VB.Menu mnuBmp 
-            Caption         =   "Bmp"
-         End
-         Begin VB.Menu mnuPng 
-            Caption         =   "Png"
-         End
-         Begin VB.Menu mnuJpg 
-            Caption         =   "Jpg"
-         End
       End
       Begin VB.Menu mnuOrgEdit 
          Caption         =   "Editar Organizacion de Mapas"
@@ -2587,6 +2578,10 @@ End Sub
 
 
 
+Private Sub mnuExportar_Click()
+    frmRender.Visible = True
+End Sub
+
 Private Sub mnuPalett_Click()
     frmPalett.Visible = True
 End Sub
@@ -2922,11 +2917,6 @@ Private Sub mnuBloquearMapa_Click()
 Call modEdicion.Bloqueo_Todo(1)
 End Sub
 
-Private Sub mnuBmp_Click()
-frmRender.formatPic = eFormatPic.bmp
-Call frmRender.Show(vbModal)
-End Sub
-
 Private Sub mnuConfigAvanzada_Click()
 '*************************************************
 'Author: ^[GS]^
@@ -3038,11 +3028,6 @@ Private Sub mnuInsertarTransladosAdyasentes_Click()
 frmUnionAdyacente.Show
 End Sub
 
-Private Sub mnuJpg_Click()
-frmRender.formatPic = eFormatPic.jpg
-Call frmRender.Show(vbModal)
-End Sub
-
 Private Sub mnuModoCaminata_Click()
 '*************************************************
 'Author: ^[GS]^
@@ -3096,7 +3081,7 @@ Private Sub mnuObjetos_Click()
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-Call modPaneles.SetPanel(Objects)
+Call modPaneles.SetPanel(objects)
 End Sub
 
 
@@ -3110,11 +3095,6 @@ End Sub
 
 Private Sub mnuOrgEdit_Click()
     Call frmOrgEditor.Show(vbModal)
-End Sub
-
-Private Sub mnuPng_Click()
-frmRender.formatPic = eFormatPic.png
-Call frmRender.Show(vbModal)
 End Sub
 
 Private Sub mnuQBloquear_Click()
@@ -3146,7 +3126,7 @@ Private Sub mnuQObjetos_Click()
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-Call modPaneles.SetPanel(Objects)
+Call modPaneles.SetPanel(objects)
 End Sub
 
 Private Sub mnuQSuperficie_Click()

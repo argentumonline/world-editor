@@ -459,7 +459,7 @@ End If
 
 End Function
 
-Private Function HandleToPicture(ByVal hGDIHandle As Long, _
+Public Function HandleToPicture(ByVal hGDIHandle As Long, _
     ByVal ObjectType As PictureTypeConstants, _
     Optional ByVal hPal As Long = 0) As StdPicture
  
@@ -737,7 +737,7 @@ Else
 End If
 End Function
 
-Public Function SavePictureAsTiff(ByVal Pic As StdPicture, _
+Public Function SavePictureAsTiff(ByVal pic As StdPicture, _
     ByVal sFileName As String, _
     Optional ByVal eTifCompression As EncoderValueConstants _
     = EncoderValueCompressionNone) As Boolean
@@ -748,7 +748,7 @@ Dim lBitmap As Long
 ' Erzeugt eine GDI+ Bitmap vom
 ' StdPicture Handle -> lBitmap
 If Execute(GdipCreateBitmapFromHBITMAP( _
-    Pic.Handle, 0, lBitmap)) = OK Then
+    pic.Handle, 0, lBitmap)) = OK Then
     
     ' Kompressionstyp
     Select Case eTifCompression
@@ -794,7 +794,7 @@ If Execute(GdipCreateBitmapFromHBITMAP( _
 End If
 End Function
 
-Public Function SavePictureAsJPG(ByVal Pic As StdPicture, _
+Public Function SavePictureAsJPG(ByVal pic As StdPicture, _
     ByVal FileName As String, Optional ByVal Quality As Long = 85) _
     As Boolean
  
@@ -803,7 +803,7 @@ Dim retVal As Boolean
 Dim lBitmap As Long
  
 ' Erzeugt eine GDI+ Bitmap vom StdPicture Handle -> lBitmap
-retStatus = Execute(GdipCreateBitmapFromHBITMAP(Pic.Handle, 0, lBitmap))
+retStatus = Execute(GdipCreateBitmapFromHBITMAP(pic.Handle, 0, lBitmap))
 
 If retStatus = OK Then
  
@@ -849,7 +849,7 @@ If retStatus = OK Then
 End If
 End Function
 
-Public Function SavePictureAsPNG(ByVal Pic As StdPicture, _
+Public Function SavePictureAsPNG(ByVal pic As StdPicture, _
     ByVal sFileName As String) As Boolean
  
 Dim lBitmap As Long
@@ -858,7 +858,7 @@ Dim tPicEncoder As GUID
 ' Erzeugt eine GDI+ Bitmap vom
 ' StdPicture Handle -> lBitmap
 If Execute(GdipCreateBitmapFromHBITMAP( _
-    Pic.Handle, 0, lBitmap)) = OK Then
+    pic.Handle, 0, lBitmap)) = OK Then
     
     ' Ermitteln der CLSID vom mimeType Encoder
     If GetEncoderClsid(mimePNG, tPicEncoder) = True Then

@@ -38,6 +38,20 @@ Public Enum eFormatPic
     jpg
 End Enum
 
+Public Type MapExportOptions
+   Width As Integer
+   Height As Integer
+   
+   floor As Boolean
+   layer2 As Boolean
+   layer3 As Boolean
+   layer4 As Boolean
+   objects As Boolean
+   npcs As Boolean
+   format As eFormatPic
+
+End Type
+
 Public Sub RenderAllMaps(ByRef format As eFormatPic, ByVal SizeX As Long, ByVal SizeY As Long)
 '*************************************************
 'Author: Anagrama
@@ -62,7 +76,7 @@ Public Sub RenderAllMaps(ByRef format As eFormatPic, ByVal SizeX As Long, ByVal 
         FileCount = Dir$
     Loop
     
-    frmRenderAll.pgbProgressTotal.value = 0
+    frmRenderAll.pgbProgressTotal.Value = 0
     frmRenderAll.pgbProgressTotal.max = NumFiles
     frmRenderAll.lblEstadoTotal = "0/" & NumFiles
     
@@ -70,111 +84,12 @@ Public Sub RenderAllMaps(ByRef format As eFormatPic, ByVal SizeX As Long, ByVal 
         Call modMapIO.NuevoMapa
         modMapIO.AbrirMapa FilePath & file(num), MapData
         Call MapCapture(format, SizeX, SizeY, 1)
-        frmRenderAll.pgbProgressTotal.value = frmRenderAll.pgbProgressTotal.value + 1
-        frmRenderAll.lblEstadoTotal = frmRenderAll.pgbProgressTotal.value & "/" & NumFiles
+        frmRenderAll.pgbProgressTotal.Value = frmRenderAll.pgbProgressTotal.Value + 1
+        frmRenderAll.lblEstadoTotal = frmRenderAll.pgbProgressTotal.Value & "/" & NumFiles
     Next num
     
 End Sub
 
 Public Sub MapCapture(ByRef format As eFormatPic, ByVal SizeX As Long, ByVal SizeY As Long, Optional ByVal RenderAll As Byte = 0)
-'*************************************************
-'Author: Torres Patricio(Pato)
-'Last modified:12/03/11
-'12/08/2016: Anagrama - Modificado para generar tamaños inferiores sin distorcionarse.
-'                       Cambiado el nombre de la carpeta destino de Screenshots a Renders.
-'                       Ahora guarda el nombre del archivo en vez del nombre del mapa.
-'                       Agregada distincion al capturar 1 o todos los mapas.
-'*************************************************
-Dim Y           As Long     'Keeps track of where on map we are
-Dim X           As Long     'Keeps track of where on map we are
-Dim ScreenX     As Integer  'Keeps track of where to place tile on screen
-Dim ScreenY     As Integer  'Keeps track of where to place tile on screen
-Dim ScreenXOffset   As Integer
-Dim ScreenYOffset   As Integer
-Dim PixelOffsetXTemp As Integer 'For centering grhs
-Dim PixelOffsetYTemp As Integer 'For centering grhs
-Dim Grh         As Grh      'Temp Grh for show tile and blocked
-Dim renderSurface As DirectDrawSurface7
-Dim surfaceDesc As DDSURFACEDESC2
-Dim srcRect As RECT
-Dim destRect As RECT
-Dim MyMinX As Byte
-Dim MyMaxX As Byte
-Dim MyMinY As Byte
-Dim MyMaxY As Byte
 
-    With surfaceDesc
-        .lFlags = DDSD_CAPS Or DDSD_HEIGHT Or DDSD_WIDTH
-        If ClientSetup.bUseVideo Then
-            .ddsCaps.lCaps = DDSCAPS_OFFSCREENPLAIN
-        Else
-            .ddsCaps.lCaps = DDSCAPS_OFFSCREENPLAIN Or DDSCAPS_SYSTEMMEMORY
-        End If
-        .lHeight = 3200 '32(Tamaño del pixel)*100(Ancho en pixeles)*100(Alto en pixeles)
-        .lWidth = 3200
-        
-        Set renderSurface = DirectDraw.CreateSurface(surfaceDesc)
-    End With
-
-    With srcRect
-        .Right = 3200
-        .Bottom = 3200
-    End With
-
-    If RenderAll = 0 Then
-        frmRender.pgbProgress.value = 0
-        frmRender.pgbProgress.max = 50000
-        MyMinX = XMinMapSize
-        MyMaxX = XMaxMapSize
-        MyMinY = YMinMapSize
-        MyMaxY = YMaxMapSize
-    Else
-        frmRenderAll.pgbProgress.value = 0
-        frmRenderAll.pgbProgress.max = 5
-        MyMinX = 9
-        MyMaxX = 92
-        MyMinY = 7
-        MyMaxY = 94
-        srcRect.Bottom = 87 * 32
-        srcRect.Right = 83 * 32
-    End If
-
-   ' Call renderSurface.BltColorFill(srcRect, 0)
-    
-
-
-    destRect.Right = srcRect.Right
-    destRect.Bottom = srcRect.Bottom
-    
-    frmRenderAll.tmpPic.Width = srcRect.Right
-    frmRenderAll.tmpPic.Height = srcRect.Bottom
-
-    frmRenderAll.picMap.Width = SizeX
-    frmRenderAll.picMap.Height = SizeY
-
-    'Call renderSurface.BltToDC(frmRenderAll.tmpPic.hDC, srcRect, destRect)
-
-    frmRenderAll.tmpPic.Picture = frmRenderAll.tmpPic.Image
-    
-    Dim Token As Long
-    Token = InitGDIPlus
-    frmRenderAll.picMap = Resize(frmRenderAll.tmpPic.Picture.handle, frmRenderAll.tmpPic.Picture.Type, frmRenderAll.picMap.ScaleWidth, frmRenderAll.picMap.ScaleHeight, , False)
-    FreeGDIPlus Token
-
-    If Not FileExist(App.path & "\Renders", vbDirectory) Then MkDir (App.path & "\Renders")
-    
-    Select Case format
-        Case eFormatPic.bmp
-            Call SavePicture(frmRenderAll.picMap.Image, App.path & "\Renders\" & NumMap_Save & ".bmp")
-            
-        Case eFormatPic.png
-            Call StartUpGDIPlus(GdiplusVersion)
-            Call SavePictureAsPNG(frmRenderAll.picMap.Picture, App.path & "\Renders\" & NumMap_Save & ".png")
-            Call ShutdownGDIPlus
-            
-        Case eFormatPic.jpg
-            Call StartUpGDIPlus(GdiplusVersion)
-            Call SavePictureAsJPG(frmRenderAll.picMap.Picture, App.path & "\Renders\" & NumMap_Save & ".jpg")
-            Call ShutdownGDIPlus
-    End Select
 End Sub
