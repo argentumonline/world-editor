@@ -662,11 +662,10 @@ Public Sub RenderFullMap()
                 Call CharRender(MapData(X, Y).CharIndex, DrawableX, DrawableY)
         End Select
     Next Drawable
-    
 End Sub
 
 
-Private Sub CharRender(ByVal CharIndex As Long, ByVal PixelOffsetX As Single, ByVal PixelOffsetY As Single)
+Public Sub CharRender(ByVal CharIndex As Long, ByVal PixelOffsetX As Single, ByVal PixelOffsetY As Single)
 '***************************************************
 'Author: Juan Martín Sotuyo Dodero (Maraxus)
 'Last Modify Date: 25/05/2011 (Amraphen)

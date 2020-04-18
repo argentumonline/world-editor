@@ -3,20 +3,20 @@ Object = "{97FD4A65-A045-4F5C-8C6C-262505F7C013}#6.0#0"; "Argentum.ocx"
 Begin VB.Form frmRender 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Renderizado"
-   ClientHeight    =   3390
+   ClientHeight    =   13515
    ClientLeft      =   45
    ClientTop       =   435
-   ClientWidth     =   6990
+   ClientWidth     =   25620
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   226
+   ScaleHeight     =   901
    ScaleMode       =   3  'Pixel
-   ScaleWidth      =   466
+   ScaleWidth      =   1708
    StartUpPosition =   3  'Windows Default
    Begin WorldEditor.UcRenderOptions renderOption 
-      Height          =   2805
-      Left            =   90
+      Height          =   3615
+      Left            =   120
       TabIndex        =   3
       Top             =   60
       Width           =   2835
@@ -38,7 +38,7 @@ Begin VB.Form frmRender
       Height          =   375
       Left            =   90
       TabIndex        =   1
-      Top             =   2910
+      Top             =   3720
       Width           =   1275
    End
    Begin VB.CommandButton cmdAceptar 
@@ -46,7 +46,7 @@ Begin VB.Form frmRender
       Height          =   375
       Left            =   1680
       TabIndex        =   0
-      Top             =   2910
+      Top             =   3720
       Width           =   1275
    End
 End
@@ -59,14 +59,16 @@ Attribute VB_Exposed = False
 Option Explicit
 Private WithEvents exporter As clsMapExport
 Attribute exporter.VB_VarHelpID = -1
+
 Public formatPic As eFormatPic
 
 Private Sub cmdAceptar_Click()
     Set exporter = New clsMapExport
     Call Me.renderOption.ConfigureExporter(exporter)
     Call exporter.SetPicture(slave)
+    
+    
     Call exporter.Capture
-
 End Sub
 
 Private Sub cmdCancelar_Click()

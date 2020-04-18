@@ -1,18 +1,42 @@
 VERSION 5.00
 Begin VB.UserControl UcRenderOptions 
-   ClientHeight    =   2730
+   ClientHeight    =   3690
    ClientLeft      =   0
    ClientTop       =   0
    ClientWidth     =   2865
-   ScaleHeight     =   2730
+   ScaleHeight     =   3690
    ScaleWidth      =   2865
    Begin VB.Frame frameDraw 
       Caption         =   "Draw"
-      Height          =   2025
+      Height          =   2955
       Left            =   30
       TabIndex        =   9
       Top             =   630
       Width           =   1455
+      Begin VB.CheckBox chkBlocks 
+         Caption         =   "Block"
+         Height          =   315
+         Left            =   270
+         TabIndex        =   18
+         Top             =   2580
+         Width           =   975
+      End
+      Begin VB.CheckBox chkTriggers 
+         Caption         =   "Triggers"
+         Height          =   315
+         Left            =   270
+         TabIndex        =   17
+         Top             =   2280
+         Width           =   975
+      End
+      Begin VB.CheckBox chkExits 
+         Caption         =   "Exits"
+         Height          =   315
+         Left            =   270
+         TabIndex        =   16
+         Top             =   1980
+         Width           =   975
+      End
       Begin VB.CheckBox chkNpcs 
          Caption         =   "Npcs"
          Height          =   315
@@ -168,6 +192,9 @@ GetOptions.layer3 = IIf(chkLayer3.Value = vbChecked, True, False)
 GetOptions.layer4 = IIf(chkLayer4.Value = vbChecked, True, False)
 GetOptions.objects = IIf(chkObjects.Value = vbChecked, True, False)
 GetOptions.npcs = IIf(chkNpcs.Value = vbChecked, True, False)
+GetOptions.exits = IIf(chkExits.Value = vbChecked, True, False)
+GetOptions.triggers = IIf(chkTriggers.Value = vbChecked, True, False)
+GetOptions.blocks = IIf(chkBlocks.Value = vbChecked, True, False)
 
 If optPng.Value Then
     GetOptions.format = png

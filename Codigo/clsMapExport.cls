@@ -121,7 +121,19 @@ Private Sub picture_Paint()
                 End If
             Case 5
                 If options.npcs Then
-                    'Call CharRender(MapData(X, Y).CharIndex, DrawableX, DrawableY)
+                    Call CharRender(MapData(X, Y).CharIndex, DrawableX, DrawableY)
+                End If
+            Case modEdicion.BLOCK_LAYER
+                If options.blocks Then
+                    Call DrawGrhIndex(modEdicion.BlockGrhIndex, DrawableX, DrawableY, GetDepth(modEdicion.BLOCK_LAYER, X, Y, 1), True)
+                End If
+            Case modEdicion.EXIT_LAYER
+                If options.exits Then
+                    Call DrawGrhIndex(modEdicion.ExitGrhIndex, DrawableX, DrawableY, GetDepth(modEdicion.EXIT_LAYER, X, Y, 1), True)
+                End If
+            Case modEdicion.TRIGGER_LAYER
+                If options.triggers Then
+                    Call Draw_Text(FuentesJuego.Talk.id, FuentesJuego.Talk.Tamanio, DrawableX + 16, DrawableY + 16, GetDepth(modEdicion.TRIGGER_LAYER, X, Y, 1), FuentesJuego.Talk.color, FONT_ALIGNMENT_MIDDLE Or FONT_ALIGNMENT_CENTER, CStr(MapData(X, Y).Trigger))
                 End If
         End Select
     Next Drawable

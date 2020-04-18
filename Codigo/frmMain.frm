@@ -2647,6 +2647,7 @@ If Button = vbLeftButton Then Call SelectTiles(True, tx, tY)
 End Sub
 
 Private Sub Form_Resize()
+
     Dim newW As Integer
     Dim newH As Integer
     If AutoPantalla Then
@@ -2656,8 +2657,13 @@ Private Sub Form_Resize()
         PantallaY = CInt(newH / 32)
     End If
     
-    Me.picMain.Width = (PantallaX * 32)
-    Me.picMain.Height = (PantallaY * 32)
+    If PantallaX > 1 Then
+        Me.picMain.Width = (PantallaX * 32)
+        Me.picMain.Height = (PantallaY * 32)
+    End If
+    
+
+
 End Sub
 
 Private Sub lListado_Click(index As Integer)

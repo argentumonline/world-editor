@@ -48,6 +48,9 @@ Public Type MapExportOptions
    layer4 As Boolean
    objects As Boolean
    npcs As Boolean
+   exits As Boolean
+   triggers As Boolean
+   blocks As Boolean
    format As eFormatPic
 
 End Type
