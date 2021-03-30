@@ -564,47 +564,50 @@ Public Sub RenderScreen(ByVal TileX As Integer, ByVal TileY As Integer, ByVal Of
         Call modPrimitives.DrawBox(DrawableX, DrawableY, DrawableX + 32, DrawableY + 32, &H60FFFFFF)
     End If
     
-    For Drawable = 0 To (g_Swarm.Query(MinX, MinY, MaxX, MaxY) - 1)
-        X = g_Swarm.Query_X(Drawable)
-        Y = g_Swarm.Query_Y(Drawable)
+    Dim Results() As wGL_Swarm_Result
+    Call g_Swarm.Query(MinX, MinY, MaxX, MaxY, Results)
 
-        DrawableX = (X - ScreenMinX) * TilePixelWidth + OffsetX
-        DrawableY = (Y - ScreenMinY) * TilePixelHeight + OffsetY
+    For Drawable = 0 To UBound(Results)
+        With Results(Drawable)
 
-        Select Case (g_Swarm.Query_Layer(Drawable))
+            DrawableX = (.X - ScreenMinX) * TilePixelWidth + OffsetX
+            DrawableY = (.Y - ScreenMinY) * TilePixelHeight + OffsetY
+
+            Select Case (.Layer)
             Case 1
                 If bVerCapa(2) Then
-                    Call DrawGrh(MapData(X, Y).Graphic(2), DrawableX, DrawableY, GetDepth(2, X, Y), 1, 1)
+                    Call DrawGrh(MapData(.X, .Y).Graphic(2), DrawableX, DrawableY, GetDepth(2, .X, .Y), 1, 1)
                 End If
             Case 2
                 If bVerCapa(3) Then
-                    Call DrawGrh(MapData(X, Y).Graphic(3), DrawableX, DrawableY, GetDepth(3, X, Y, 2), 1, 1, , , , True)
+                    Call DrawGrh(MapData(.X, .Y).Graphic(3), DrawableX, DrawableY, GetDepth(3, .X, .Y, 2), 1, 1, , , , True)
                 End If
             Case 3
                 If bVerCapa(4) Then
-                    Call DrawGrh(MapData(X, Y).Graphic(4), DrawableX, DrawableY, GetDepth(4, X, Y), 1, 1)
+                    Call DrawGrh(MapData(.X, .Y).Graphic(4), DrawableX, DrawableY, GetDepth(4, .X, .Y), 1, 1)
                 End If
             Case 4
                 If bVerObjetos Then
-                    Call DrawGrh(MapData(X, Y).ObjGrh, DrawableX, DrawableY, GetDepth(3, X, Y, 1), 1, 1, , , , True)
+                    Call DrawGrh(MapData(.X, .Y).ObjGrh, DrawableX, DrawableY, GetDepth(3, .X, .Y, 1), 1, 1, , , , True)
                 End If
             Case 5
                 If bVerNpcs Then
-                    Call CharRender(MapData(X, Y).CharIndex, DrawableX, DrawableY)
+                    Call CharRender(MapData(.X, .Y).CharIndex, DrawableX, DrawableY)
                 End If
             Case modEdicion.BLOCK_LAYER
                 If bBloqs Then
-                    Call DrawGrhIndex(modEdicion.BlockGrhIndex, DrawableX, DrawableY, GetDepth(modEdicion.BLOCK_LAYER, X, Y, 1), True)
+                    Call DrawGrhIndex(modEdicion.BlockGrhIndex, DrawableX, DrawableY, GetDepth(modEdicion.BLOCK_LAYER, .X, .Y, 1), True)
                 End If
             Case modEdicion.EXIT_LAYER
                 If bTranslados Then
-                    Call DrawGrhIndex(modEdicion.ExitGrhIndex, DrawableX, DrawableY, GetDepth(modEdicion.EXIT_LAYER, X, Y, 1), True)
+                    Call DrawGrhIndex(modEdicion.ExitGrhIndex, DrawableX, DrawableY, GetDepth(modEdicion.EXIT_LAYER, .X, .Y, 1), True)
                 End If
             Case modEdicion.TRIGGER_LAYER
                 If bTriggers Then
-                    Call Draw_Text(FuentesJuego.Talk.id, FuentesJuego.Talk.Tamanio, DrawableX + 16, DrawableY + 16, GetDepth(modEdicion.TRIGGER_LAYER, X, Y, 1), FuentesJuego.Talk.color, FONT_ALIGNMENT_MIDDLE Or FONT_ALIGNMENT_CENTER, CStr(MapData(X, Y).Trigger))
+                    Call Draw_Text(FuentesJuego.Talk.id, FuentesJuego.Talk.Tamanio, DrawableX + 16, DrawableY + 16, GetDepth(modEdicion.TRIGGER_LAYER, .X, .Y, 1), FuentesJuego.Talk.color, FONT_ALIGNMENT_MIDDLE Or FONT_ALIGNMENT_CENTER, CStr(MapData(.X, .Y).Trigger))
                 End If
         End Select
+        End With
     Next Drawable
     
 End Sub
@@ -642,25 +645,28 @@ Public Sub RenderFullMap()
         Next X
     Next Y
 
-    For Drawable = 0 To (g_Swarm.Query(MinX, MinY, MaxX, MaxY) - 1)
-        X = g_Swarm.Query_X(Drawable)
-        Y = g_Swarm.Query_Y(Drawable)
+    Dim Results() As wGL_Swarm_Result
+    Call g_Swarm.Query(MinX, MinY, MaxX, MaxY, Results)
 
-        DrawableX = (X * TilePixelWidth) - 32
-        DrawableY = (Y * TilePixelHeight) - 32
+    For Drawable = 0 To UBound(Results)
+        With Results(Drawable)
 
-        Select Case (g_Swarm.Query_Layer(Drawable))
+            DrawableX = .X * TilePixelWidth - 32
+            DrawableY = .Y * TilePixelHeight - 32
+
+            Select Case (.Layer)
             Case 1
-                Call DrawGrh(MapData(X, Y).Graphic(2), DrawableX, DrawableY, GetDepth(2, X, Y), 1, 1)
+                Call DrawGrh(MapData(.X, .Y).Graphic(2), DrawableX, DrawableY, GetDepth(2, .X, .Y), 1, 1)
             Case 2
-                Call DrawGrh(MapData(X, Y).Graphic(3), DrawableX, DrawableY, GetDepth(3, X, Y, 2), 1, 1, , , , True)
+                Call DrawGrh(MapData(.X, .Y).Graphic(3), DrawableX, DrawableY, GetDepth(3, .X, .Y, 2), 1, 1, , , , True)
             Case 3
-                Call DrawGrh(MapData(X, Y).Graphic(4), DrawableX, DrawableY, GetDepth(4, X, Y), 1, 1)
+                Call DrawGrh(MapData(.X, .Y).Graphic(4), DrawableX, DrawableY, GetDepth(4, .X, .Y), 1, 1)
             Case 4
-                Call DrawGrh(MapData(X, Y).ObjGrh, DrawableX, DrawableY, GetDepth(3, X, Y, 1), 1, 1, , , , True)
+                Call DrawGrh(MapData(.X, .Y).ObjGrh, DrawableX, DrawableY, GetDepth(3, .X, .Y, 1), 1, 1, , , , True)
             Case 5
-                Call CharRender(MapData(X, Y).CharIndex, DrawableX, DrawableY)
+                Call CharRender(MapData(.X, .Y).CharIndex, DrawableX, DrawableY)
         End Select
+        End With
     Next Drawable
 End Sub
 
