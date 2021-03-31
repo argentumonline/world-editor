@@ -1,4 +1,5 @@
 Attribute VB_Name = "modGameIni"
+'@Folder("WorldEditor.Modules")
 '**************************************************************
 'This program is free software; you can redistribute it and/or modify
 'it under the terms of the GNU General Public License as published by
@@ -68,15 +69,15 @@ Public Function LeerGameIni() As tGameIni
 'Author: Unkwown
 'Last modified: 20/05/06
 '*************************************************
-Dim n As Integer
+Dim N As Integer
 Dim GameIni As tGameIni
-n = FreeFile
-Open DirIndex & "Inicio.con" For Binary As #n
-Get #n, , MiCabecera
+N = FreeFile
+Open DirIndex & "Inicio.con" For Binary As #N
+Get #N, , MiCabecera
 
-Get #n, , GameIni
+Get #N, , GameIni
 
-Close #n
+Close #N
 LeerGameIni = GameIni
 End Function
 
@@ -85,12 +86,12 @@ Public Sub EscribirGameIni(ByRef GameIniConfiguration As tGameIni)
 'Author: Unkwown
 'Last modified: 20/05/06
 '*************************************************
-Dim n As Integer
-n = FreeFile
-Open DirIndex & "Inicio.con" For Binary As #n
-Put #n, , MiCabecera
+Dim N As Integer
+N = FreeFile
+Open DirIndex & "Inicio.con" For Binary As #N
+Put #N, , MiCabecera
 GameIniConfiguration.Password = "DAMMLAMERS!"
-Put #n, , GameIniConfiguration
-Close #n
+Put #N, , GameIniConfiguration
+Close #N
 End Sub
 

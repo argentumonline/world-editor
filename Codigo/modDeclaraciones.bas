@@ -1,4 +1,5 @@
 Attribute VB_Name = "modDeclaraciones"
+'@Folder("WorldEditor.Modules")
 '**************************************************************
 'This program is free software; you can redistribute it and/or modify
 'it under the terms of the GNU General Public License as published by
@@ -211,7 +212,7 @@ Public Type GrhData
     sX As Integer
     sY As Integer
     
-    FileNum As Long
+    fileNum As Long
     
     pixelWidth As Integer
     pixelHeight As Integer
@@ -224,7 +225,10 @@ Public Type GrhData
     
     Speed As Single
     
-    tmpSngl As Single
+    S0 As Single
+    T0 As Single
+    S1 As Single
+    T1 As Single
 End Type
 
 ' Cuerpos body.dat
@@ -428,6 +432,7 @@ Public GraphicsFile As String 'Que graficos.ind usamos
 Public bTriggers As Boolean
 Public bBloqs As Boolean
 Public bTranslados As Boolean
+Public bCursor As Boolean
 Public bVerCapa(2 To 4) As Boolean
 Public bAutoCompletarSuperficies As Boolean
 Public bVerNpcs As Boolean
@@ -449,7 +454,6 @@ Public PrimarySurface As DirectDrawSurface7
 Public PrimaryClipper As DirectDrawClipper
 Public SecundaryClipper As DirectDrawClipper
 Public BackBufferSurface As DirectDrawSurface7
-Public SurfaceDB As clsSurfaceManager
 
 Public TextDrawer As clsTextDrawer
 '********** OUTSIDE FUNCTIONS ***********

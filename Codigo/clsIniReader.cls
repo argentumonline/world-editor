@@ -11,6 +11,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+'@Folder("WorldEditor.Class")
 '**************************************************************
 ' clsIniReader.cls - Loads INI files into memory and applies Binary Search to get values at high speed.
 ' Use it instead of GetVar when reading several values form the same file at once, otherwise it's not usefull.
@@ -59,7 +60,7 @@ Option Base 0
 
 Private Type ChildNode
     Key As String
-    value As String
+    Value As String
 End Type
 
 ''
@@ -110,13 +111,13 @@ Private Sub Class_Terminate()
 'Last Modify Date: 5/01/2006
 '
 '**************************************************************
-    Dim i As Long
+    Dim I As Long
     
     'Clean up
     If MainNodes Then
-        For i = 1 To MainNodes - 1
-            Erase fileData(i).values
-        Next i
+        For I = 1 To MainNodes - 1
+            Erase fileData(I).values
+        Next I
         
         Erase fileData
     End If
@@ -135,17 +136,17 @@ Public Sub Initialize(ByVal file As String)
 'Last Modify Date: 5/01/2006
 'Opens the requested file and loads it's data into memory
 '**************************************************************
-    Dim handle As Integer
+    Dim Handle As Integer
     Dim Text As String
     Dim Pos As Long
     
     'Get a free handle and start reading line by line until the end
-    handle = FreeFile
+    Handle = FreeFile
     
-    Open file For Input As handle
+    Open file For Input As Handle
     
-    Do Until EOF(handle)
-        Line Input #handle, Text
+    Do Until EOF(Handle)
+        Line Input #Handle, Text
         
         'Is it null??
         If Len(Text) Then
@@ -171,7 +172,7 @@ Public Sub Initialize(ByVal file As String)
                             'Add it to the main node's value
                             ReDim Preserve .values(.numValues) As ChildNode
                             
-                            .values(.numValues).value = Right$(Text, Len(Text) - Pos)
+                            .values(.numValues).Value = Right$(Text, Len(Text) - Pos)
                             .values(.numValues).Key = UCase$(Left$(Text, Pos - 1))
                             
                             .numValues = .numValues + 1
@@ -182,19 +183,19 @@ Public Sub Initialize(ByVal file As String)
         End If
     Loop
     
-    Close handle
+    Close Handle
     
-    Dim i As Long
+    Dim I As Long
     
     If MainNodes Then
         'Sort main nodes to allow binary search
         Call SortMainNodes(0, MainNodes - 1)
         
         'Sort values of each node to allow binary search
-        For i = 0 To MainNodes - 1
-            If fileData(i).numValues Then _
-                Call SortChildNodes(fileData(i), 0, fileData(i).numValues - 1)
-        Next i
+        For I = 0 To MainNodes - 1
+            If fileData(I).numValues Then _
+                Call SortChildNodes(fileData(I), 0, fileData(I).numValues - 1)
+        Next I
     End If
 End Sub
 
@@ -303,18 +304,18 @@ Public Function GetValue(ByVal Main As String, ByVal Key As String) As String
 'Last Modify Date: 5/01/2006
 'Returns a value if the key and main node exist, or a nullstring otherwise
 '**************************************************************
-    Dim i As Long
+    Dim I As Long
     Dim j As Long
     
     'Search for the main node
-    i = FindMain(UCase$(Main))
+    I = FindMain(UCase$(Main))
     
-    If i >= 0 Then
+    If I >= 0 Then
         'If valid, binary search among keys
-        j = FindKey(fileData(i), UCase$(Key))
+        j = FindKey(fileData(I), UCase$(Key))
         
         'If we found it we return it
-        If j >= 0 Then GetValue = fileData(i).values(j).value
+        If j >= 0 Then GetValue = fileData(I).values(j).Value
     End If
 End Function
 

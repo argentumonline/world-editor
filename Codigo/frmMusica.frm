@@ -27,24 +27,15 @@ Begin VB.Form frmMusica
       TabIndex        =   3
       Top             =   1320
       Width           =   2415
-      _ExtentX        =   4260
-      _ExtentY        =   873
-      Caption         =   "&Cerrar"
-      CapAlign        =   2
-      BackStyle       =   2
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      cGradient       =   0
-      Mode            =   0
-      Value           =   0   'False
-      cBack           =   -2147483633
+      _extentx        =   4260
+      _extenty        =   873
+      caption         =   "&Cerrar"
+      capalign        =   2
+      backstyle       =   2
+      cgradient       =   0
+      mode            =   0
+      value           =   0
+      cback           =   -2147483633
    End
    Begin WorldEditor.lvButtons_H cmdAplicarYCerrar 
       Height          =   495
@@ -52,25 +43,16 @@ Begin VB.Form frmMusica
       TabIndex        =   2
       Top             =   720
       Width           =   2415
-      _ExtentX        =   4260
-      _ExtentY        =   873
-      Caption         =   "&Aplicar y Cerrar"
-      CapAlign        =   2
-      BackStyle       =   2
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      cGradient       =   0
-      Mode            =   0
-      Value           =   0   'False
-      Enabled         =   0   'False
-      cBack           =   12648447
+      _extentx        =   4260
+      _extenty        =   873
+      caption         =   "&Aplicar y Cerrar"
+      capalign        =   2
+      backstyle       =   2
+      cgradient       =   0
+      mode            =   0
+      value           =   0
+      enabled         =   0
+      cback           =   12648447
    End
    Begin WorldEditor.lvButtons_H cmdDetener 
       Height          =   495
@@ -78,25 +60,16 @@ Begin VB.Form frmMusica
       TabIndex        =   1
       Top             =   120
       Width           =   1215
-      _ExtentX        =   2143
-      _ExtentY        =   873
-      Caption         =   "&Detener"
-      CapAlign        =   2
-      BackStyle       =   2
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      cGradient       =   0
-      Mode            =   0
-      Value           =   0   'False
-      Enabled         =   0   'False
-      cBack           =   12632319
+      _extentx        =   2143
+      _extenty        =   873
+      caption         =   "&Detener"
+      capalign        =   2
+      backstyle       =   2
+      cgradient       =   0
+      mode            =   0
+      value           =   0
+      enabled         =   0
+      cback           =   12632319
    End
    Begin WorldEditor.lvButtons_H cmdEscuchar 
       Height          =   495
@@ -104,24 +77,15 @@ Begin VB.Form frmMusica
       TabIndex        =   0
       Top             =   120
       Width           =   1215
-      _ExtentX        =   2143
-      _ExtentY        =   873
-      Caption         =   "&Escuchar"
-      CapAlign        =   2
-      BackStyle       =   2
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      cGradient       =   0
-      Mode            =   0
-      Value           =   0   'False
-      cBack           =   12648384
+      _extentx        =   2143
+      _extenty        =   873
+      caption         =   "&Escuchar"
+      capalign        =   2
+      backstyle       =   2
+      cgradient       =   0
+      mode            =   0
+      value           =   0
+      cback           =   12648384
    End
 End
 Attribute VB_Name = "frmMusica"
@@ -129,6 +93,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'@Folder("WorldEditor.Form.Tools")
 '**************************************************************
 'This program is free software; you can redistribute it and/or modify
 'it under the terms of the GNU General Public License as published by

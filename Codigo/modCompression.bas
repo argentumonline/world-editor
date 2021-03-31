@@ -1,4 +1,5 @@
 Attribute VB_Name = "modCompression"
+'@Folder("WorldEditor.Modules")
 Option Explicit
 
 Public Const GRH_SOURCE_FILE_EXT As String = ".bmp"
@@ -86,12 +87,12 @@ Private Function General_Drive_Get_Free_Bytes(ByVal DriveName As String) As Curr
 'Last Modify Date: 6/07/2004
 '
 '**************************************************************
-    Dim retval As Long
+    Dim retVal As Long
     Dim FB As Currency
     Dim BT As Currency
     Dim FBT As Currency
     
-    retval = GetDiskFreeSpace(Left$(DriveName, 2), FB, BT, FBT)
+    retVal = GetDiskFreeSpace(Left$(DriveName, 2), FB, BT, FBT)
     
     General_Drive_Get_Free_Bytes = FB * 10000 'convert result to actual size in bytes
 End Function
@@ -103,7 +104,7 @@ End Function
 ' @param    first The first index in the list.
 ' @param    last The last index in the list.
 
-Private Sub Sort_Info_Headers(ByRef InfoHead() As INFOHEADER, ByVal first As Long, ByVal last As Long)
+Public Sub Sort_Info_Headers(ByRef InfoHead() As INFOHEADER, ByVal first As Long, ByVal last As Long)
 '*****************************************************************
 'Author: Nicolas Matias Gonzalez (NIGO)
 'Last Modify Date: 08/20/2007
@@ -191,7 +192,7 @@ End Function
 '
 ' @return   True if found.
 
-Private Function Get_InfoHeader(ByRef ResourcePath As String, ByRef FileName As String, ByRef InfoHead As INFOHEADER) As Boolean
+Public Function Get_InfoHeader(ByRef ResourcePath As String, ByRef FileName As String, ByRef InfoHead As INFOHEADER) As Boolean
 '*****************************************************************
 'Author: Nicolas Matias Gonzalez (NIGO)
 'Last Modify Date: 08/21/2007
@@ -292,7 +293,7 @@ End Sub
 ' @param    data() The data array.
 ' @param    OrigSize The original data size.
 
-Private Sub Decompress_Data(ByRef data() As Byte, ByVal OrigSize As Long)
+Public Sub Decompress_Data(ByRef data() As Byte, ByVal OrigSize As Long)
 '*****************************************************************
 'Author: Juan Martín Dotuyo Dodero
 'Last Modify Date: 10/13/2004
@@ -325,7 +326,7 @@ End Sub
 '
 ' @return   True if no error occurred.
 
-Public Function Compress_Files(ByRef SourcePath As String, ByRef OutputPath As String, ByVal version As Long, ByRef prgBar As ProgressBar) As Boolean
+Public Function Compress_Files(ByRef SourcePath As String, ByRef OutputPath As String, ByVal Version As Long, ByRef prgBar As ProgressBar) As Boolean
 '*****************************************************************
 'Author: Nicolas Matias Gonzalez (NIGO)
 'Last Modify Date: 08/19/2007
@@ -376,7 +377,7 @@ On Local Error GoTo ErrHandler
     End If
     
     'Finish setting the FileHeader data
-    FileHead.lngFileVersion = version
+    FileHead.lngFileVersion = Version
     FileHead.lngFileSize = Len(FileHead) + FileHead.lngNumFiles * Len(InfoHead(0))
     
     'Order the InfoHeads
@@ -593,7 +594,7 @@ On Local Error GoTo ErrHandler
             RequiredSpace = RequiredSpace + InfoHead(loopc).lngFileSizeUncompressed
         Next loopc
         
-        If RequiredSpace >= General_Drive_Get_Free_Bytes(Left$(App.Path, 3)) Then
+        If RequiredSpace >= General_Drive_Get_Free_Bytes(Left$(App.path, 3)) Then
             Erase InfoHead
             Close ResourceFile
             Call MsgBox("No hay suficiente espacio en el disco para extraer los archivos.", , "Error")
@@ -738,7 +739,7 @@ End Function
 '
 ' @return   True if are equals.
 
-Private Function Compare_Datas(ByRef data1() As Byte, ByRef data2() As Byte) As Boolean
+Private Function Compare_Datas(ByRef Data1() As Byte, ByRef Data2() As Byte) As Boolean
 '*****************************************************************
 'Author: Nicolas Matias Gonzalez (NIGO)
 'Last Modify Date: 02/11/2007
@@ -747,11 +748,11 @@ Private Function Compare_Datas(ByRef data1() As Byte, ByRef data2() As Byte) As 
     Dim length As Long
     Dim act As Long
     
-    length = UBound(data1) + 1
+    length = UBound(Data1) + 1
     
-    If (UBound(data2) + 1) = length Then
+    If (UBound(Data2) + 1) = length Then
         While act < length
-            If data1(act) Xor data2(act) Then Exit Function
+            If Data1(act) Xor Data2(act) Then Exit Function
             
             act = act + 1
         Wend

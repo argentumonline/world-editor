@@ -1,4 +1,5 @@
 Attribute VB_Name = "modIndices"
+'@Folder("WorldEditor.Modules")
 '**************************************************************
 'This program is free software; you can redistribute it and/or modify
 'it under the terms of the GNU General Public License as published by
@@ -107,8 +108,8 @@ On Error GoTo ErrorHandler
                     If .TileHeight <= 0 Then GoTo ErrorHandler
                 Else
                     'Read in normal GRH data
-                    Get Handle, , .FileNum
-                    If .FileNum <= 0 Then GoTo ErrorHandler
+                    Get Handle, , .fileNum
+                    If .fileNum <= 0 Then GoTo ErrorHandler
                     
                     Get Handle, , GrhData(Grh).sX
                     If .sX < 0 Then GoTo ErrorHandler
@@ -123,11 +124,13 @@ On Error GoTo ErrorHandler
                     If .pixelHeight <= 0 Then GoTo ErrorHandler
                     
                     ' Loading the normalized values used by wGL. Not used by the WE at this moment.
-                    Get Handle, , tmpSngl
-                    Get Handle, , tmpSngl
-                    Get Handle, , tmpSngl
-                    Get Handle, , tmpSngl
+                    Get Handle, , .S0
+                    Get Handle, , .T0
+                    Get Handle, , .S1
+                    Get Handle, , .T1
                     
+                    .S1 = .S0 + .S1
+                    .T1 = .T0 + .T1
                     
                     'Compute width and height
                     .TileWidth = .pixelWidth / TilePixelHeight

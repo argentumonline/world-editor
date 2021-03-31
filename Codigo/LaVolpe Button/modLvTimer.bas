@@ -1,4 +1,5 @@
 Attribute VB_Name = "modLvTimer"
+'@Folder("WorldEditor.Modules")
 Private Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (pDest As Any, pSource As Any, ByVal ByteLen As Long)
 Private Declare Function GetProp Lib "user32" Alias "GetPropA" (ByVal hwnd As Long, ByVal lpString As String) As Long
 

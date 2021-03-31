@@ -76,24 +76,15 @@ Begin VB.Form frmUnionAdyacente
       TabIndex        =   29
       Top             =   4080
       Width           =   1335
-      _ExtentX        =   2355
-      _ExtentY        =   661
-      Caption         =   "&Aplicar"
-      CapAlign        =   2
-      BackStyle       =   2
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      cGradient       =   0
-      Mode            =   0
-      Value           =   0   'False
-      cBack           =   -2147483633
+      _extentx        =   2355
+      _extenty        =   661
+      caption         =   "&Aplicar"
+      capalign        =   2
+      backstyle       =   2
+      cgradient       =   0
+      mode            =   0
+      value           =   0
+      cback           =   -2147483633
    End
    Begin VB.TextBox PosLim 
       BackColor       =   &H008080FF&
@@ -410,24 +401,15 @@ Begin VB.Form frmUnionAdyacente
       TabIndex        =   30
       Top             =   4080
       Width           =   1335
-      _ExtentX        =   2355
-      _ExtentY        =   661
-      Caption         =   "&Cancelar"
-      CapAlign        =   2
-      BackStyle       =   2
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      cGradient       =   0
-      Mode            =   0
-      Value           =   0   'False
-      cBack           =   -2147483633
+      _extentx        =   2355
+      _extenty        =   661
+      caption         =   "&Cancelar"
+      capalign        =   2
+      backstyle       =   2
+      cgradient       =   0
+      mode            =   0
+      value           =   0
+      cback           =   -2147483633
    End
    Begin WorldEditor.lvButtons_H cmdDefault 
       Height          =   375
@@ -435,24 +417,15 @@ Begin VB.Form frmUnionAdyacente
       TabIndex        =   31
       Top             =   4080
       Width           =   1095
-      _ExtentX        =   1931
-      _ExtentY        =   661
-      Caption         =   "&Default"
-      CapAlign        =   2
-      BackStyle       =   2
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      cGradient       =   0
-      Mode            =   0
-      Value           =   0   'False
-      cBack           =   -2147483633
+      _extentx        =   1931
+      _extenty        =   661
+      caption         =   "&Default"
+      capalign        =   2
+      backstyle       =   2
+      cgradient       =   0
+      mode            =   0
+      value           =   0
+      cback           =   -2147483633
    End
    Begin VB.CheckBox AutoMapeo 
       BackColor       =   &H00E0E0E0&
@@ -975,6 +948,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'@Folder("WorldEditor.Form.Tools")
 '**************************************************************
 'This program is free software; you can redistribute it and/or modify
 'it under the terms of the GNU General Public License as published by
@@ -1001,13 +975,13 @@ Private Sub Aplicar_Click(index As Integer)
 'Author: ^[GS]^
 'Last modified: 20/05/06
 '*************************************************
-Dim i As Byte
+Dim I As Byte
 
 cmdAplicar.Enabled = False
 
-For i = 0 To 3
-    If Aplicar(i).value = 1 Then cmdAplicar.Enabled = True
-Next i
+For I = 0 To 3
+    If Aplicar(I).Value = 1 Then cmdAplicar.Enabled = True
+Next I
 End Sub
 
 Private Sub cmdAplicar_Click()
@@ -1020,7 +994,7 @@ Dim X As Integer
 Dim Y As Integer
 Dim DestX As Integer
 Dim DestY As Integer
-Dim i As Byte
+Dim I As Byte
 Dim tempMap(XMinMapSize To XMaxMapSize, YMinMapSize To YMaxMapSize) As MapBlock
 
 If Not MapaCargado Then Exit Sub
@@ -1028,7 +1002,7 @@ If Not MapaCargado Then Exit Sub
 modEdicion.Deshacer_Add "Insertar Translados a mapas Adyasentes" ' Hago deshacer
 
 ' ARRIBA
-If Mapa(0).Text > -1 And Aplicar(0).value = 1 Then
+If Mapa(0).Text > -1 And Aplicar(0).Value = 1 Then
     Y = PosLim(1).Text
     DestY = PosLim(4).Text
     
@@ -1048,21 +1022,21 @@ If Mapa(0).Text > -1 And Aplicar(0).value = 1 Then
         End With
     Next X
     
-    If AutoMapeo(0).value = 1 Then
+    If AutoMapeo(0).Value = 1 Then
         Call AbrirMapa(PATH_Save & "Mapa" & Mapa(0).Text & ".map", tempMap(), True)
         
         For Y = YMinMapSize To PosLim(1).Text
             For X = XMinMapSize To XMaxMapSize
-                For i = 1 To 4
-                    MapData(X, Y).Graphic(i) = tempMap(X, Y - Val(PosLim(1).Text) + Val(PosLim(4).Text)).Graphic(i)
-                Next i
+                For I = 1 To 4
+                    MapData(X, Y).Graphic(I) = tempMap(X, Y - Val(PosLim(1).Text) + Val(PosLim(4).Text)).Graphic(I)
+                Next I
             Next X
         Next Y
     End If
 End If
 
 ' DERECHA
-If Mapa(1).Text > -1 And Aplicar(1).value = 1 Then
+If Mapa(1).Text > -1 And Aplicar(1).Value = 1 Then
     X = PosLim(2).Text
     DestX = PosLim(6).Text
     
@@ -1082,21 +1056,21 @@ If Mapa(1).Text > -1 And Aplicar(1).value = 1 Then
         End With
     Next Y
     
-    If AutoMapeo(1).value = 1 Then
+    If AutoMapeo(1).Value = 1 Then
         Call AbrirMapa(PATH_Save & "Mapa" & Mapa(1).Text & ".map", tempMap(), True)
         
         For X = PosLim(2).Text To XMaxMapSize
             For Y = YMinMapSize To YMaxMapSize
-                For i = 1 To 4
-                    MapData(X, Y).Graphic(i) = tempMap(X - Val(PosLim(2).Text) + Val(PosLim(6).Text), Y).Graphic(i)
-                Next i
+                For I = 1 To 4
+                    MapData(X, Y).Graphic(I) = tempMap(X - Val(PosLim(2).Text) + Val(PosLim(6).Text), Y).Graphic(I)
+                Next I
             Next Y
         Next X
     End If
 End If
 
 ' ABAJO
-If Mapa(2).Text > -1 And Aplicar(2).value = 1 Then
+If Mapa(2).Text > -1 And Aplicar(2).Value = 1 Then
     Y = PosLim(0).Text
     DestY = PosLim(5).Text
     
@@ -1116,21 +1090,21 @@ If Mapa(2).Text > -1 And Aplicar(2).value = 1 Then
         End With
     Next X
     
-    If AutoMapeo(2).value = 1 Then
+    If AutoMapeo(2).Value = 1 Then
         Call AbrirMapa(PATH_Save & "Mapa" & Mapa(2).Text & ".map", tempMap(), True)
         
         For Y = PosLim(0).Text To YMaxMapSize
             For X = XMinMapSize To XMaxMapSize
-                For i = 1 To 4
-                    MapData(X, Y).Graphic(i) = tempMap(X, Y - Val(PosLim(0).Text) + Val(PosLim(5).Text)).Graphic(i)
-                Next i
+                For I = 1 To 4
+                    MapData(X, Y).Graphic(I) = tempMap(X, Y - Val(PosLim(0).Text) + Val(PosLim(5).Text)).Graphic(I)
+                Next I
             Next X
         Next Y
     End If
 End If
 
 ' IZQUIERDA
-If Mapa(3).Text > -1 And Aplicar(3).value = 1 Then
+If Mapa(3).Text > -1 And Aplicar(3).Value = 1 Then
     X = PosLim(3).Text
     DestX = PosLim(7).Text
     
@@ -1150,14 +1124,14 @@ If Mapa(3).Text > -1 And Aplicar(3).value = 1 Then
         End With
     Next Y
     
-    If AutoMapeo(3).value = 1 Then
+    If AutoMapeo(3).Value = 1 Then
         Call AbrirMapa(PATH_Save & "Mapa" & Mapa(3).Text & ".map", tempMap(), True)
         
         For X = XMinMapSize To PosLim(3).Text
             For Y = YMinMapSize To YMaxMapSize
-                For i = 1 To 4
-                    MapData(X, Y).Graphic(i) = tempMap(X - Val(PosLim(3).Text) + Val(PosLim(7).Text), Y).Graphic(i)
-                Next i
+                For I = 1 To 4
+                    MapData(X, Y).Graphic(I) = tempMap(X - Val(PosLim(3).Text) + Val(PosLim(7).Text), Y).Graphic(I)
+                Next I
             Next Y
         Next X
     End If
@@ -1209,7 +1183,7 @@ For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
     End If
 Next X
 
-Aplicar(0).value = 0
+Aplicar(0).Value = 0
 
 ' DERECHA
 Mapa(1).Text = 0
@@ -1221,7 +1195,7 @@ For Y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
     End If
 Next Y
 
-Aplicar(1).value = 0
+Aplicar(1).Value = 0
 
 ' ABAJO
 Mapa(2).Text = 0
@@ -1233,7 +1207,7 @@ For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
     End If
 Next X
 
-Aplicar(2).value = 0
+Aplicar(2).Value = 0
 
 ' IZQUIERDA
 Mapa(3).Text = 0
@@ -1245,7 +1219,7 @@ For Y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
     End If
 Next Y
 
-Aplicar(3).value = 0
+Aplicar(3).Value = 0
 End Sub
 
 Private Sub Form_Load()
@@ -1264,7 +1238,7 @@ Private Sub Mapa_Change(index As Integer)
 If LenB(Mapa(index).Text) = 0 Then Mapa(index).Text = 0
 If Mapa(index).Text > NumMaps Then Mapa(index).Text = NumMaps
 
-Aplicar(index).value = 1
+Aplicar(index).Value = 1
 End Sub
 
 Private Sub Mapa_KeyPress(index As Integer, KeyAscii As Integer)
@@ -1357,7 +1331,7 @@ Y = PosLim(1).Text
 For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
     If MapData(X, Y).TileExit.Map > 0 Then
         Mapa(0).Text = MapData(X, Y).TileExit.Map
-        Aplicar(0).value = 0
+        Aplicar(0).Value = 0
         Exit For
     End If
 Next X
@@ -1367,7 +1341,7 @@ X = PosLim(2).Text
 For Y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
     If MapData(X, Y).TileExit.Map > 0 Then
         Mapa(1).Text = MapData(X, Y).TileExit.Map
-        Aplicar(1).value = 0
+        Aplicar(1).Value = 0
         Exit For
     End If
 Next Y
@@ -1377,7 +1351,7 @@ Y = PosLim(0).Text
 For X = (PosLim(3).Text + 1) To (PosLim(2).Text - 1)
     If MapData(X, Y).TileExit.Map > 0 Then
         Mapa(2).Text = MapData(X, Y).TileExit.Map
-        Aplicar(2).value = 0
+        Aplicar(2).Value = 0
         Exit For
     End If
 Next X
@@ -1387,7 +1361,7 @@ X = PosLim(3).Text
 For Y = (PosLim(1).Text + 1) To (PosLim(0).Text - 1)
     If MapData(X, Y).TileExit.Map > 0 Then
         Mapa(3).Text = MapData(X, Y).TileExit.Map
-        Aplicar(3).value = 0
+        Aplicar(3).Value = 0
         Exit For
     End If
 Next Y

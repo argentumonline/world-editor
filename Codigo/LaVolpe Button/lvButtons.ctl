@@ -29,7 +29,9 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+'@Folder("WorldEditor.UserControls")
 Option Explicit
+
 Option Compare Text
 
 ' LaVolpe Button (c) by LaVolpe oct/2005
@@ -62,11 +64,11 @@ Public Event Click()
 Attribute Click.VB_MemberFlags = "200"
 Public Event DoubleClick(Button As Integer)   ' added benefit
 Public Event OLECompleteDrag(Effect As Long)
-Public Event OLEDragDrop(Data As DataObject, Effect As Long, Button As Integer, Shift As Integer, X As Single, Y As Single)
-Public Event OLEDragOver(Data As DataObject, Effect As Long, Button As Integer, Shift As Integer, X As Single, Y As Single, State As Integer)
+Public Event OLEDragDrop(data As DataObject, Effect As Long, Button As Integer, Shift As Integer, X As Single, Y As Single)
+Public Event OLEDragOver(data As DataObject, Effect As Long, Button As Integer, Shift As Integer, X As Single, Y As Single, State As Integer)
 Public Event OLEGiveFeedback(Effect As Long, DefaultCursors As Boolean)
-Public Event OLESetData(Data As DataObject, DataFormat As Integer)
-Public Event OLEStartDrag(Data As DataObject, AllowedEffects As Long)
+Public Event OLESetData(data As DataObject, DataFormat As Integer)
+Public Event OLEStartDrag(data As DataObject, AllowedEffects As Long)
 
 ' GDI32 Function Calls
 ' =====================================================================
@@ -118,7 +120,7 @@ Private Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (pDest As An
 ' USER32 Function Calls
 ' =====================================================================
 ' General Windows related functions
-Private Declare Function CopyImage Lib "user32" (ByVal handle As Long, ByVal imageType As Long, ByVal newWidth As Long, ByVal newHeight As Long, ByVal lFlags As Long) As Long
+Private Declare Function CopyImage Lib "user32" (ByVal Handle As Long, ByVal imageType As Long, ByVal newWidth As Long, ByVal newHeight As Long, ByVal lFlags As Long) As Long
 Private Declare Function DestroyIcon Lib "user32" (ByVal hIcon As Long) As Long
 Private Declare Function DrawFocusRect Lib "user32" (ByVal hDC As Long, lpRect As RECT) As Long
 Private Declare Function DrawIconEx Lib "user32" (ByVal hDC As Long, ByVal xLeft As Long, ByVal yTop As Long, ByVal hIcon As Long, ByVal cxWidth As Long, ByVal cyWidth As Long, ByVal istepIfAniCur As Long, ByVal hbrFlickerFreeDraw As Long, ByVal diFlags As Long) As Long
@@ -225,7 +227,7 @@ Private Type ImageProperties
     TransImage As Long
     TransSize As POINTAPI
     Align As ImagePlacementConstants             ' image alignment (6 options)
-    Size As Integer                              ' image size (5 options)
+    size As Integer                              ' image size (5 options)
     iRect As RECT                                ' cached image's bounding rectangle
     SourceSize As POINTAPI                       ' cached source image dimensions
     Type As Long                                 ' cached source image type (bmp/ico)
@@ -511,7 +513,7 @@ Attribute Picture.VB_Description = "The image used to display on the button."
 
 ' Sets the button image which to display
 Set myImage.Image = xPic
-If myImage.Size = 0 Then myImage.Size = 16
+If myImage.size = 0 Then myImage.size = 16
 GetGDIMetrics "Picture"
 If myProps.bShape > lv_RoundFlat Then   ' custom shapes
     If xPic Is Nothing Then
@@ -633,16 +635,16 @@ If myProps.bShape > lv_RoundFlat Then
     If Not Ambient.UserMode Then MsgBox "The picture size cannot be changed for Shaped buttons", vbInformation + vbOKOnly
     Exit Property
 End If
-myImage.Size = (nSize + 2) * 8      ' I just want the size as pixel x pixel
+myImage.size = (nSize + 2) * 8      ' I just want the size as pixel x pixel
 CalculateBoundingRects True         ' recalculate text/image bounding rects
 RedrawButton
 PropertyChanged "ImgSize"
 If myProps.bShape > lv_RoundFlat Then Call UserControl_Resize
 End Property
 Public Property Get PictureSize() As ImageSizeConstants
-If myImage.Size = 0 Then myImage.Size = 16
+If myImage.size = 0 Then myImage.size = 16
 ' parameters are 0,1,2,3,4 & 5, but we store them as 16,24,32,40, & 44
-PictureSize = Choose(myImage.Size / 8 - 1, lv_16x16, lv_24x24, lv_32x32, lv_Fill_Stretch, lv_Fill_ScaleUpDown)
+PictureSize = Choose(myImage.size / 8 - 1, lv_16x16, lv_24x24, lv_32x32, lv_Fill_Stretch, lv_Fill_ScaleUpDown)
 End Property
 
 Public Property Let MousePointer(nPointer As MousePointerConstants)
@@ -676,21 +678,21 @@ Public Property Get MouseIcon() As StdPicture
 Set MouseIcon = UserControl.MouseIcon
 End Property
 
-Public Property Set Font(nFont As StdFont)
-Attribute Font.VB_Description = "Font used to display the caption."
-Attribute Font.VB_ProcData.VB_Invoke_PropertyPutRef = ";Font"
+Public Property Set font(nFont As StdFont)
+Attribute font.VB_Description = "Font used to display the caption."
+Attribute font.VB_ProcData.VB_Invoke_PropertyPutRef = ";Font"
 
 ' Sets the control's font & also the logical font to use on off-screen DC
 
-Set UserControl.Font = nFont
+Set UserControl.font = nFont
 GetGDIMetrics "Font"
 CalculateBoundingRects False          ' recalculate caption's text/image bounding rects
 RedrawButton
 
 PropertyChanged "Font"
 End Property
-Public Property Get Font() As StdFont
-Set Font = UserControl.Font
+Public Property Get font() As StdFont
+Set font = UserControl.font
 End Property
 
 Public Property Let FontStyle(nStyle As FontStyles)
@@ -698,7 +700,7 @@ Attribute FontStyle.VB_Description = "Various font attributes that can be change
 
 ' Allows direct changes to font attributes
 
-With UserControl.Font
+With UserControl.font
     .Bold = ((nStyle And lv_Bold) = lv_Bold)
     .Italic = ((nStyle And lv_Italic) = lv_Italic)
     .Underline = ((nStyle And lv_Underline) = lv_Underline)
@@ -710,9 +712,9 @@ RedrawButton
 End Property
 Public Property Get FontStyle() As FontStyles
 Dim nStyle As Integer
-nStyle = nStyle Or Abs(UserControl.Font.Bold) * 2
-nStyle = nStyle Or Abs(UserControl.Font.Italic) * 4
-nStyle = nStyle Or Abs(UserControl.Font.Underline) * 8
+nStyle = nStyle Or Abs(UserControl.font.Bold) * 2
+nStyle = nStyle Or Abs(UserControl.font.Italic) * 4
+nStyle = nStyle Or Abs(UserControl.font.Underline) * 8
 FontStyle = nStyle
 End Property
 
@@ -1136,19 +1138,19 @@ End Select
 
 If (myImage.SourceSize.X + myImage.SourceSize.Y) > 0 Then
     ' image in use, calculations for image rectangle
-    If myImage.Size < 33 Then
+    If myImage.size < 33 Then
         Select Case myImage.Align
         Case lv_LeftEdge, lv_LeftOfCaption
-            imgOffset.Left = myImage.Size
+            imgOffset.Left = myImage.size
             bImgWidthAdj = True
         Case lv_RightEdge, lv_RightOfCaption
-            imgOffset.Right = myImage.Size
+            imgOffset.Right = myImage.size
             bImgWidthAdj = True
         Case lv_TopCenter
-            imgOffset.Top = myImage.Size
+            imgOffset.Top = myImage.size
             bImgHeightAdj = True
         Case lv_BottomCenter
-            imgOffset.Bottom = myImage.Size
+            imgOffset.Bottom = myImage.size
             bImgHeightAdj = True
         End Select
     End If
@@ -1159,8 +1161,8 @@ If Len(myProps.bCaption) Then
     Dim sCaption As String  ' note: Replace$ not compatible with VB5
     sCaption = Replace$(myProps.bCaption, "||", vbNewLine)
     ' calculate total available button width available for text
-    cRect.Right = adjWidth - 8 - (myImage.Size * Abs(CInt(bImgWidthAdj)))
-    cRect.Bottom = ScaleHeight - 8 - (myImage.Size * Abs(CInt(bImgHeightAdj = True And myImage.Align > lv_RightOfCaption)))
+    cRect.Right = adjWidth - 8 - (myImage.size * Abs(CInt(bImgWidthAdj)))
+    cRect.Bottom = ScaleHeight - 8 - (myImage.size * Abs(CInt(bImgHeightAdj = True And myImage.Align > lv_RightOfCaption)))
     ' calculate size of rectangle to hold that text, using multiline flag
     DrawText ButtonDC.hDC, sCaption, Len(sCaption), cRect, DT_CALCRECT Or DT_WORDBREAK
     If myProps.bCaptionStyle Then
@@ -1217,12 +1219,12 @@ If (myImage.SourceSize.X + myImage.SourceSize.Y) > 0 Then
     End Select
     If myImage.Align < lv_TopCenter Then
         OffsetRect tRect, 0, (ScaleHeight - cRect.Bottom) \ 2
-        iRect.Top = (ScaleHeight - myImage.Size) \ 2
+        iRect.Top = (ScaleHeight - myImage.size) \ 2
     Else
-        iRect.Left = (adjWidth - myImage.Size) \ 2 + lEdge
+        iRect.Left = (adjWidth - myImage.size) \ 2 + lEdge
     End If
-    iRect.Right = iRect.Left + myImage.Size
-    iRect.Bottom = iRect.Top + myImage.Size
+    iRect.Right = iRect.Left + myImage.size
+    iRect.Bottom = iRect.Top + myImage.size
 Else
     OffsetRect tRect, 0, (ScaleHeight - cRect.Bottom) \ 2
 End If
@@ -1232,7 +1234,7 @@ If tRect.Left < 4 + lEdge Then tRect.Left = 4 + lEdge
 If tRect.Right > rEdge - 4 Then tRect.Right = rEdge - 4
 If tRect.Bottom > ScaleHeight - 5 Then tRect.Bottom = ScaleHeight - 5
 myProps.bRect = tRect
-Select Case myImage.Size
+Select Case myImage.size
 Case Is < 33
     If iRect.Top < 4 Then iRect.Top = 4
     If iRect.Left < 4 + lEdge Then iRect.Left = 4 + lEdge
@@ -1367,7 +1369,7 @@ Select Case myProps.bShape
         ' resize the button to fit the image
         DelayDrawing True
         ScaleImage ScaleWidth, ScaleHeight, Wd, Ht
-        UserControl.Size Wd * Screen.TwipsPerPixelX, Ht * Screen.TwipsPerPixelY
+        UserControl.size Wd * Screen.TwipsPerPixelX, Ht * Screen.TwipsPerPixelY
         myProps.bSegPts.Y = ScaleWidth
         bNoRefresh = False
         rgn2Use = CreateRectRgn(0, 0, ScaleWidth, ScaleHeight)
@@ -1587,9 +1589,9 @@ newDC = CreateCompatibleDC(UserControl.hDC)
 If myImage.Type Then    ' icons
     myImage.TransImage = CreateCompatibleBitmap(UserControl.hDC, newSizeX, newSizeY)
     oldBMP = SelectObject(newDC, myImage.TransImage)
-    DrawIconEx newDC, 0, 0, myImage.Image.handle, newSizeX, newSizeY, 0&, 0&, &H3
+    DrawIconEx newDC, 0, 0, myImage.Image.Handle, newSizeX, newSizeY, 0&, 0&, &H3
 Else    ' bitmaps
-    myImage.TransImage = CopyImage(myImage.Image.handle, myImage.Type, newSizeX, newSizeY, ByVal 0&)
+    myImage.TransImage = CopyImage(myImage.Image.Handle, myImage.Type, newSizeX, newSizeY, ByVal 0&)
     oldBMP = SelectObject(newDC, myImage.TransImage)
 End If
 ' determine the mask color (top left corner pixel)
@@ -1793,7 +1795,7 @@ End If
     If myImage.Type = CI_ICON Then
 '        ' draw icon directly onto the temporary DC
 '        ' for icons, we can draw directly on the destination DC
-        DrawIconEx hMemDC, dRect.Left, dRect.Top, myImage.Image.handle, imgWidth, imgHeight, 0, 0, &H3
+        DrawIconEx hMemDC, dRect.Left, dRect.Top, myImage.Image.Handle, imgWidth, imgHeight, 0, 0, &H3
     Else
         ' draw transparent bitmap onto the temporary DC
         DrawTransparentBitmap hMemDC, dRect, myImage.TransImage, rcImage, , imgWidth, imgHeight
@@ -1856,12 +1858,12 @@ Case "Font"
     ' called when font is changed or control is initialized
     Dim newFont As LOGFONT
     newFont.lfCharSet = 1
-    newFont.lfFaceName = UserControl.Font.name & Chr$(0)
-    newFont.lfHeight = (UserControl.Font.Size * -20) / Screen.TwipsPerPixelY
-    newFont.lfWeight = UserControl.Font.Weight
-    newFont.lfItalic = Abs(CInt(UserControl.Font.Italic))
-    newFont.lfStrikeOut = Abs(CInt(UserControl.Font.Strikethrough))
-    newFont.lfUnderline = Abs(CInt(UserControl.Font.Underline))
+    newFont.lfFaceName = UserControl.font.name & Chr$(0)
+    newFont.lfHeight = (UserControl.font.size * -20) / Screen.TwipsPerPixelY
+    newFont.lfWeight = UserControl.font.Weight
+    newFont.lfItalic = Abs(CInt(UserControl.font.Italic))
+    newFont.lfStrikeOut = Abs(CInt(UserControl.font.Strikethrough))
+    newFont.lfUnderline = Abs(CInt(UserControl.font.Underline))
     If ButtonDC.OldFont Then
         DeleteObject SelectObject(ButtonDC.hDC, CreateFontIndirect(newFont))
     Else
@@ -1875,9 +1877,9 @@ Case "Picture"
         myImage.SourceSize.X = 0
         myImage.SourceSize.Y = 0
     Else
-        GetGDIObject myImage.Image.handle, LenB(bmpInfo), bmpInfo
+        GetGDIObject myImage.Image.Handle, LenB(bmpInfo), bmpInfo
         If bmpInfo.bmBits = 0 Then
-            GetIconInfo myImage.Image.handle, icoInfo
+            GetIconInfo myImage.Image.Handle, icoInfo
             If icoInfo.hbmColor <> 0 Then
                 ' downside... API creates 2 bitmaps that we need to destroy since they aren't used in this
                 ' routine & are not destroyed automatically. To prevent memory leak, we destroy them here
@@ -2615,14 +2617,14 @@ Private Sub UserControl_OLECompleteDrag(Effect As Long)
 RaiseEvent OLECompleteDrag(Effect)
 End Sub
 
-Private Sub UserControl_OLEDragDrop(Data As DataObject, Effect As Long, Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub UserControl_OLEDragDrop(data As DataObject, Effect As Long, Button As Integer, Shift As Integer, X As Single, Y As Single)
 ' not used by me, but we'll send the event
-RaiseEvent OLEDragDrop(Data, Effect, Button, Shift, X, Y)
+RaiseEvent OLEDragDrop(data, Effect, Button, Shift, X, Y)
 End Sub
 
-Private Sub UserControl_OLEDragOver(Data As DataObject, Effect As Long, Button As Integer, Shift As Integer, X As Single, Y As Single, State As Integer)
+Private Sub UserControl_OLEDragOver(data As DataObject, Effect As Long, Button As Integer, Shift As Integer, X As Single, Y As Single, State As Integer)
 ' not used by me, but we'll send the event
-RaiseEvent OLEDragOver(Data, Effect, Button, Shift, X, Y, State)
+RaiseEvent OLEDragOver(data, Effect, Button, Shift, X, Y, State)
 End Sub
 
 Private Sub UserControl_OLEGiveFeedback(Effect As Long, DefaultCursors As Boolean)
@@ -2630,14 +2632,14 @@ Private Sub UserControl_OLEGiveFeedback(Effect As Long, DefaultCursors As Boolea
 RaiseEvent OLEGiveFeedback(Effect, DefaultCursors)
 End Sub
 
-Private Sub UserControl_OLESetData(Data As DataObject, DataFormat As Integer)
+Private Sub UserControl_OLESetData(data As DataObject, DataFormat As Integer)
 ' not used by me, but we'll send the event
-RaiseEvent OLESetData(Data, DataFormat)
+RaiseEvent OLESetData(data, DataFormat)
 End Sub
 
-Private Sub UserControl_OLEStartDrag(Data As DataObject, AllowedEffects As Long)
+Private Sub UserControl_OLEStartDrag(data As DataObject, AllowedEffects As Long)
 ' not used by me, but we'll send the event
-RaiseEvent OLEStartDrag(Data, AllowedEffects)
+RaiseEvent OLEStartDrag(data, AllowedEffects)
 End Sub
 
 Private Sub UserControl_Paint()
@@ -2663,7 +2665,7 @@ With myProps
 End With
 
 On Error Resume Next
-If Not (TypeOf Parent Is MDIForm) Then Set UserControl.Font = Parent.Font
+If Not (TypeOf Parent Is MDIForm) Then Set UserControl.font = Parent.font
 On Error GoTo 0
 cParentBC = ConvertColor(Ambient.BackColor)
 curBackColor = vbButtonFace         ' this will be the button's initial backcolor
@@ -2698,7 +2700,7 @@ With PropBag
     myProps.bValue = .ReadProperty("Value", False)
     myProps.bCustomClick = .ReadProperty("CustomClick", 0)
     Set myImage.Image = .ReadProperty("Image", Nothing)
-    myImage.Size = .ReadProperty("ImgSize", 16)
+    myImage.size = .ReadProperty("ImgSize", 16)
     myImage.Align = .ReadProperty("ImgAlign", 0)
     myProps.bForeHover = .ReadProperty("cFHover", vbButtonText)
     UserControl.Enabled = .ReadProperty("Enabled", True)
@@ -2738,7 +2740,7 @@ With PropBag
     .WriteProperty "CapAlign", myProps.bCaptionAlign, 0
     .WriteProperty "BackStyle", myProps.bBackStyle, 0
     .WriteProperty "Shape", myProps.bShape, 0
-    .WriteProperty "Font", UserControl.Font, Nothing
+    .WriteProperty "Font", UserControl.font, Nothing
     .WriteProperty "cFore", UserControl.ForeColor, vbButtonText
     .WriteProperty "cFHover", myProps.bForeHover, vbButtonText
     .WriteProperty "cBhover", myProps.bBackHover, curBackColor
@@ -2752,7 +2754,7 @@ With PropBag
     .WriteProperty "CustomClick", myProps.bCustomClick, 0
     .WriteProperty "ImgAlign", myImage.Align, 0
     .WriteProperty "Image", myImage.Image, Nothing
-    .WriteProperty "ImgSize", myImage.Size, 16
+    .WriteProperty "ImgSize", myImage.size, 16
     .WriteProperty "Enabled", UserControl.Enabled, True
     .WriteProperty "cBack", curBackColor
     .WriteProperty "mPointer", UserControl.MousePointer, 0
